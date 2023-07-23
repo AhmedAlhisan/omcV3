@@ -1,0 +1,72 @@
+{% extends 'main/base.html' %}
+
+
+
+{% block content %}
+
+<div class="container-fluid vh-100" style="margin-top:50px">
+  <div class="" style="margin-top:100px">
+      <div class="rounded d-flex justify-content-center">
+          <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light">
+              <div class="text-center">
+                  <h3 class="text-success">تسجيل جديد</h3>
+              </div>
+              <form method="post" action="">
+                  {% csrf_token %}
+                  <div class="p-4">
+                      <div class="input-group mb-3">
+                          
+                        <input style="color: green;" name="last_name" type="text" class="form-control" id="floatingInput" placeholder="الاسم الثلاثي">
+                          
+                      </div>
+                      <div class="input-group mb-3">
+                        <input style="color: green;" name="first_name" type="text" class="form-control" id="floatingInput" placeholder="الرتبة">
+                        <input style="color: green;" name="username" type="text" class="form-control"  placeholder="الرقم الوظيفي">
+                          
+                        
+                      </div>
+                      <div class="input-group mb-3">
+                        <input style="color: green;" name="password" type="password" class="form-control" id="floatingPassword" placeholder="الرقم السري">
+                        <input style="color: green;" name="password1" type="password" class="form-control" id="floatingPassword" placeholder="تاكيد الررقم السري">
+                          
+                        
+                      </div>
+                      <div class="form-check">
+                          
+                      </div>
+                      <button class="btn btn-success text-center mt-2" type="submit">
+                          التسجيل
+                      </button>
+                      <p class="text-center mt-5">
+                          <a href="{% url 'account:login' %}"><span class="text-success">تسجيل الدخول</span></a>
+                      </p>
+                     
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+<script>
+ 
+  {% if messages %}
+  {% for i in messages %}
+
+  Swal.fire({
+  position: 'center',
+  confirmButtonColor: '#198754',
+  confirmButtonText:' بك',
+  title: '{{i}}',
+  showConfirmButton: true,
+  
+})
+     
+{% endfor %}
+{% endif %}
+  
+</script>
+
+{% endblock %}
+
+
+ 

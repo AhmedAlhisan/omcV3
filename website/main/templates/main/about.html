@@ -1,0 +1,102 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+<div style="text-align: center; margin-top: 20px;" >
+  <h4 >تفاصيل ما يقدمه نظام تتبع الأنشطة </h4>
+      <i style="color: rgb(150, 147, 147); font-size: 20px;" class="bi bi-info-square-fill"></i>
+  </div>
+
+<div class="spinner-wrapper">
+   
+  <div class="spinner-border text-success" role="status">
+    
+    <span style="color: black;" class="visually-hidden">جاري تحميل الموقع..</span>
+    
+  </div>
+  
+</div>
+<div style="margin:auto 0;"   class="section_our_solution">
+
+  
+ 
+    <div class="row">
+      
+     
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="our_solution_category">
+          <div class="solution_cards_box">
+            <div class="solution_card">
+              <div class="hover_color_bubble"></div>
+              <div class="so_top_icon">
+                <img src="{% static 'website/images/employees.png' %}" alt="">
+              </div>
+              <div class="solu_title">
+                <h3>جمع بيانات الموظفين</h3>
+              </div>
+              <div class="solu_description">
+                <p>
+                  شرح عن الخدمه
+                </p>
+                <button type="button" class="read_more_btn">البدء </button>
+              </div>
+            </div>
+            <div class="solution_card">
+              <div class="hover_color_bubble"></div>
+              <div class="so_top_icon">
+                <img  src="{% static 'website/images/trend.png' %}" alt=""> 
+                 
+              </div>
+              <div class="solu_title">
+                <h3>عرض الاحصائيات للانتدابات</h3>
+              </div>
+              <div class="solu_description">
+                <p>
+                  شرح عن الخدمه
+                </p>
+                <button type="button" class="read_more_btn">البدء </button>
+              </div>
+            </div>
+          </div>
+         
+          <div class="solution_cards_box sol_card_top_3">
+            <div class="solution_card">
+              <div class="hover_color_bubble"></div>
+              <div class="so_top_icon">
+                <img  src="{% static 'website/images/track.png' %}" alt=""> 
+              </div>
+              <div class="solu_title">
+                <h3>لوحة المعلومات</h3>
+              </div>
+              <div class="solu_description">
+                <p>
+                  شرح عن الخدمه
+                </p>
+                <button type="button" class="read_more_btn">البدء </button>
+              </div>
+            </div>
+            <div class="solution_card">
+              <div class="hover_color_bubble"></div>
+              <div class="so_top_icon">
+                <img  src="{% static 'website/images/data-collection.png' %}" alt=""> 
+              </div>
+              <div class="solu_title">
+                <h3>رصد الدورات و الانتدابات</h3>
+              </div>
+              <div class="solu_description">
+                <p>
+                  شرح عن الخدمه
+                </p>
+                <button type="button" class="read_more_btn">البدء  </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+ 
+
+
+{% endblock %}

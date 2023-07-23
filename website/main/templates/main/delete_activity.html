@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="container">
+<h1>حذف نشاط</h1>
+
+<div class="alert alert-danger" role="alert">
+    <p>  هل أنت متأكد من عملية الحذف ؟</p>
+  </div>
+
+
+<form action="" method="post" >
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Delete</button>
+
+    </form>
+    
+</div>
+
+
+{% endblock %}

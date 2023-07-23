@@ -1,0 +1,106 @@
+{% extends 'main/base.html' %}
+{% block content %}
+
+
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12 col-lg-9 col-xl-7">
+          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+            <div class="card-body p-4 p-md-5">
+              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">  اضـافة موظـف</h3> <hr>
+              <form method="post">
+                {% csrf_token %}
+  
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+  
+                    <div class="form-outline">
+                      <input name="name" type="text"  class="form-control form-control-lg" required />
+                      <label class="form-label" for="firstName"> الاسم الثلاثي</label>
+                    </div>
+  
+                  </div>
+                  <div class="col-md-6 mb-4">
+  
+                    <div class="form-outline">
+                      <input name="rank" type="text"  class="form-control form-control-lg" required/>
+                      <label class="form-label" for="lastName">الرتـبة</label>
+                    </div>
+  
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-6 mb-4 d-flex align-items-center">
+  
+                    <div class="form-outline datepicker w-100">
+                      <input name="employee_number" type="number" class="form-control form-control-lg" id="birthdayDate" required />
+                      <label for="birthdayDate" class="form-label">الرقـم الوظيفي</label>
+                    </div>
+  
+                  </div>
+                  <div class="col-md-6 mb-4 d-flex align-items-center">
+  
+                    <div class="form-outline datepicker w-100">
+                      <input name="major" type="text" class="form-control form-control-lg"  />
+                      <label for="birthdayDate" class="form-label">التخصص</label>
+                    </div>
+  
+                  </div>
+                  
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-6 mb-4 pb-2">
+  
+                    <div class="form-outline">
+                        <input name="certificate" type="text" class="form-control form-control-lg"  />
+                      <label for="birthdayDate" class="form-label">الشهادة العلمية</label>
+                    </div>
+  
+                  </div>
+                  <div class="col-md-6 mb-4 pb-2">
+  
+                    <div class="form-outline">
+                        <input name="graduted_from" type="text" class="form-control form-control-lg"  />
+                      <label for="birthdayDate" class="form-label">جهة التخرج</label>
+                    </div>
+  
+                  </div>
+                  <div class="col-md-6 mb-4 pb-2">
+  
+                    <div class="form-outline">
+                        <input name="job_title" type="text" class="form-control form-control-lg"  />
+                      <label for="birthdayDate" class="form-label"> عنوان الوظـيفة</label>
+                    </div>
+  
+                  </div>
+                  <div class="col-md-6 mb-4 pb-2">
+  
+                    <div class="form-outline">
+                        <input name="work_place" type="text" class="form-control form-control-lg"  />
+                      <label for="birthdayDate" class="form-label"> الوحدة</label>
+                    </div>
+  
+                  </div>
+                </div>
+                <hr>
+  
+
+  
+                <div class="mt-4 pt-2">
+                  <input class="btn btn-success btn-lg" type="submit" value="اضافة موظف " />
+                </div>
+  
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% block footer %}
+  {% endblock %}
+
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<section class="vh-100 gradient-custom">
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">اضافة نشاط</h3> <hr>
+            <form method="post" action="" enctype="multipart/form-data">
+              {% csrf_token %}
+          
+              <div class="row">
+                <div class="col-md-6 mb-4">
+          
+                  <div class="form-outline">
+                     
+                     
+                  </div>
+          
+                </div>
+                <div class="col-md-6 mb-4">
+          
+                  <div class="form-outline">
+                    <input value="{{assigen_activity.activityName}}" name="activityName" type="text"  class="form-control form-control-lg" required/>
+                    <label class="form-label" > النشاط</label>
+                  </div>
+          
+                </div>
+                <div class="col-md-3 mb-4 ">
+            
+                  <div class="form-outline">
+                      <input value="{{assigen_activity.start_hijri_day}}" placeholder="اليوم"  name="hijridaystart" type="number" class="form-control form-control-lg" min="1" max="31"  />
+                      <input value="{{assigen_activity.start_hijri_month}}" placeholder="الشهر"  name="hijrimonthstart" type="number" class="form-control form-control-lg" min="1" max="12"  />
+                      <input value="{{assigen_activity.start_hijri_year}}" placeholder="السنة"  name="hijriyearstart" type="number" class="form-control form-control-lg" min="1400" max="1460"  />
+                    <label  class="form-label"> تاريخ البداية</label>
+            
+                  </div>
+              
+            
+                </div>
+                <div class="col-md-3 mb-4 ">
+                  <div class="form-outline">
+                    <input value="{{assigen_activity.end_hijri_day}}"  placeholder="اليوم" name="hijridayend" type="text" class="form-control form-control-lg"  />
+                    <input value="{{assigen_activity.end_hijri_month}}" placeholder="الشهر" name="hijrimonthend" type="text" class="form-control form-control-lg"  />
+                    <input value="{{assigen_activity.end_hijri_year}}" placeholder="السنة" name="hijriyearend" type="text" class="form-control form-control-lg"  />
+                  <label  class="form-label">تاريخ النهاية</label>
+                </div>
+                 
+            </div>
+            
+              </div>
+          
+             
+             
+              <hr>
+          
+          
+          
+              <div class="mt-4 pt-2">
+                <input class="btn btn-success btn-lg" type="submit" value="اضافة انتداب " />
+              </div>
+          
+            </form>
+
+  
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<script>
+  {% if messages  %}
+  {% for i in messages %}
+
+  Swal.fire({
+  
+  icon: 'error',
+  title: '{{i}}',
+  showConfirmButton: false,
+  timer: 1500
+})
+  
+     
+{% endfor %}
+
+{% endif %}
+  
+</script>
+
+{% endblock %}

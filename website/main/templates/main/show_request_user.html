@@ -1,0 +1,105 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+<br>
+<br>  
+
+<div style="text-align: center; margin-top: 20px;" >
+  <h4 >طلبات تسجيل مدخلين البيانات </h4>
+  </div>
+<div style="margin-top: 30px;" class="container">
+  
+ 
+
+  <table  dir="rtl" class="rwd-table">
+    <tbody dir="rtl">
+      <tr>
+        
+          <th>الرقم الوظيفي </th>
+          <th>الرتبة  </th>
+          <th>الاسم</th>
+          
+          <th>قبول </th>
+          <th> رفض</th>
+         
+      </tr>
+   
+   
+        {% for req in check_new_request_user %}
+            
+<form id="delete-form" method="post" action="{% url 'main:reject' req.id %}">
+  {% csrf_token %}
+  <input type="hidden" name="object_id" >
+  <input type="hidden" name="action" value="delete">
+</form>
+      <tr>
+        <td>
+          <div class="d-flex align-items-center">
+            
+            <div class="ms-3">
+              <p class="fw-bold mb-1">{{req.username}}</p>
+              
+            </div>
+          </div>
+        </td>
+        <td>
+            <p class="text-muted mb-0">{{req.first_name }}</p>
+        </td>
+        <td>
+            {{req.last_name}}
+        </td>
+       
+        <td>
+            <a href="{% url 'main:accept-user' req.id %}"><button type="button" class="btn btn-success btn-sm">قبول</button></a>
+        </td>
+        <td>
+          <button type="button" onclick="confirmDelete()" class="btn btn-danger btn-sm">رفض</button></a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+</table>
+</div>
+
+{% block footer %}
+
+{% endblock %}
+<script>
+  function confirmDelete() {
+      Swal.fire({
+          title: 'تأكيد عملية الحذف ؟',
+          text: `تنبيه
+          لا يمكن استعادة البيانات بعد الحذف !!.`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'تأكيد الحذف',
+          cancelButtonText: 'تراجع',
+      }).then((result) => {
+          if (result.isConfirmed) {
+              document.getElementById('delete-form').submit();
+          }
+      })
+  }
+  </script>
+<script>
+  {% if messages %}
+  {% for i in messages %}
+
+  Swal.fire({
+ 
+ icon: 'success',
+ title: '{{i}}',
+ showConfirmButton: false,
+ timer: 1500
+})
+  
+     
+{% endfor %}
+{% endif %}
+  
+</script>
+
+{% endblock %}

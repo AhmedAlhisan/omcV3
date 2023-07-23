@@ -1,0 +1,167 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+ <br>
+  
+  
+
+  <div style="text-align: center;" >
+  <h4 >جميع الانشطة للموظف {{assigend_emp.name}}</h4>
+    <a  href="{% url 'main:add_activity' assigend_emp.id %}"><button type="button" class="btn btn-success">اضافة نشاط </button></a>  <i style="color: rgb(150, 147, 147); font-size: 20px;" class="bi bi-file-earmark-plus-fill"></i>
+  </div>
+  <br>
+   
+
+  <table  dir="rtl" class="rwd-table">
+    
+    <tbody dir="rtl">
+      <tr >
+        <th>اسم النشاط </th>
+        <th>نوع النشاط </th>
+        <th>النشاط موقع</th>
+        <th>موقع التنفيذ</th>
+        <th>تاريخ البداية</th>
+        <th>تاريخ النهاية</th>
+        <th>تعديل</th>
+        <th>حذف </th>
+        <th >   الاجراء   </th>
+      </tr>
+      {% for i in show_all_activity_all %}
+      
+<form id="delete-form" method="post" action="{% url 'main:delete_actvity' i.id %}">
+  {% csrf_token %}
+  <input type="hidden" name="object_id" >
+  <input type="hidden" name="action" value="delete">
+</form>
+      <tr >
+        <td  data-th="Supplier Code">
+          {{i.activityName}}
+        </td>
+        {% if i.activity_type == 'Type_one_active' %}
+        <td data-th="Supplier Name">
+          نشاط
+        </td>
+        {% elif i.activity_type == 'Type_two_courses' %}
+        <td data-th="Supplier Name">
+         دورة
+        </td>
+        {% elif i.activity_type == 'Type_three_mandate'  %}
+        <td data-th="Supplier Name">
+          انتداب
+        </td>
+        {% endif %}
+
+        {% if i.activity_in_out == 'inside' %}
+        <td data-th="Invoice Number">
+          داخلي
+        </td>
+        {% else %}
+        <td data-th="Invoice Date">
+          خارجي
+        </td>
+        {% endif %}
+        <td data-th="Due Date">
+          {{i.activity_location}}
+        </td>
+        <td data-th="Net Amount">
+          {{i.full_start_hijri_date}}هـ
+        </td>
+        <td data-th="Net Amount">
+          {{i.full_end_hijri_date}}هـ
+        </td>
+        <td data-th="Net Amount">
+          <a  href="{% url 'main:update_activity' i.id %}"><button type="button" class="btn btn-outline-primary btn-sm">تعديل</button></a>
+        </td>
+        <td data-th="Net Amount">
+          <button class="btn btn-outline-danger btn-sm" onclick="confirmDelete()">حذف</button>
+          
+        </td>
+        {% now "Y-m-d" as today %}
+        {% if i.activity_end_date|date:"Y-m-d" <= today and i.activity_type == 'Type_two_courses' and i.activity_tack_action == 0 %}
+        <td data-th="Net Amount">
+          <a href="{% url 'main:transfare_activity_to_courser' i.id %}"><button type="button" class="btn btn-outline-success btn-sm"> استكمال البيانات الدورة</button></a>
+        </td>
+        {% elif i.activity_end_date|date:"Y-m-d" <= today and i.activity_type == 'Type_three_mandate' and i.activity_tack_action == 0  %}
+        <td data-th="Net Amount">
+          <a href="{% url 'main:transfare_activity_to_mandate' i.id %}"><button type="button" class="btn btn-outline-success btn-sm">  استكمال البيانات الانتداب </button></a>
+        </td>
+        {% elif i.activity_end_date|date:"Y-m-d" >= today and i.activity_st_date|date:"Y-m-d" <= today and  i.activity_tack_action == 0 %}
+        <td data-th="Net Amount">
+          <span style="padding-left: 20px; font-size: 0.9em;" class="badge bg-warning  text-dark">    تحت الاجراء  </span>
+        </td>
+        {% elif i.activity_end_date|date:"Y-m-d" >= today and i.activity_st_date|date:"Y-m-d" >= today and i.activity_tack_action == 0 %}
+        <td data-th="Net Amount">
+          <span style="padding-left: 20px; font-size: 0.9em;" class="badge bg-secondary ">   ليـس بعد  </span>
+        </td>
+        {% elif   i.activity_tack_action == 1 %}
+        <td data-th="Net Amount">
+          <span style="padding-left: 20px; font-size: 0.9em;" class="badge bg-success ">   مكـتـمل  </span>
+        </td>
+        
+        {% endif %}
+      </tr>
+     {% endfor %}
+      </tr>
+      
+    </tbody>
+  </table>
+
+
+
+
+
+
+ 
+
+   
+      
+      
+        
+  
+    
+    
+  </div>
+  {% block footer %}
+  {% endblock %}
+   
+        
+    <script>
+      function confirmDelete() {
+          Swal.fire({
+              title: 'تأكيد عملية الحذف ؟',
+              text: `تنبيه
+              لا يمكن استعادة البيانات بعد الحذف !!.`,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#d33',
+              cancelButtonColor: '#3085d6',
+              confirmButtonText: 'تأكيد الحذف',
+              cancelButtonText: 'تراجع',
+          }).then((result) => {
+              if (result.isConfirmed) {
+                  document.getElementById('delete-form').submit();
+              }
+          })
+      }
+      </script>
+    <script>
+      {% if messages %}
+      {% for i in messages %}
+    
+      Swal.fire({
+ 
+  icon: 'success',
+  title: '{{i}}',
+  showConfirmButton: false,
+  timer: 1500
+})
+      
+         
+    {% endfor %}
+    {% endif %}
+      
+    </script>
+    
+
+{% endblock %}

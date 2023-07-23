@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<div class="container-fluid">
+    <br>
+     
+     
+   
+     <div style="text-align: center;" >
+     <h4 >  السجل التدريبي للموظف : {{assigend_emp.name}}</h4>
+       <a  href="{% url 'main:add_activity' assigend_emp.id %}"><button type="button" class="btn btn-success">اضافة نشاط </button></a>  <i style="color: rgb(150, 147, 147); font-size: 20px;" class="bi bi-file-earmark-plus-fill"></i>
+     </div>
+     <br>
+      
+   
+     <table  dir="rtl" class="rwd-table">
+       
+       <tbody dir="rtl">
+         <tr >
+           <th>اسم النشاط </th>
+           <th>نوع النشاط </th>
+           <th>النشاط موقع</th>
+           <th>موقع التنفيذ</th>
+           <th>تاريخ البداية</th>
+           <th>تاريخ النهاية</th>
+           <th>تعديل</th>
+           <th>حذف </th>
+           <th >   الاجراء   </th>
+         </tr>
+         <!-- make for loop from function to context and this function is only show that courses have been take an action  -->
+              
+        <form id="delete-form" method="post" action="{% url 'main:delete_actvity' i.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="object_id" >
+            <input type="hidden" name="action" value="delete">
+        </form>
+{% endblock %}

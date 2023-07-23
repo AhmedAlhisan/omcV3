@@ -1,0 +1,140 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+
+
+
+
+
+{% block content %}
+
+  
+  <div class="spinner-wrapper">
+   
+  <div class="spinner-border text-success" role="status">
+    
+    <span style="color: black;" class="visually-hidden">  </span>
+    
+  </div>
+  
+</div>
+
+<br>
+<br>
+<div class=".container-fluid">
+<main dir="rtl" class="container">
+  
+  <div style="" class="p-4 p-md-5 mb-4 text-white rounded ">
+    <div class="col-md-12 px-0">
+      <h1 class="display-4 text-success fst-italic">نظام تتبع الانشطة</h1>
+      <p class="lead my-3 text-success"> بالنسبة إلى بعض المواقع الإلكترونية، مثل مصادر الوسائط الإخبارية، يُعدّ إنشاء وصف دقيق وفريد لكل صفحة أمرًا سهلاً لأنّ كل مقال يكون مكتوبًا باليد وما عليك إلا إضافة وصف يتكون من جملة واحدة. أما بالنسبة إلى المواقع الإلكترونية الأكبر حجمًا التي تعتمد على قاعدة بيانات مثل مواقع تجميع المنتجات، فقد تكون كتابة الأوصاف باليد أمرًا مستحيلاً. في الحالة الثانية، يُعدّ إنشاء الأوصاف بشكل آلي أمرًا ملائمًا ونحن نشجع عليه. والأوصاف الجيدة تكون متنوّعة وسهلة القراءة للمستخدم. وتتناسب البيانات الخاصة بالصفحة إلى حدّ كبير مع عملية الإنشاء البرمجي.
+
+        تذكَّر دائمًا أنّ الأوصاف التعريفية التي تتكون من سلسلة طويلة من الكلمات الرئيسية لا تعطي المستخدمين فكرة واضحة عن محتوى الصفحة وتقلّ احتمالات عرضها كمقتطف.
+        استخدِم أوصافًا جيدة.
+        تأكَّد من أنّ الأوصاف المستخدمة معبّرة. من السهل التغاضي عن المحتوى لأنّ الأوصاف التعريفية لا تظهر في الصفحات التي يراها المستخدم. ويمكن أن تظهر الأوصاف العالية الجودة في نتائج</p>
+      <p class="lead mb-0 text-success"><a href="{% url 'main:about' %}" class="text-white fw-bold">لمزيد من المعلومات</a></p>
+    </div>
+    
+  </div>
+
+  <div class="row mb-2">
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+     
+          <h3 class="mb-0 text-success">اهداف النظام</h3>
+          <div class="mb-1 text-muted"></div>
+          <p class="card-text mb-auto">شرح عن اهداف النظام</p>
+          <ul>
+            <li>
+              الاول
+            </li>
+            <li>
+              الثاني
+            </li>
+            <li>
+              الثالث
+            </li>
+            
+          </ul>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          <img style=" padding-top: 20px; width: 150px;" src="{% static 'website/images/objective.png' %}" alt="">
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          
+          <h3 class="mb-0 text-success">مميزات النظام</h3>
+          <div class="mb-1 text-muted"></div>
+          <p class="mb-auto">شرح مزايا النظام </p>
+          <ul>
+            <li>
+              الاول
+            </li>
+            <li>
+              الثاني
+            </li>
+            <li>
+              الثالث
+            </li>
+            
+          </ul>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          <img style=" padding-top: 20px; width: 150px;" src="{% static 'website/images/features.png' %}" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+
+   
+</main>
+</div>
+
+
+
+
+
+
+ 
+    
+
+ 
+        
+    
+  
+
+<script>
+
+ 
+
+  
+  {% if messages %}
+  {% for i in messages %}
+
+  Swal.fire({
+  position: 'center',
+  confirmButtonColor: '#198754',
+  confirmButtonText:' اهلا بك',
+  title: '{{i}}',
+  showConfirmButton: true,
+  
+})
+  
+     
+{% endfor %}
+{% endif %}
+  
+</script>
+
+
+{% endblock %}
+
+
+
+
+

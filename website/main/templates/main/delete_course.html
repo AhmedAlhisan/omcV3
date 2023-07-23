@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="container">
+<h1>حذف دورة</h1>
+
+<div class="alert alert-danger" role="alert">
+    <p>  هل أنت متأكد من عملية الحذف ؟{{assigend_course.title}} :{{ assigend_course.course_number }}</p>
+  </div>
+
+
+<form action="" method="post" >
+    {% csrf_token %}
+    <button id="delete" type="submit" class="btn btn-danger">Delete</button>
+
+    </form>
+    
+</div>
+
+
+{% endblock %}

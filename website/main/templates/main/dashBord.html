@@ -1,0 +1,274 @@
+
+{% extends 'main/base.html' %}
+{% load static %}
+{% block style %}
+ <link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet">
+ <link href="{% static 'website/css/style.css' %}" rel="stylesheet">
+ <link href="{% static 'website/css/bootstrap-icons.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div style="  margin-top: 20px; text-align: center;" >
+    <h4 >  لوحة معلومات النظام  </h4>
+    </div>
+
+   <div dir="rtl" style="margin-top: 20px;" class="container">
+                       
+                        <div  dir="rtl" class="row">
+                            <div class="col-md-6 col-xl-4">
+                                <div class="card mb-3 widget-content">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">عدد مدراء النظام </div>
+                                                <div class="widget-numbers text-danger">3<i class="bi bi-people"></i></div>
+                                            </div>
+                                            <div d class="widget-content-right">
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-4">
+                                <div class="card mb-3 widget-content">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">عدد مدخلين البيانات</div>
+                                                <div class="widget-numbers text-warning">20 <i class="bi bi-people"></i></div>
+                                            </div>
+                                            <div class="widget-content-right">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-4">
+                                <div class="card mb-3 widget-content">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">مجموع الموظفين</div>
+                                                <div class="widget-numbers text-success">120 <i class="bi bi-people"></i></div>
+                                            </div>
+                                            <div class="widget-content-right">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-xl-none d-lg-block col-md-6 col-xl-4">
+                                <div class="card mb-3 widget-content">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">Income</div>
+                                                <div class="widget-subheading">Expected totals</div>
+                                            </div>
+                                            <div class="widget-content-right">
+                                                <div class="widget-numbers text-focus">$147</div>
+                                            </div>
+                                        </div>
+                                        <div class="widget-progress-wrapper">
+                                            <div class="progress-bar-sm progress-bar-animated-alt progress">
+                                                <div class="progress-bar bg-info" role="progressbar" aria-valuenow="54" aria-valuemin="0" aria-valuemax="100" style="width: 54%;"></div>
+                                            </div>
+                                            <div class="progress-sub-label">
+                                                <div class="sub-label-left">Expenses</div>
+                                                <div class="sub-label-right">100%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 20px;" class="row">
+                            <div class="col-md-12">
+                                <div class="main-card mb-3 card">
+                                    <div style="background-color: #198754; color: aliceblue;" class="card-header "><i class="fa fa-chart-pie fa-2x"></i><h5>لوحة معلومات جالانشطة  </h5>
+                                        <div class="btn-actions-pane-right">
+                                            <div role="group" class="btn-group-sm btn-group">
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table dir="rtl" class="align-middle mb-0 table table-borderless table-striped table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-center">العدد</th>
+                                                <th class="text-center">الوصف</th>
+                                                <th class="text-center">التصنيف </th>
+                                                <th class="text-center">الحاله</th>
+                                                <th class="text-center">الاجراء</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                          
+                                            <tr>
+                                                <td class="text-center text-muted">{{counter_for_all_activity_in_system}}</td>
+                                                <td>
+                                                    <div class="widget-content p-0">
+                                                        <div class="widget-content-wrapper">
+                                                            <div class="widget-content-left mr-3">
+                                                                <div class="widget-content-left">
+                                                                    <img width="40" class="rounded-circle" src="assets/images/avatars/3.jpg" alt="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="widget-content-left flex2">
+                                                                <div class="text-center text-muted">مجموع الانشطه</div>
+                                                                <div class="widget-subheading opacity-7"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">نشاط</td>
+                                                <td class="text-center">
+                                                    <div class="badge badge-success">نشط</div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <a href="{% url 'main:report' %}"><button type="button" id="PopoverCustomT-2" class="btn btn-primary btn-sm">طلب التقرير</button></a>
+                                                </td>
+                                            </tr>
+                                           
+                                            <tr>
+                                                <td class="text-center text-muted">{{counter_for_all_courses}}</td>
+                                                <td>
+                                                    <div class="widget-content p-0">
+                                                        <div class="widget-content-wrapper">
+                                                            <div class="widget-content-left mr-3">
+                                                                <div class="widget-content-left">
+                                                                    <img width="40" class="rounded-circle" src="assets/images/avatars/1.jpg" alt=""></div>
+                                                            </div>
+                                                            <div class="widget-content-left flex2">
+                                                                <div class="text-center text-muted"> مجموع دورات السجل التدريبي </div>
+                                                                <div class="widget-subheading opacity-7"> </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">دورات</td>
+                                                <td class="text-center">
+                                                    <div class="badge badge-success">نشط</div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <button type="button" id="PopoverCustomT-4" class="btn btn-primary btn-sm">طلب التقرير</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center text-muted">{{counter_for_all_mandate_inSystem}}</td>
+                                                <td>
+                                                    <div class="widget-content p-0">
+                                                        <div class="widget-content-wrapper">
+                                                            <div class="widget-content-left mr-3">
+                                                                <div class="widget-content-left">
+                                                                    <img width="40" class="rounded-circle" src="assets/images/avatars/1.jpg" alt=""></div>
+                                                            </div>
+                                                            <div class="widget-content-left flex2">
+                                                                <div class="text-center text-muted"> مجموع الانتدابات  </div>
+                                                                <div class="widget-subheading opacity-7"> </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">انتدابات</td>
+                                                <td class="text-center">
+                                                    <div class="badge badge-success">نشط</div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <button type="button" id="PopoverCustomT-4" class="btn btn-primary btn-sm">طلب التقرير</button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="d-block text-center card-footer">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 20px;" class="row">
+                            <div class="col-md-6 col-xl-4">
+                                <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
+                                    <div class="widget-content">
+                                        <div class="widget-content-outer">
+                                            <div class="widget-content-wrapper">
+                                                <div class="widget-content-left pr-2 fsize-1">
+                                                    <div class="widget-numbers mt-0 fsize-3 text-danger">{{counter_for_all_mandate_not_complete}}</div>
+                                                </div>
+                                                <div class="widget-content-right w-100">
+                                                    <div class="progress-bar-xs progress">
+                                                        <div class="progress-bar bg-danger " style="width: {{ finalResultForNotCompleteMandate }}%" role="progressbar"  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="widget-content-left fsize-1">
+                                                <div class="text-muted ">انتدابات لم يتم انجازها </div>
+                                                <span class="badge bg-danger">  المجموع الكلي للانتدابات: {{counter_for_all_mandate_inSystem}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-4">
+                                <div class="card-shadow-warning mb-3 widget-chart widget-chart2 text-left card">
+                                    <div class="widget-content">
+                                        <div class="widget-content-outer">
+                                            <div class="widget-content-wrapper">
+                                                <div class="widget-content-left pr-2 fsize-1">
+                                                    <div class="widget-numbers mt-0 fsize-3 text-warning">{{counter_for_all_courses_not_complete}}</div>
+                                                </div>
+                                                <div class="widget-content-right w-100">
+                                                    <div class="progress-bar-xs progress">
+                                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{finalResultForCourses}}" aria-valuemin="0" aria-valuemax="100" style="width:{{finalResultForCourses}}%;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="widget-content-left fsize-1">
+                                                <div class="text-muted ">دورات لم يتم انجازها </div>
+                                                <span class="badge bg-warning">  المجموع الكلي للدورات:{{counter_for_all_courses}} </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-4">
+                                <div class="card-shadow-success mb-3 widget-chart widget-chart2 text-left card">
+                                    <div class="widget-content">
+                                        <div class="widget-content-outer">
+                                            <div class="widget-content-wrapper">
+                                                <div class="widget-content-left pr-2 fsize-1">
+                                                    <div class="widget-numbers mt-0 fsize-3 text-success">{{counter_for_all_activity_in_system_not_complete}}</div>
+                                                </div>
+                                                <div class="widget-content-right w-100">
+                                                    <div class="progress-bar-xs progress">
+                                                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{FinalResultForNotCompleteActivity}}" aria-valuemin="0" aria-valuemax="100" style="width: {{FinalResultForNotCompleteActivity}}%;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="widget-content-left fsize-1">
+                                                <div class="text-muted ">انشطه لم يتم انجازها </div>
+                                                <span class="badge bg-success">  المجموع الكلي للانشطة: {{counter_for_all_activity_in_system}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                           
+                        </div>
+                    </div>
+                        </div>
+                
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://demo.dashboardpack.com/architectui-html-free/assets/scripts/main.js"></script>
+{% endblock %}
+{% block footer %}
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'main/base.html' %}
+
+
+
+{% block content %}
+
+
+    <div class="container-fluid vh-100" style="margin-top:50px">
+        <div class="" style="margin-top:100px">
+            <div class="rounded d-flex justify-content-center">
+                <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light">
+                    <div class="text-center">
+                        <h3 class="text-success">تسجيل الدخول</h3>
+                    </div>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <div class="p-4">
+                            <div class="input-group mb-3">
+                                
+                                <input name="username" type="text" class="form-control" placeholder="الرقم الوظيفي ">
+                            </div>
+                            <div class="input-group mb-3">
+                                
+                                <input name="password" type="password" class="form-control" placeholder="كلمة المرور">
+                            </div>
+                            <div class="form-check">
+                                
+                            </div>
+                            <button class="btn btn-success text-center mt-2" type="submit">
+                                الدخول
+                            </button>
+                            <p class="text-center mt-5">انشاء حساب
+                                <a href="{% url 'account:register' %}"><span class="text-success">التسجيـل</span></a>
+                            </p>
+                           
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+   
+
+       
+        {% if messages %}
+        {% for i in messages %}
+      
+        Swal.fire({
+            
+            icon: 'warning',
+  title: '{{i}}',
+  
+  cancelButtonText:'موافق',
+  showCancelButton: false,
+  showConfirmButton: true,
+  confirmButtonColor: '#198754',
+
+ 
+  
+  showClass: {
+    popup: 'animate__animated animate__fadeInDown'
+  },
+  hideClass: {
+    popup: 'animate__animated animate__fadeOutUp'
+  }
+})
+        
+           
+      {% endfor %}
+      {% endif %}
+        
+      </script>
+    
+    {% endblock %}
+    

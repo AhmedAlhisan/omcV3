@@ -1,0 +1,130 @@
+{% extends 'main/base.html' %}
+
+
+{% block content %}
+<div class="container">
+    <br>
+     
+     
+   
+     <div style="text-align: center;" >
+     <h4 >  السجل التدريبي {{for_emp.name}}</h4>
+     <span class="badge bg-warning text-dark">عدد الدورات :{{counter}} </span>
+         
+     </div>
+     <br>
+   
+     
+     <table   dir="rtl" class="rwd-table">
+       
+       <tbody dir="rtl">
+         <tr >
+           <th>اسم الدورة</th>
+           <th> رقم الدورة </th>
+           <th>  المرفق التعليمي</th>
+           <th> اسم الدولة </th>
+           <th> مكان انعقاد الدورة </th>
+           <th>النسبة المئوية  </th>
+           <th>التقدير </th>
+           <th>معاينة الشهادة  </th>
+           <th>تاريخ البداية </th>
+           <th>تاريخ النهاية </th>
+           <th> الحالة </th>
+           <th> الاجراء </th>
+          
+         </tr>
+   
+        
+           {% for i in all_courses_for_emp %}
+           <form id="delete-form" method="post" action="#">
+            {% csrf_token %}
+            <input type="hidden" name="object_id" >
+            <input type="hidden" name="action" value="delete">
+          </form>
+          <tr>
+           <td  data-th="Supplier Code">
+             {{i.title}}
+           </td>
+           
+           <td data-th="Invoice Number">
+            {{ i.course_number }}
+           </td>
+           
+           <td data-th="Invoice Date">
+            {{ i.course_provider }}
+           </td>
+          
+           <td data-th="Net Amount">
+               {{i.course_provider_country}}
+           </td>
+           <td data-th="Net Amount">
+               {{i.where_course_has_been_provide}}
+           </td>
+           <td data-th="Net Amount">
+               {{i.degree_percent}}%
+           </td>
+           <td data-th="Net Amount">
+               {{i.rating_word}}
+           </td>
+           <td data-th="Net Amount">
+               <a target="_blank" href="{{ i.course_certficate_upload.url }}"><button  class="btn btn-outline-primary btn-sm"> الشهادة</button></a>
+           </td>
+           <td style="padding-left: 10px;" data-th="Net Amount">
+               {{i.starthijridate}}
+           </td>
+           <td data-th="Net Amount">
+               {{i.endhijridate}}
+           </td>
+           <td data-th="Net Amount">
+            <span style="padding-left: 20px; font-size: 0.9em;" class="badge bg-success ">   مكـتـمل  </span>
+           </td>
+           <td data-th="Net Amount">
+            <button class="btn btn-outline-danger btn-sm" onclick="confirmDelete()">حذف</button>
+        </td>
+           {% endfor %}  
+           </tr>
+           </tbody>
+           </table>
+           
+
+           </div>
+           {% block footer %}
+           {% endblock %}
+           
+           <script>
+            function confirmDelete() {
+                Swal.fire({
+                    title: 'تأكيد عملية الحذف ؟',
+                    text: `تنبيه
+                    لا يمكن استعادة البيانات بعد الحذف !!.`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'تأكيد الحذف',
+                    cancelButtonText: 'تراجع',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('delete-form').submit();
+                    }
+                })
+            }
+            </script>
+          <script>
+            {% if messages %}
+            {% for i in messages %}
+          
+            Swal.fire({
+       
+        icon: 'success',
+        title: '{{i}}',
+        showConfirmButton: false,
+        timer: 1500
+      })
+            
+               
+          {% endfor %}
+          {% endif %}
+            
+          </script>
+{% endblock %}

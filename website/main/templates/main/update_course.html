@@ -1,0 +1,139 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12 col-lg-9 col-xl-7">
+          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+            <div class="card-body p-4 p-md-5">
+              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">اضافة دورة</h3> <hr>
+              <form method="post" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+  
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+  
+                    <div class="form-outline">
+                      <input value="{{assigend_course.title}}" name="title" type="text"  class="form-control form-control-lg" required />
+                      <label class="form-label" > اسـم الدورة</label>
+                    </div>
+  
+                  </div>
+                  <div class="col-md-6 mb-4">
+  
+                    <div class="form-outline">
+                      <input value="{{assigend_course.course_number}}" name="course_number" type="text"  class="form-control form-control-lg" required/>
+                      <label class="form-label" for="lastName">رقـم الدورة</label>
+                    </div>
+  
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-6 mb-4 d-flex align-items-center">
+  
+                    <div class="form-outline datepicker w-100">
+                      <input value="{{assigend_course.course_provider}}" name="course_provider" type="text" class="form-control form-control-lg"  required />
+                      <label for="birthdayDate" class="form-label">المرفق التعليمي</label>
+                    </div>
+  
+                  </div>
+                  <div class="col-md-6 mb-4 d-flex align-items-center">
+  
+                    <div class="form-outline datepicker w-100">
+                      <input value="{{assigend_course.course_provider_country}}" name="course_provider_country" type="text" class="form-control form-control-lg"  />
+                      <label for="birthdayDate" class="form-label">اسم الدولة</label>
+                    </div>
+  
+                  </div>
+                  
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-6 mb-4 pb-2">
+  
+                    <div class="form-outline">
+                        <input value="{{assigend_course.where_course_has_been_provide}}" name="where_course_has_been_provide" type="text" class="form-control form-control-lg"  />
+                      <label for="birthdayDate" class="form-label">مكـان انعقاد الدورة</label>
+                    </div>
+  
+                  </div>
+                  <div class="col-md-6 mb-4 pb-2">
+  
+                    <div class="form-outline">
+                       
+                        <input value="{{assigend_course.degree_percent}}" name="degree_percent" type="number" min="0" max="100" step="0.01" class="form-control form-control-lg"  />
+                      <label for="birthdayDate" class="form-label">النسبة المئوية</label>
+                    </div>
+  
+                  </div>
+                  <div class="col-md-6 mb-4 pb-2">
+  
+                    <div class="form-outline">
+                        <input value="{{assigend_course.rating_word}}" name="rating_word" type="text" class="form-control form-control-lg"  />
+                      <label  class="form-label"> التقدير</label>
+                    </div>
+                    
+  
+                  </div>
+                  <div class="col-md-6 mb-4 pb-2">
+  
+                    <input  name="course_certficate_upload" type="file" class="form-control form-control-lg"  />
+                    <label  class="form-label"><strong>الشهادة</strong> </label> <a target="_blank" href="{{assigend_course.course_certficate_upload.url}}">تحميل الشهادة الحالية</a>
+  
+                  </div>
+                  <div class="col-md-3 mb-4 pb-2">
+  
+                    <div class="form-outline">
+                      <input value="{{assigend_course.start_hijri_day}}"  placeholder="اليوم"  name="hijridaystart" type="number" class="form-control form-control-lg" min="1" max="30"  />
+                      <input value="{{assigend_course.start_hijri_month}}" placeholder="الشهر"  name="hijrimonthstart" type="number" class="form-control form-control-lg" min="1" max="12"  />
+                      <input value="{{assigend_course.start_hijri_year}}"  placeholder="السنة"  name="hijriyearstart" type="number" class="form-control form-control-lg" min="1400" max="1460"  />
+                    <label  class="form-label"> تاريخ البداية</label>
+                  </div>
+                 
+
+                </div>
+                <div class="col-md-3 mb-4 pb-2">
+                <div class="form-outline">
+                  <input value="{{assigend_course.end_hijri_day}}"  placeholder="اليوم" name="hijridayend" type="number" class="form-control form-control-lg" min="1" max="30"  />
+                  <input value="{{assigend_course.end_hijri_month}}" placeholder="الشهر" name="hijrimonthend" type="number" class="form-control form-control-lg" min="1" max="12" />
+                  <input value="{{assigend_course.end_hijri_year}}" placeholder="السنة" name="hijriyearend" type="number" class="form-control form-control-lg" min="1400" max="1460"  />
+                <label  class="form-label">تاريخ النهاية</label>
+              </div>
+            </div>
+                  
+                </div>
+                
+                <hr>
+  
+
+  
+                <div class="mt-4 pt-2">
+                  <input class="btn btn-success btn-lg" type="submit" value="تعديل دورة" />
+                </div>
+  
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    {% if messages %}
+    {% for i in messages %}
+  
+    Swal.fire({
+  
+  icon: 'error',
+  title: '{{i}}',
+  showConfirmButton: false,
+  timer: 1500
+})
+    
+       
+  {% endfor %}
+  {% endif %}
+    
+  </script>
+{% endblock %}

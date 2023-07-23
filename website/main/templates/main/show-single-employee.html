@@ -1,0 +1,138 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+     
+<form id="delete-form" method="post" action="{% url 'main:delete' assigend_emp.id %}">
+  {% csrf_token %}
+  <input type="hidden" name="object_id" >
+  <input type="hidden" name="action" value="delete">
+</form>
+<section style="background-color: #eee;">
+    
+   
+    
+    <div class="container my-5 py-5">
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-12 col-lg-10 col-xl-8">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex flex-start align-items-center">
+                <img style="padding-left: 10px; width: 55px; height: 45px" class="rounded-circle shadow-1-strong me-3"
+                  src="{% static 'website/images/user-image-with-black-background.png' %}" alt="avatar" width="60"
+                  height="60" />
+                <div>
+                  <h6 class="fw-bold text-success mb-1">{{assigend_emp.rank}} : {{assigend_emp.name}}</h6>
+                  <p class="text-muted small mb-0">
+                     <strong> الرقم الوظيفي: {{assigend_emp.employee_number}}</strong>
+                  </p>
+                </div>
+              </div>
+              <br>
+              <div class="card border-success mb-3" style="max-width: 18rem;">
+                <div class="card-header"> بيانات الموظف </div>
+                <div class="card-body text-success">
+                  <h6 class="card-title"></h6>
+                  <ul>
+                    <li> التخصص :  {{assigend_emp.major}}</li>
+                    <li> مقر العمل : {{assigend_emp.work_place}}</li>
+                    <li>الوظيفة :  {{assigend_emp.job_title}}</li>
+                    <li> الشهادة :{{assigend_emp.certificate}}</li>
+                    <li>  جهة التخرج: {{assigend_emp.graduted_from}}</li>
+                  </ul> 
+                 <div style="display: flex; justify-content: space-between;" class="whatForEmp">
+                  <a  href="{% url 'main:showCourses' assigend_emp.id %}"><span style="  font-size: 13px;" class="badge rounded-pill bg-success"> السجل التدريبي </span></a>
+                  <a href="{% url 'main:show_mandate' assigend_emp.id %}"><span style="font-size: 13px;" class="badge rounded-pill bg-success"> الانتدابات</span></a>
+                 </div>
+                </div>
+                
+              </div>
+              <!-- <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+                <div class="card-header"> <h5>بيانات الموظف</h5></div>
+                <div class="card-body">
+                  <h5 class="card-title">مقر العمل : {{assigend_emp.work_place}} </h5>
+                  <p class="card-text"> 
+                    التخصص :  {{assigend_emp.major}}
+                   </p>
+                  <p class="card-text"> 
+                   الوظيفة :  {{assigend_emp.job_title}}
+                   </p>
+                  <p class="card-text"> 
+                   الشهادة :{{assigend_emp.certificate}}
+                   </p>
+                  <p class="card-text"> 
+                   جهة التخرج: {{assigend_emp.graduted_from}}
+                   </p>
+                  
+                 
+                </div>
+              </div>
+              -->
+
+  
+             
+  
+              <div class="small d-flex justify-content-start">
+                
+               
+                
+              </div>
+            </div>
+            <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
+              <div class="d-flex flex-start w-100">
+                
+                
+              </div>
+             
+              <div class="float-end mt-2 pt-1">
+                <a href="{% url 'main:update' assigend_emp.id %}"><button type="button" class="btn btn-outline-primary btn-sm"> تعديل بيانات الموظف</button></a>
+               
+                
+                <a  href="#"><button onclick="confirmDelete()"  type="button" class="btn btn-outline-danger btn-sm">حذف الموظف</button></a>
+           
+                <a href="{% url 'main:show-course-mandate-emp' assigend_emp.id %}"><button type="button" class="btn btn-success btn-sm">عرض انشطة الموظف</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    function confirmDelete() {
+        Swal.fire({
+            title: 'تأكيد عملية الحذف ؟',
+            text: `تنبيه
+            لا يمكن استعادة البيانات بعد الحذف !!.`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'تأكيد الحذف',
+            cancelButtonText: 'تراجع',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('delete-form').submit();
+            }
+        })
+    }
+    </script>
+  <script>
+    {% if messages %}
+    {% for i in messages %}
+  
+    Swal.fire({
+  
+  icon: 'success',
+  title: '{{i}}',
+  showConfirmButton: false,
+  timer: 1500
+})
+    
+       
+  {% endfor %}
+  {% endif %}
+    
+  </script>
+  
+{% endblock %}
