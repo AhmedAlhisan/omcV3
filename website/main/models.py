@@ -70,7 +70,7 @@ class Course(models.Model):
     where_course_has_been_provide = models.CharField(max_length=512)
     degree_percent = models.FloatField()
     rating_word = models.CharField(max_length=512)
-    course_certficate_upload = models.ImageField(upload_to="static/pdfs/" , default="Certificat not avilibale")
+    course_certficate_upload = models.ImageField(upload_to="static/pdfs/" , default="Certificat not avilibale",null=True)
     startDate = models.DateField()
     endDate = models.DateField()
     start_hijri_day = models.CharField(max_length=512)

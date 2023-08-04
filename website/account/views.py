@@ -7,15 +7,16 @@ from django.contrib import messages
 
 
 def sign_up_user(request : HttpRequest):
+
    if request.method == 'POST':
-         if request.POST['password'] == request.POST['password1']:
+         if request.POST['password'] == request.POST['password1'] and len(request.POST.get('last_name')) > 9 and len(request.POST['password']) > 6 :
             new_user = User.objects.create_user(is_active=0 , username = request.POST['username'] , first_name = request.POST['first_name'] , last_name = request.POST['last_name'] , password=request.POST['password'])
             new_user.save()
             messages.success(request , 'تم ارسال طلب الانضمام بنجاح ')
             return redirect('account:login')
          else:
-             messages.success(request , 'كلمة المرور لابد ان تكون متطابقة')
-   return render(request , 'account/register.html')
+             messages.success(request , '  فضلا اتبع التعليمات للبيانات المطلوبة   ')
+   return render(request , 'account/register.html' )
               
 		
 

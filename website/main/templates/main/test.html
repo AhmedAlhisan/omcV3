@@ -7,7 +7,7 @@
 <div style="text-align: center;" >
   <h4 >   احصائيات الانتدابات  </h4>
  
-  <div style="margin-top: 30px;" class="row">
+  <!-- <div style="margin-top: 30px;" class="row">
     <div class="col">
       <span class="badge bg-light text-dark " style=" font-size: 16px; align-items: center; text-align: center; margin-right: 10px;">موظفين بدون انتدابات</span>
 
@@ -84,12 +84,18 @@
 
   
   
-  </div>
+  </div> -->
+  <div style="  position: relative;
+    max-width: 700px;
+    margin: auto;" >
+    <canvas id="chart_0"></canvas>
+</div>
+
   <div style="margin: 90px;" dir="rtl" class="row">
-    <div class="col-6 col-md-4"> <span class="badge bg-light text-dark " style=" font-size: 16px; align-items: center; text-align: center; margin-right: 90px;">  أكثر خمسة موظفين في عدد أيام الانتدابات</span>  <canvas id="pie-chart-top"></canvas></div>
-    <div class="col-6 col-md-4"><span class="badge bg-light text-dark " style=" font-size: 16px; align-items: center; text-align: center; margin-right: 90px;">  أقل خمسة موظفين في عدد أيام الانتدابات</span><canvas id="pie-chart-low"></canvas></div>
+    <div class="col-6 col-md-4"> <span class="badge bg-light text-dark " style=" font-size: 16px; align-items: center; text-align: center; margin-right: 90px;">   أكثر من 50 يوم في عدد ايام النتدابات </span>  <canvas height="60vh" width="80vw" id="pie-chart-top"></canvas></div>
+    <div class="col-6 col-md-4"><span class="badge bg-light text-dark " style=" font-size: 16px; align-items: center; text-align: center; margin-right: 90px;">    موظفين عدد ايام انتداباتهم اقل من 10 ايام   </span><canvas height="60vh" width="80vw" id="pie-chart-low"></canvas></div>
     
-      <div class="col-6 col-md-4"><span class="badge bg-light text-dark " style=" font-size: 16px; align-items: center; text-align: center; margin-right: 90px;"> عدد الانتدابات من كامل الأنشطة </span><canvas id="pie-chart-count"></canvas></div>
+      <div class="col-6 col-md-4"><span class="badge bg-light text-dark " style=" font-size: 16px; align-items: center; text-align: center; margin-right: 90px;"> عدد الانتدابات من كامل الأنشطة </span><canvas height="60vh" width="80vw" id="pie-chart-count"></canvas></div>
 
       
             
@@ -107,6 +113,43 @@
 {% endblock %}
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script>
+  var data = {
+  labels: ["1443", "1444", "1445", "1446", "1447", "1448", "1449" , "1450"],
+  datasets: [{
+    label: "عدد الانتدابات سنويا",
+    backgroundColor: "#A38A00",
+    borderColor: "#A38A00",
+    borderWidth: 2,
+    hoverBackgroundColor: "#097969",
+    hoverBorderColor: "#097969",
+    data: [100, 200, 30, 0],
+  }]
+};
+
+var option = {
+  scales: {
+    yAxes: [{
+      stacked: true,
+      gridLines: {
+        display: true,
+        color: "#097969"
+      }
+    }],
+    xAxes: [{
+      gridLines: {
+        display: false
+      }
+    }]
+  }
+};
+
+Chart.Bar('chart_0', {
+  options: option,
+  data: data
+});
+
+</script>
 
 <script>
     var configZero = {

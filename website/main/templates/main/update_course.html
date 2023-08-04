@@ -77,10 +77,13 @@
   
                   </div>
                   <div class="col-md-6 mb-4 pb-2">
-  
+                    {% if assigend_course.course_certficate_upload %}
                     <input  name="course_certficate_upload" type="file" class="form-control form-control-lg"  />
                     <label  class="form-label"><strong>الشهادة</strong> </label> <a target="_blank" href="{{assigend_course.course_certficate_upload.url}}">تحميل الشهادة الحالية</a>
-  
+                    {% else %}
+                    <input  name="course_certficate_upload" type="file" class="form-control form-control-lg"  />
+                    <p>لم يتم رفع الملف</p>
+                    {% endif %}
                   </div>
                   <div class="col-md-3 mb-4 pb-2">
   

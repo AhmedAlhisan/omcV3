@@ -46,7 +46,7 @@
         <td data-th="Supplier Name">
          دورة
         </td>
-        {% elif i.activity_type == 'Type_three_mandate'  %}
+        {% elif i.activity_type == 'Type_three_mandate'   %}
         <td data-th="Supplier Name">
           انتداب
         </td>
@@ -71,10 +71,16 @@
           {{i.full_end_hijri_date}}هـ
         </td>
         <td data-th="Net Amount">
+          {% if i.activity_type == 'Type_two_courses' and i.activity_tack_action == 1 %}
+          <a  href="{% url 'main:update_course' i.id %}"><button type="button" class="btn btn-outline-primary btn-sm">تعديل</button></a>
+          {% elif i.activity_type == 'Type_three_mandate' and i.activity_tack_action == 1 %}
+          <a  href="{% url 'main:edit-mandate' i.id %}"><button type="button" class="btn btn-outline-primary btn-sm">تعديل</button></a>
+          {% else %}
           <a  href="{% url 'main:update_activity' i.id %}"><button type="button" class="btn btn-outline-primary btn-sm">تعديل</button></a>
+          {% endif %}
         </td>
         <td data-th="Net Amount">
-          <button class="btn btn-outline-danger btn-sm" onclick="confirmDelete()">حذف</button>
+          <a href="{% url 'main:delete_actvity' i.id %}"><button class="btn btn-outline-danger btn-sm">حذف</button></a>
           
         </td>
         {% now "Y-m-d" as today %}

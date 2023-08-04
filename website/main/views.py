@@ -1,5 +1,5 @@
 ﻿from django.shortcuts import render, redirect
-from django.http import HttpRequest , HttpResponse
+from django.http import HttpRequest , HttpResponse,HttpResponseRedirect
 from . models import Employee , Course , Mandate , Activity
 from django.contrib import messages
 from django.urls import reverse
@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from hijri_converter import Hijri, Gregorian
 import os
 from django.core.paginator import Paginator
+
 
 
 
@@ -201,12 +202,16 @@ def show_courses_and_mondate(request : HttpRequest , employee_id):
         for i in show_all_mondate:
             counter = i.date_diff + counter
             print(counter)
+            
 
         return render(request , 'main/show_activityes.html',{'show_all_activity_all':show_all_activity_all,'show_all_courses':show_all_courses ,'show_all_mondate':show_all_mondate ,'assigend_emp':assigend_emp , 'counter':counter , 'show_all_activity':show_all_activity , 'current_time':current_time,'check_new_request_user':check_new_request_user  })
     return redirect('account:login')
-def editCourse (request : HttpRequest , course_id : int  ):
+
+def editCourse (request : HttpRequest , activity_id : int  ):
+    
     if request.user.is_authenticated:
-        assigend_course =Course.objects.get(id=course_id)
+        assigend_course =Course.objects.get(id=activity_id)
+        assigend_activity=Activity.objects.get(id=assigend_course.id)
         for_emp = Employee.objects.get(id = assigend_course.assigend_employee.id)
 
         if request.method == 'POST':
@@ -216,36 +221,74 @@ def editCourse (request : HttpRequest , course_id : int  ):
             full_end_en_date =Hijri(int(request.POST['hijriyearend']), int(request.POST['hijrimonthend']),int(request.POST['hijridayend'])).to_gregorian()
             full_start_en_date = full_start_en_date.isoformat()
             full_end_en_date = full_end_en_date.isoformat()
-            print(full_start_hijri_date)
-            if datetime.strptime(full_start_en_date, '%Y-%m-%d') > datetime.strptime(full_end_en_date,'%Y-%m-%d'):
-                messages.success(request , 'عذرا يرجى ادخال التاريخ بشكل صحيح')
-            else:
-                assigend_course.starthijridate = full_start_hijri_date
-                assigend_course.endhijridate = full_end_hijri_date
-                assigend_course.startDate=full_start_en_date
-                assigend_course.endDate = full_end_en_date
-                assigend_course.start_hijri_day=request.POST['hijridaystart']
-                assigend_course.start_hijri_month=request.POST['hijrimonthstart']
-                assigend_course.start_hijri_year=request.POST['hijriyearstart']
-                assigend_course.end_hijri_day=request.POST['hijridayend']
-                assigend_course.end_hijri_month=request.POST['hijrimonthend']
-                assigend_course.end_hijri_year=request.POST['hijriyearend']
-                assigend_course.title=request.POST['title']
-                assigend_course.course_number=request.POST['course_number']
-                assigend_course.course_provider=request.POST['course_provider']
-                assigend_course.course_provider_country=request.POST['course_provider_country']
-                assigend_course.where_course_has_been_provide=request.POST['where_course_has_been_provide']
-                assigend_course.degree_percent=request.POST['degree_percent']
-                assigend_course.rating_word=request.POST['rating_word']
-                if 'course_certficate_upload' in request.FILES:
-                    assigend_course.course_certficate_upload=request.FILES['course_certficate_upload']
+            new_couorse = Course( start_hijri_day = request.POST['hijridaystart'],start_hijri_month = request.POST['hijrimonthstart'],start_hijri_year = request.POST['hijriyearstart'] ,end_hijri_day = request.POST['hijridayend'] , end_hijri_month = request.POST['hijrimonthend'] ,end_hijri_year = request.POST['hijriyearend']  ,course_certficate_upload =  request.FILES.get('course_certficate_upload'),
+            starthijridate =full_start_hijri_date , endhijridate= full_end_hijri_date,writen_by = request.user , assigend_employee = assigend_course.assigend_employee , title = request.POST['title'],course_number = request.POST['course_number'], course_provider = request.POST['course_provider'],  course_provider_country = request.POST['course_provider_country'],where_course_has_been_provide = request.POST['where_course_has_been_provide'],degree_percent=request.POST['degree_percent'],rating_word=request.POST['rating_word'],startDate=full_start_en_date,endDate=full_end_en_date )           
+            if datetime.strptime(full_start_en_date, '%Y-%m-%d') < datetime.strptime(full_end_en_date,'%Y-%m-%d'):
+                git_all_employee_activity = Activity.objects.filter(employee_active = new_couorse.assigend_employee.id).exists()
+                if git_all_employee_activity:
+                    for i in Activity.objects.filter(employee_active = new_couorse.assigend_employee.id) :
+                        if i.id != assigend_activity.id:
+                            old_end_date=str(i.activity_end_date)
+                            old_start_date=str(i.activity_st_date)
+                            print(old_end_date , i)
+                            print(new_couorse.startDate)
+                        
+                        
+                            print('...............itration')
+                            if (datetime.strptime(old_end_date , '%Y-%m-%d') < datetime.strptime(new_couorse.startDate , '%Y-%m-%d')and (new_couorse.endDate , '%Y-%m-%d')> (old_end_date , '%Y-%m-%d'))or (datetime.strptime(new_couorse.endDate , '%Y-%m-%d') < datetime.strptime(old_start_date , '%Y-%m-%d') ) :
+                                print("cached")
+                                print(new_couorse.endDate)
+                                print(new_couorse.startDate)
+                                print(old_end_date)
+                                print(old_start_date)
+                                continue
+                            
+
+                            messages.success(request , 'عذرا الموظف يوجد لديه نشاط فعال في هذه الفترة')
+                            return render(request , 'main/update_course.html' ,{'assigend_course':assigend_course})
+                    else:
+                        assigend_course.starthijridate = new_couorse.starthijridate
+                        assigend_course.endhijridate = new_couorse.endhijridate
+                        assigend_course.startDate=new_couorse.startDate
+                        assigend_course.endDate = new_couorse.endDate
+                        assigend_course.start_hijri_day=new_couorse.start_hijri_day
+                        assigend_course.start_hijri_month=new_couorse.start_hijri_month
+                        assigend_course.start_hijri_year=new_couorse.start_hijri_year
+                        assigend_course.end_hijri_day=new_couorse.end_hijri_day
+                        assigend_course.end_hijri_month=new_couorse.end_hijri_month
+                        assigend_course.end_hijri_year=new_couorse.end_hijri_year
+                        assigend_course.title=new_couorse.title
+                        assigend_course.course_number=new_couorse.course_number
+                        assigend_course.course_provider=new_couorse.course_provider
+                        assigend_course.course_provider_country=new_couorse.course_provider_country
+                        assigend_course.where_course_has_been_provide=new_couorse.where_course_has_been_provide
+                        assigend_course.degree_percent=new_couorse.degree_percent
+                        assigend_course.rating_word=new_couorse.rating_word
+                        if new_couorse.course_certficate_upload:
+                            assigend_course.course_certficate_upload=new_couorse.course_certficate_upload
+                        
+
+                        assigend_activity.activityName=new_couorse.title
+                        assigend_activity.activity_st_date=new_couorse.startDate
+                        assigend_activity.activity_end_date=new_couorse.endDate
+                        assigend_activity.start_hijri_day=new_couorse.start_hijri_day
+                        assigend_activity.start_hijri_month=new_couorse.start_hijri_month
+                        assigend_activity.start_hijri_year=new_couorse.start_hijri_year
+                        assigend_activity.end_hijri_day=new_couorse.end_hijri_day
+                        assigend_activity.end_hijri_month=new_couorse.end_hijri_month
+                        assigend_activity.end_hijri_year=new_couorse.end_hijri_year
+                        assigend_activity.full_end_hijri_date=new_couorse.endhijridate
+                        assigend_activity.full_start_hijri_date=new_couorse.starthijridate
+                        
+
+                        assigend_course.save()
+                        assigend_activity.save()
+                        messages.success(request , 'تم تعديل بينات الدورة بنجاح')
+                        return redirect(reverse('main:show-course-mandate-emp' , kwargs={'employee_id':for_emp.id}))
 
 
-                assigend_course.save()
-
-
-                messages.success(request , 'تم تعديل بينات الدورة بنجاح')
-                return redirect(reverse('main:show-course-mandate-emp' , kwargs={'employee_id':for_emp.id}))
+                
+                
         return render(request , 'main/update_course.html' , {'assigend_course':assigend_course})
     return redirect('account:login')
 
@@ -283,7 +326,9 @@ def deleteCourse(request : HttpRequest , course_id):
 
 def editmandate(request : HttpRequest , mandate_id):
     if request.user.is_authenticated:
-        assigen_mandate =Mandate.objects.get(id = mandate_id)
+        assigend_activity=Activity.objects.get(id=mandate_id)
+        assigen_mandate =Mandate.objects.get(id = assigend_activity.id)
+       
         for_emp=Employee.objects.get(id = assigen_mandate.mandate_employee.id)
 
         if request.method == 'POST':
@@ -293,6 +338,7 @@ def editmandate(request : HttpRequest , mandate_id):
                 full_end_en_date =Hijri(int(request.POST['hijriyearend']), int(request.POST['hijrimonthend']),int(request.POST['hijridayend'])).to_gregorian()
                 full_start_en_date = full_start_en_date.isoformat()
                 full_end_en_date = full_end_en_date.isoformat()
+                
                 if datetime.strptime(full_start_en_date,'%Y-%m-%d') < datetime.strptime(full_end_en_date , '%Y-%m-%d'):
                     assigen_mandate.mandate_type=request.POST['mandate_type']
                     assigen_mandate.mandate_place=request.POST['mandate_place']
@@ -359,7 +405,7 @@ def showStatisticForMandate(request : HttpRequest):
                 re_assigend.save()
         all_employee=Employee.objects.all().order_by('-number_of_mandate_days')
         for n in all_employee:
-            if n.number_of_mandate_days > 10 and n.number_of_mandate_days <= 60 :
+            if n.number_of_mandate_days > 50 and n.number_of_mandate_days <= 60 :
                 labels.append(n.name)
                 data.append(n.number_of_mandate_days) 
 
@@ -423,21 +469,30 @@ def add_activity(request : HttpRequest , employee_id):
                 for i in Activity.objects.filter(employee_active = new_activity.employee_active) :
                     old_end_date=str(i.activity_end_date)
                     old_start_date=str(i.activity_st_date)
-                    print(type(old_end_date))
-                    print('...............')
-                    if datetime.strptime(old_end_date , '%Y-%m-%d') < datetime.strptime(new_activity.activity_st_date , '%Y-%m-%d') or datetime.strptime(old_end_date , '%Y-%m-%d') > datetime.strptime(new_activity.activity_end_date , '%Y-%m-%d')  :
+                    print(old_end_date , i)
+                    print(new_activity.activity_st_date)
+                    
+                    
+                    print('...............itration')
+                    if (datetime.strptime(old_end_date , '%Y-%m-%d') < datetime.strptime(new_activity.activity_st_date , '%Y-%m-%d')and (new_activity.activity_end_date , '%Y-%m-%d')> (old_end_date , '%Y-%m-%d'))or (datetime.strptime(new_activity.activity_end_date , '%Y-%m-%d') < datetime.strptime(old_start_date , '%Y-%m-%d') ) :
+                       print("cached")
+                       print(new_activity.activity_st_date)
+                       print(new_activity.activity_end_date)
                        print(old_end_date)
+                       print(old_start_date)
                        continue
-
+                    
 
                     messages.success(request , 'عذرا الموظف يوجد لديه نشاط فعال في هذه الفترة')
                     return render(request , 'main/add_activity.html')
                 new_activity.save()
-                messages.success(request , 'تمت الاضافه')
+                messages.success(request , ' تم اضافة النشاط بنجاح')
                 return redirect(reverse('main:show-assigend' , kwargs={'emplyee_id':employee_id}))
             new_activity.save()
             messages.success(request , 'تم اضافة النشاط بنجاح')
             return redirect(reverse('main:show-assigend' , kwargs={'emplyee_id':employee_id}))
+        messages.success(request , '   عذرا التاريخ غير صحيح ')
+        return render(request , 'main/add_activity.html')
     return render(request , 'main/add_activity.html')
 # Still need some issue fix
 def editActivity(request : HttpRequest , activity_id):
@@ -448,8 +503,9 @@ def editActivity(request : HttpRequest , activity_id):
     print(assigen_activity.activityName)
     for_emp=Employee.objects.get(id = assigen_activity.employee_active.id)
 
-    if request.method == 'POST':
 
+    if request.method == 'POST':
+    
 
         full_start_hijri_date = f"{request.POST['hijridaystart']} / {request.POST['hijrimonthstart']} / {request.POST['hijriyearstart']}"
         full_end_hijri_date = f"{request.POST['hijridayend']} / {request.POST['hijrimonthend']} / {request.POST['hijriyearend']}"
@@ -496,16 +552,33 @@ def editActivity(request : HttpRequest , activity_id):
                 return redirect(reverse('main:show-assigend' , kwargs={'emplyee_id':for_emp.id}))
     return render(request , 'main/edit_activity.html' , {'assigen_activity':assigen_activity })
 
-def delete_activity(request, activity_id):
-    if request.method == 'POST' and request.POST.get('action') == 'delete':
-        assign_activity = Activity.objects.get(id=activity_id)
+def delete_activity(request:HttpRequest, activity_id):
+    assign_activity = Activity.objects.get(id=activity_id)
+    if request.method=='POST':
+        
         for_emp = Employee.objects.get(id = assign_activity.employee_active.id)
-        assign_activity.delete()
-        messages.success(request, 'تم حذف النشاط بنجاح')
-        return redirect(reverse('main:show-course-mandate-emp', kwargs={"employee_id": for_emp.id}))
+        print(assign_activity.id)
+        
+        if assign_activity.activity_type=='Type_two_courses' and assign_activity.activity_tack_action==1:
+            assign_course=Course.objects.get(id=assign_activity.id)
+            assign_course.delete()
+            assign_activity.delete()
+            messages.success(request, ' تم حذف الدورة بنجاح')
+            return HttpResponseRedirect(reverse('main:show-course-mandate-emp', kwargs={"employee_id": for_emp.id}))
+        elif assign_activity.activity_type=='Type_three_mandate'and assign_activity.activity_tack_action==1:
+            assign_mandate=Mandate.objects.get(id=assign_activity.id)
+            assign_mandate.delete()
+            assign_activity.delete()
+            messages.success(request, ' تم حذف الانتداب بنجاح')
+            return HttpResponseRedirect(reverse('main:show-course-mandate-emp', kwargs={"employee_id": for_emp.id}))
+        else:        
+            assign_activity.delete()
+            messages.success(request, 'تم حذف النشاط بنجاح')
+            return HttpResponseRedirect(reverse('main:show-course-mandate-emp', kwargs={"employee_id": for_emp.id}))
+    return render(request , 'main/delete_activity.html' , {'assign_activity':assign_activity})
+        
 
-    else:
-        messages.error(request, 'Invalid request.')
+   
 
 
 
@@ -519,7 +592,7 @@ def moving_activity_to_courser_after_complete(request : HttpRequest , activity_i
         full_end_en_date =Hijri(int(request.POST['hijriyearend']), int(request.POST['hijrimonthend']),int(request.POST['hijridayend'])).to_gregorian()
         full_start_en_date = full_start_en_date.isoformat()
         full_end_en_date = full_end_en_date.isoformat()
-        new_couorse = Course(start_hijri_day = request.POST['hijridaystart'],start_hijri_month = request.POST['hijrimonthstart'],start_hijri_year = request.POST['hijriyearstart'] ,end_hijri_day = request.POST['hijridayend'] , end_hijri_month = request.POST['hijrimonthend'] ,end_hijri_year = request.POST['hijriyearend']  ,course_certficate_upload =  request.FILES['certificate_upload_pdf'],
+        new_couorse = Course(id=assign_activity.id ,start_hijri_day = request.POST['hijridaystart'],start_hijri_month = request.POST['hijrimonthstart'],start_hijri_year = request.POST['hijriyearstart'] ,end_hijri_day = request.POST['hijridayend'] , end_hijri_month = request.POST['hijrimonthend'] ,end_hijri_year = request.POST['hijriyearend']  ,course_certficate_upload =  request.FILES.get('certificate_upload_pdf'),
         starthijridate =full_start_hijri_date , endhijridate= full_end_hijri_date,writen_by = request.user , assigend_employee = assign_activity.employee_active , title = request.POST['title'],course_number = request.POST['course_number'], course_provider = request.POST['course_provider'],  course_provider_country = request.POST['course_provider_country'],where_course_has_been_provide = request.POST['where_course_has_been_provide'],degree_percent=request.POST['degree_percent'],rating_word=request.POST['rating_word'],startDate=full_start_en_date,endDate=full_end_en_date )
         if datetime.strptime(new_couorse.startDate, '%Y-%m-%d') > datetime.strptime(new_couorse.endDate,'%Y-%m-%d'):
                 messages.success(request , 'عذرا يرجى ادخال التاريخ بشكل صحيح')
@@ -544,7 +617,7 @@ def moving_activity_to_mandate_after_complete(request:HttpRequest , activity_id)
         full_end_en_date =Hijri(int(request.POST['hijriyearend']), int(request.POST['hijrimonthend']),int(request.POST['hijridayend'])).to_gregorian()
         full_start_en_date = full_start_en_date.isoformat()
         full_end_en_date = full_end_en_date.isoformat()
-        new_mandate = Mandate(end_hijri_day = request.POST['hijridayend'] , end_hijri_month = request.POST['hijrimonthend'] , end_hijri_year = request.POST['hijriyearend'],start_hijri_day = request.POST['hijridaystart'],start_hijri_month=request.POST['hijrimonthstart'] , start_hijri_year = request.POST['hijriyearstart'] ,mandate_employee = for_emp , starthijridate = full_start_hijri_date , endhijridate = full_end_hijri_date  , writen_by = request.user , start_date = full_start_en_date , end_date=full_end_en_date ,mandate_place = request.POST['mandate_place'] ,mandate_type = assign_activity.activity_in_out )
+        new_mandate = Mandate(id=assign_activity.id,end_hijri_day = request.POST['hijridayend'] , end_hijri_month = request.POST['hijrimonthend'] , end_hijri_year = request.POST['hijriyearend'],start_hijri_day = request.POST['hijridaystart'],start_hijri_month=request.POST['hijrimonthstart'] , start_hijri_year = request.POST['hijriyearstart'] ,mandate_employee = for_emp , starthijridate = full_start_hijri_date , endhijridate = full_end_hijri_date  , writen_by = request.user , start_date = full_start_en_date , end_date=full_end_en_date ,mandate_place = request.POST['mandate_place'] ,mandate_type = assign_activity.activity_in_out )
         print(new_mandate)
         if datetime.strptime(new_mandate.start_date,'%Y-%m-%d') < datetime.strptime(new_mandate.end_date , '%Y-%m-%d'):
             assign_activity.activity_tack_action=1

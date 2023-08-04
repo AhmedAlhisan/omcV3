@@ -30,7 +30,7 @@
            <th>تاريخ البداية </th>
            <th>تاريخ النهاية </th>
            <th> الحالة </th>
-           <th> الاجراء </th>
+         
           
          </tr>
    
@@ -67,7 +67,11 @@
                {{i.rating_word}}
            </td>
            <td data-th="Net Amount">
+            {% if i.course_certficate_upload %}
                <a target="_blank" href="{{ i.course_certficate_upload.url }}"><button  class="btn btn-outline-primary btn-sm"> الشهادة</button></a>
+               {% else %}
+               <p>لم يتم رفع الملف</p>
+               {% endif %}
            </td>
            <td style="padding-left: 10px;" data-th="Net Amount">
                {{i.starthijridate}}
@@ -78,9 +82,7 @@
            <td data-th="Net Amount">
             <span style="padding-left: 20px; font-size: 0.9em;" class="badge bg-success ">   مكـتـمل  </span>
            </td>
-           <td data-th="Net Amount">
-            <button class="btn btn-outline-danger btn-sm" onclick="confirmDelete()">حذف</button>
-        </td>
+           
            {% endfor %}  
            </tr>
            </tbody>
