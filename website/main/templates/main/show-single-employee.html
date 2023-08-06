@@ -1,5 +1,203 @@
 {% extends 'main/base.html' %}
 {% load static %}
+{% block style %}
+<link href="{% static 'website/css/style.css' %}" rel="stylesheet">
+<link href="{% static 'website/css/bootstrap-icons.css' %}" rel="stylesheet">
+<style>
+ .container{
+    display: grid;
+    grid-template-columns:1.5fr 1fr 1fr ;
+    grid-template-rows: repeat(3,1fr) ;
+    gap: 1rem;
+    height: 500px;
+}
+.container > div{
+  
+    border-radius: 10px;
+    padding: 1rem;
+}
+.container .nav{
+    grid-column: span 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:2rem;
+    border-radius: 10px 10px 3px 10px;
+}
+.container .nav >*{
+    height: fit-content;
+    cursor: pointer;
+}
+.container .nav h3{
+    margin-left: 1rem;
+}
+.container .nav p{
+    font-size: 15px;
+}
+.container .nav > p:hover{
+    text-decoration: underline;
+}
+.container .nav .alarm-box{
+    position: relative;
+    transition: all .2s;
+}
+.container .nav .alarm-box:hover{
+    transform: translateY(1px);
+}
+.container .nav .alarm-box >span{
+    position: absolute;
+    background-color: #333;
+    color: #f4f4f4;
+    border-radius: 50%;
+    text-align: center;
+    min-width: 16px;
+    min-height: 16px;
+    top: -10px;
+    right: 11px;
+    font-size: .8em;
+    padding: 0 2px;
+    box-shadow: 0 0 0 2.5px #f4f4f4;
+}
+.container .nav .alarm-box >i{
+    font-size: 25px;
+    color: #333;
+    padding: 0 1rem;
+    transition: all .2s;
+}
+.container .nav .alarm-box a  >i:hover{
+    color: #b3920d;
+}
+.container .nav .segment-box{
+    display: flex;
+    gap: .5rem;
+   
+    padding: 0.2rem;
+    border-radius: 6px;
+    color: #f4f4f4;
+    transition: all .2s;
+}
+.container .nav .segment-box:hover{
+    background-color: #b3920d;
+}
+.container .nav .segment-box i{
+    font-size: 20px;
+    color: #f4f4f4;
+}
+.container .nav img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 1rem;
+    transition: all .3s;
+}
+.container .nav img:hover{
+    box-shadow: 0 0 0 3px #2f5ab6;
+}
+.container .nav .segment-box{
+    margin-left: auto;
+}
+
+
+.container .upgrade{
+    grid-row: span 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px 10px 3px 10px;
+}
+.container .upgrade i{
+    font-size: 120px;
+    color: #2f5ab6;
+    margin-bottom: 4rem;
+}
+.container .upgrade h4{
+    line-height: 1.2;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.container .upgrade h4 span{
+    color: #2f5ab6;
+}
+.container .upgrade button{
+    border: none;
+    background-color: #198754;
+    color: #f4f4f4;
+    padding: 1rem 5rem;
+    border-radius: 99999px;
+    cursor: pointer;
+    letter-spacing: .6px;
+    font-size: 17px;
+    font-weight: 500;
+    transition: all .3s;
+}
+.container .upgrade button:hover{
+    background-color: #b3920d;
+    color: #f4f4f4;
+}
+
+
+.container .users >img , .container .newUsers >img{
+    width: 300px;
+    height: 200px;
+    border-radius: 6px;
+    margin-top: 1rem;
+}
+.container .performance {
+    grid-column: span 2;
+    border-radius: 10px 3px 10px 10px;
+}
+.container .performance .percentages{
+    display: flex;
+    justify-content: space-around;
+    font-size: 13px;
+    position: relative;
+}
+.container .performance .percentages .direct, .container .performance .percentages .Social, .container .performance .percentages .Organic{
+    position: relative;
+}
+.container .performance .percentages span{
+    width: 10px;
+    height: 10px;
+    background-color: #990c0cbd;
+    display: block;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -20px;
+}
+.container .performance .percentages .Social > span {
+    background-color: #210c99bd;
+}
+.container .performance .percentages .Organic > span {
+    background-color: #55990cbd;
+}
+
+.container .performance .percentages .direct:before, .container .performance .percentages .Social:before, .container .performance .percentages .Organic:before {
+    content: '';
+    position: absolute;
+    width: 90%;
+    height: 12px;
+    background-color: #990c0cbd;
+    top: 30px;
+    left: -23%;
+    border-radius: 0 999999px 0px 0;
+    opacity: 0.8;
+}
+.container .performance .percentages .Social:before{
+    background-color: #272727bd;
+    width: 110%;
+}
+.container .performance .percentages .Organic:before{
+    background-color: #55990cbd;
+    width: 150%;
+}
+
+
+</style>
+
+{% endblock %}
 
 {% block content %}
      
@@ -8,7 +206,93 @@
   <input type="hidden" name="object_id" >
   <input type="hidden" name="action" value="delete">
 </form>
-<section style="background-color: #eee;">
+
+<div style="margin-top: 20px;" class="container">
+  <div class="nav">
+      <h3>ادارة الموظف   <i style="color: #b3920d; font-size: 28px;" class="fa-solid fa-id-card"></i></h3>
+      
+      <div class="segment-box">
+        
+          
+      </div>
+      <div class="alarm-box">
+          
+        <a style="color: #333;" href="{% url 'main:add_activity' assigend_emp.id %}"><i   class="fa fa-circle-plus"></i></a>
+          <p>  اضافة نشاط</p>
+      </div>
+      <div class="alarm-box">
+        <a style="color: #333;" href="{% url 'main:update' assigend_emp.id %}"><i class="fa fa-pen-to-square"></i></a>
+        <p>تعديل بيانات الموظف</p>
+      </div>
+      <div class="alarm-box">
+        
+       
+        <i class="fa-solid fa-ban"></i>
+        <p>حذف الموظف</p>
+    </div>
+  </div>
+  <div class="upgrade">
+    <div class="card  mb-3" style="max-width: 18rem;">
+      <div class="card-header"> بيانات الموظف </div>
+      <div class="card-body ">
+        <h6 class="card-title"></h6>
+        <ul>
+          <li> التخصص :  {{assigend_emp.major}}</li>
+          <li> مقر العمل : {{assigend_emp.work_place}}</li>
+          <li>الوظيفة :  {{assigend_emp.job_title}}</li>
+          <li> الشهادة :{{assigend_emp.certificate}}</li>
+          <li>  جهة التخرج: {{assigend_emp.graduted_from}}</li>
+        </ul> 
+       <div style="display: flex; justify-content: space-between;" class="whatForEmp">
+        <!-- <a  href="{% url 'main:showCourses' assigend_emp.id %}"><span style="  font-size: 13px;" class="badge rounded-pill bg-success"> السجل التدريبي </span></a>
+        <a href="{% url 'main:show_mandate' assigend_emp.id %}"><span style="font-size: 13px;" class="badge rounded-pill bg-success"> الانتدابات</span></a> -->
+       </div>
+      </div>
+      
+    </div>
+      
+    <button>طلب تقرير </button>
+  </div>
+  <div class="users">
+      <h4>احصائيات الموظف العامة</h4>
+      <h2></h2>
+      <canvas id="myChart" width="300" height="300"></canvas>
+      
+        
+      
+  </div>
+  <div class="newUsers">
+      <h4>تفاصيل الانتدابات</h4>
+      <h6>عدد الساعات المسموح بها هي 50 ساعه</h6>
+      <div class="progress" style="height: 20px;">
+        <div class="progress-bar bg-success" role="progressbar" style="width: 25%; " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+      </div>
+  </div>
+  <div class="performance">
+      <div class="percentages">
+          <div class="direct">
+              <span></span> <!--circle-->
+              <h3>24% Direct</h3>
+          </div>
+          <div class="Social">
+              <span></span> <!--circle-->
+              <h3>31% Social</h3>
+          </div>
+          <div class="Organic">
+              <span></span> <!--circle-->
+              <h3>45% Organic</h3>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<!-- <section >
     
    
     
@@ -47,29 +331,10 @@
                 </div>
                 
               </div>
-              <!-- <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
-                <div class="card-header"> <h5>بيانات الموظف</h5></div>
-                <div class="card-body">
-                  <h5 class="card-title">مقر العمل : {{assigend_emp.work_place}} </h5>
-                  <p class="card-text"> 
-                    التخصص :  {{assigend_emp.major}}
-                   </p>
-                  <p class="card-text"> 
-                   الوظيفة :  {{assigend_emp.job_title}}
-                   </p>
-                  <p class="card-text"> 
-                   الشهادة :{{assigend_emp.certificate}}
-                   </p>
-                  <p class="card-text"> 
-                   جهة التخرج: {{assigend_emp.graduted_from}}
-                   </p>
-                  
-                 
-                </div>
-              </div>
-              -->
+              
+          
 
-  
+      
              
   
               <div class="small d-flex justify-content-start">
@@ -79,6 +344,7 @@
               </div>
             </div>
             <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
+             
               <div class="d-flex flex-start w-100">
                 
                 
@@ -92,12 +358,51 @@
            
                 <a href="{% url 'main:show-course-mandate-emp' assigend_emp.id %}"><button type="button" class="btn btn-success btn-sm">عرض انشطة الموظف</button></a>
               </div>
+             
             </div>
+           
           </div>
+          
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
+  <!-- <a href="{% url 'main:update' assigend_emp.id %}"><button type="button" class="btn btn-outline-primary btn-sm"> تعديل بيانات الموظف</button></a> -->
+  {% block footer %}
+  {% endblock %}
+  <script>
+    var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: {{ labels|safe }},
+        datasets: [{
+            label: '',
+            data: {{ data|safe }},
+            backgroundColor: [
+                '#333',
+                '#b3920d',
+                '#198754'
+            ]
+        }]
+    },
+  options: {
+    tooltips: {
+      enabled: true,
+      mode: 'single',
+      callbacks: {
+        label: function (tooltipItems, data) {
+                       return data.labels[tooltipItems.index] + data.datasets[tooltipItems.datasetIndex].label + ' : ' + '' + data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index];
+        }
+
+      }
+    },
+    legend: {
+      position: 'bottom'
+    }
+  }
+});
+  </script>
   <script>
     function confirmDelete() {
         Swal.fire({

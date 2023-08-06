@@ -109,10 +109,33 @@ def show_all_emp(request : HttpRequest):
 
 def show_assiegnd_emplyee (request : HttpRequest , emplyee_id):
     if request.user.is_authenticated:
+        labels = []
+        data = []
         check_new_request_user = User.objects.filter(is_active = 0)
 
         assigend_emp = Employee.objects.get(id=emplyee_id)
-        return render(request ,'main/show-single-employee.html' , {'assigend_emp':assigend_emp , 'check_new_request_user':check_new_request_user} )
+        all_activity_for_singal_emp = Activity.objects.filter(employee_active = assigend_emp.id)
+        if all_activity_for_singal_emp : 
+            counter_of_activity : int = 0
+            counter_of_mandate:int = 0
+            counter_of_courses:int = 0
+            for activity in all_activity_for_singal_emp:
+                if activity.activity_type=='Type_one_active':
+                    counter_of_activity = counter_of_activity+1
+                elif activity.activity_type=='Type_three_mandate':
+                    counter_of_mandate=counter_of_mandate+1
+                else:
+                    counter_of_courses=counter_of_courses+1  
+            labels.append('نشاط')        
+            data.append(counter_of_activity)  
+
+            labels.append('انتداب')        
+            data.append(counter_of_mandate)   
+
+            labels.append('دورة')        
+            data.append(counter_of_courses)              
+
+        return render(request ,'main/show-single-employee.html' , {'labels':labels ,'data':data  , 'assigend_emp':assigend_emp , 'check_new_request_user':check_new_request_user} )
     return redirect('account:login')
 
 def add_course(request :HttpRequest , employee_id):
@@ -496,8 +519,9 @@ def add_activity(request : HttpRequest , employee_id):
     return render(request , 'main/add_activity.html')
 # Still need some issue fix
 def editActivity(request : HttpRequest , activity_id):
+    '''still one issue if we edit the activity after activity compleate we need to re check the date if the date is not more than or equal today keep take action as it is , if not we update the take action to 0'''
     assigen_activity = Activity.objects.get(id = activity_id)
-    old_assigne = Activity.objects.get(id = activity_id)
+   
     print(assigen_activity.activityName)
     print(assigen_activity.end_hijri_month)
     print(assigen_activity.activityName)
@@ -514,6 +538,10 @@ def editActivity(request : HttpRequest , activity_id):
         full_start_en_date = full_start_en_date.isoformat()
         full_end_en_date = full_end_en_date.isoformat()
         assigen_activity.activityName=request.POST['activityName']
+        assigen_activity.activity_in_out=request.POST['activity_in_out']
+        assigen_activity.activity_location=request.POST['activity_location']
+        assigen_activity.activity_type=request.POST['activity_type']
+        
         assigen_activity.activity_st_date = full_start_en_date
         assigen_activity.activity_end_date=full_end_en_date
         assigen_activity.start_hijri_day=request.POST['hijridaystart']
@@ -530,13 +558,13 @@ def editActivity(request : HttpRequest , activity_id):
             if git_all_employee_activity:
 
                 for i in Activity.objects.filter(employee_active = assigen_activity.employee_active) :
-                    if old_assigne.id != i.id:
+                    if assigen_activity.id != i.id:
                         old_end_date=str(i.activity_end_date)
                         old_start_date=str(i.activity_st_date)
                         print(type(old_end_date))
                         print('...............')
 
-                        if (datetime.strptime(old_end_date , '%Y-%m-%d') < datetime.strptime(assigen_activity.activity_st_date , '%Y-%m-%d') or datetime.strptime(old_end_date , '%Y-%m-%d') > datetime.strptime(assigen_activity.activity_end_date , '%Y-%m-%d'))and datetime.strptime(old_start_date , '%Y-%m-%d')< datetime.strptime(assigen_activity.activity_st_date , '%Y-%m-%d') or datetime.strptime(old_start_date , '%Y-%m-%d') > datetime.strptime(assigen_activity.activity_end_date , '%Y-%m-%d')  :
+                        if (datetime.strptime(old_end_date , '%Y-%m-%d') < datetime.strptime(assigen_activity.activity_st_date , '%Y-%m-%d')and (assigen_activity.activity_end_date , '%Y-%m-%d')> (old_end_date , '%Y-%m-%d'))or (datetime.strptime(assigen_activity.activity_end_date , '%Y-%m-%d') < datetime.strptime(old_start_date , '%Y-%m-%d') ) :
                             print(old_end_date)
                             print(assigen_activity.activity_end_date)
                             continue

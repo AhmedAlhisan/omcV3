@@ -7,26 +7,47 @@
       <div class="col-12 col-lg-9 col-xl-7">
         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
           <div class="card-body p-4 p-md-5">
-            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">اضافة نشاط</h3> <hr>
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">تعديل النشاط</h3> <hr>
             <form method="post" action="" enctype="multipart/form-data">
               {% csrf_token %}
           
               <div class="row">
                 <div class="col-md-6 mb-4">
-          
                   <div class="form-outline">
-                     
-                     
+                    <input value="{{assigen_activity.activityName}}" name="activityName" type="text"  class="form-control form-control-lg" required/>
+                    <label class="form-label" > اسم النشاط</label>
+                  </div>
+                  <div class="form-outline">
+                    <select value="{{assigen_activity.activity_in_out}}" style="text-align: center;"  name="activity_in_out" class="form-select" aria-label="Default select example">
+                        
+                      <option selected>نوع النشاط </option>
+                      <option value="inside" {% if assigen_activity.activity_in_out == 'inside' %} selected {% endif %}>داخلي</option>
+                      <option value="outside" {% if assigen_activity.activity_in_out == 'outside' %} selected {% endif %}>خارجـي </option>
+                      
+                    </select>
+                    <label class="form-label" >     موقع النشاط            </label>
+                
                   </div>
           
                 </div>
                 <div class="col-md-6 mb-4">
-          
                   <div class="form-outline">
-                    <input value="{{assigen_activity.activityName}}" name="activityName" type="text"  class="form-control form-control-lg" required/>
-                    <label class="form-label" > النشاط</label>
+                    <input value="{{assigen_activity.activity_location}}" name="activity_location" type="text"  class="form-control form-control-lg" required/>
+                    <label class="form-label" > موقع التنفيذ</label>
+                     
                   </div>
-          
+                 
+                  <select value="{{assigen_activity.activity_type}}" style="text-align: center;" name="activity_type" class="form-select" aria-label="Default select example">
+                        
+                    <option selected>  </option>
+                    <option value="Type_one_active" {% if assigen_activity.activity_type == 'Type_one_active' %} selected {% endif %}>نشاط</option>
+                    <option value="Type_two_courses" {% if assigen_activity.activity_type == 'Type_two_courses' %} selected {% endif %}>دورة </option>
+                    <option value="Type_three_mandate" {% if assigen_activity.activity_type == 'Type_three_mandate' %} selected {% endif %}>انتداب </option>
+                    
+                  </select>
+                  <label class="form-label">تصنيف النشاط </label>
+                 
+                  
                 </div>
                 <div class="col-md-3 mb-4 ">
             
