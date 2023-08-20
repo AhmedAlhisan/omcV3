@@ -170,6 +170,7 @@ ul.form-stepper li a .form-stepper-circle {
 
 {% block content %}
 <div class="container">
+    
 <div>
   <h1>يرجى اتباع الخطوات التالية لاكمال طلب الانضمام</h1>
   <div id="multi-step-form-container">
@@ -204,6 +205,7 @@ ul.form-stepper li a .form-stepper-circle {
           </li>
       </ul>
       <!-- Step Wise Form Content -->
+      <div class="container">
       <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
           <!-- Step 1 Content -->
@@ -214,11 +216,11 @@ ul.form-stepper li a .form-stepper-circle {
                 <!-- Step 1 input fields -->
                 <div class="mt-3  ">
                   
-                  <input  style="color: green;"  name="last_name" type="text" class="form-control" id="floatingInput"  placeholder="الاسم الثلاثي"   require="required">
+                  <input  style="color: green;"  name="last_name" type="text" class="form-control" id="floatingInput"  placeholder="الاسم الثلاثي"   require="required" required>
                  
                   <br>
                  
-                  <input style="color: green;" name="first_name" type="text" class="form-control" id="floatingInput" placeholder="المرتبة"  require="required">
+                  <input style="color: green;" name="first_name" type="text" class="form-control" id="floatingInput" placeholder="المرتبة"   aria-errormessage="noo" required>
                 </div>
                 <div class="mt-3">
                     <button class="button btn-navigate-form-step" type="button" step_number="2">التالي</button>
@@ -259,11 +261,15 @@ ul.form-stepper li a .form-stepper-circle {
           </section>
           
       </form>
+    </div>
      
   </div>
 </div>
 </div>
 <script>
+
+
+
   /**
  * Define a function to navigate betweens form steps.
  * It accepts one parameter. That is - step number.
@@ -326,6 +332,7 @@ document.querySelectorAll(".btn-navigate-form-step").forEach((formNavigationBtn)
      * Add a click event listener to the button.
      */
     formNavigationBtn.addEventListener("click", () => {
+        
         /**
          * Get the value of the step.
          */
@@ -345,7 +352,7 @@ document.querySelectorAll(".btn-navigate-form-step").forEach((formNavigationBtn)
 
   Swal.fire({
   position: 'center',
-  confirmButtonColor: '#198754',
+  confirmButtonColor: '#e60040',
   confirmButtonText:' اضغط هنا',
   title: '{{i}}',
   showConfirmButton: true,

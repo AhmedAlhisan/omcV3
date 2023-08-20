@@ -1,14 +1,411 @@
 {% extends 'main/base.html' %}
 {% load static %}
+{% block style %}
+    <link href="{% static 'website/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'website/css/bootstrap-icons.css' %}" rel="stylesheet">
+    <style>
+      
 
+
+h2 { color: #1C1C45; font-size: 20px; line-height: 1; font-weight: 300; text-transform: uppercase; }
+h3 { 
+  color: #198754; 
+  font-size: 18px; 
+  font-weight: 400;
+  line-height: 1.2;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+p {
+  color: #76787A;
+font-family: 'Source Sans Pro', Verdana, Helvetica, Arial, Tahoma, sans-serif;
+font-size: 16px;
+font-weight: normal;
+line-height: 1.625;
+}
+
+a,
+a:visited {
+	-webkit-transition: all .3s ease-in-out;
+	-moz-transition: all .3s ease-in-out;
+	-ms-transition: all .3s ease-in-out;
+	-o-transition: all .3s ease-in-out;
+	transition: all .3s ease-in-out;
+}
+
+a.button {
+	position: relative;
+	z-index: 1;
+	display: inline-block;
+	font-size: 16px;
+	font-family: 'Source Sans Pro', serif;
+	font-weight: 600;
+	line-height: 1.625em;
+	color: #1C1C45!important;
+	text-align: center;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+	border: 1px solid;
+	border-color: #fff;
+	text-decoration: none;
+	text-transform: none;
+	text-shadow: none;
+	letter-spacing: 1px;
+	padding: 10px 30px 10px;
+	background-color: #fff;
+	background: #fff; /* Old browsers */
+	-webkit-appearance: none;
+	-moz-appearance: none;
+
+	vertical-align: middle;
+	-webkit-backface-visibility: hidden;
+	-moz-osx-font-smoothing: grayscale;
+	overflow: hidden;
+}
+
+	a.button:hover {	
+		color: #fff!important;
+		background: #b3920d;
+		border-color: #b3920d;
+		text-decoration: none!important;
+	}
+
+
+#blog-section {
+	padding: 100px 0 200px;
+	/* background-image: url(https://static.pexels.com/photos/3164/sea-black-and-white-water-ocean-large.jpg); */
+	background-repeat: no-repeat;
+	background-position: center top;
+	background-size: cover;
+	-webkit-background-size: cover;
+}
+	
+	#blog-section .container {
+		width: 1255px;
+	}
+	
+	@media only screen and (max-width : 1254px ) {
+	
+	    #blog-section .container {
+	        width: 100%;
+	    }
+	
+	}
+	
+	#blog-section .container .row > div {
+		padding-right: 30px;
+		padding-left: 30px
+	}
+	
+	.blog-section-intro {
+		
+	}
+		
+		.blog-section-intro h2 {
+			font-size: 32px;
+			line-height: 40px;
+		}
+		
+		.blog-section-intro p {
+			font-size: 18px;
+		}
+		
+		.blog-item {
+			position: relative;
+			display: block;
+			text-decoration: none;
+			margin: 0 0 35px 0;
+		}
+			
+			#blog-section .blog-item {
+				padding-top: 200px;
+			}
+			
+			.blog-item:hover {
+				text-decoration: none!important;
+			}
+			
+#blog-section .button {
+					position: relative;
+					top: 160px;
+				}
+
+			@media only screen and (min-width : 992px ) {
+			
+				.blog-item.second,
+				.blog-item.fourth {
+					top: 120px;
+				}
+				
+		  #blog-section .button {
+					position: relative;
+					top: 260px;
+				}
+			
+			}
+
+		
+			
+			.blog-item-img {
+				position: relative;
+				width: 100%;
+				height: 230px;
+				background-repeat: no-repeat;
+				background-position: center center;
+				background-size: cover;
+				-webkit-background-size: cover;
+		
+				-webkit-transition: all .3s ease-in-out;
+				-moz-transition: all .3s ease-in-out;
+				-ms-transition: all .3s ease-in-out;
+				-o-transition: all .3s ease-in-out;
+				transition: all .3s ease-in-out;
+			}
+				.blog-item-img.smaller { height: 210px; }
+				.blog-item-img.larger { height: 250px; }
+				
+				.blog-item-img.video {
+					
+				}
+					.blog-item-img.video::before {
+						content: '\f04b';
+						position: absolute;
+						left: 50%;
+						top: 50%;
+						display: inline-block;
+						font-family: 'FontAwesome';
+					
+						font-size: 50px;
+						line-height: 19px;
+						-webkit-transform: translateY(-50%) translateX(-50%);
+						-ms-transform: translateY(-50%) translateX(-50%);
+						transform: translateY(-50%) translateX(-50%);
+						-webkit-transition: all .3s ease-in-out;
+						-moz-transition: all .3s ease-in-out;
+						-ms-transition: all .3s ease-in-out;
+						-o-transition: all .3s ease-in-out;
+						transition: all .3s ease-in-out;
+					}
+					
+					.blog-item:hover .blog-item-img.video::before {
+						color: #E2002B;
+					}
+				
+				#blog-section .blog-item-img {
+					position: absolute;
+					left: 5px;
+					top: 0;
+					height: 240px;
+				}
+				
+				#blog-section .blog-item.first .blog-item-img {
+					left: -10px;
+				}
+			
+			.blog-item-content {
+				position: relative;
+				padding: 35px 20px 30px 65px;
+				background-color: #fff;
+				-moz-box-shadow: 0 6px 24px 0 rgba(0, 0, 0, 0.1);
+				-webkit-box-shadow: 0 6px 24px 0 rgba(0, 0, 0, 0.1);
+				box-shadow: 0 6px 24px 0 rgba(0, 0, 0, 0.1);
+				-webkit-transition: all .3s ease-in-out;
+				-moz-transition: all .3s ease-in-out;
+				-ms-transition: all .3s ease-in-out;
+				-o-transition: all .3s ease-in-out;
+				transition: all .3s ease-in-out;
+			}
+				
+				#blog-section .blog-item-content {
+					left: -5px;
+				}
+				
+				#blog-section .blog-item.first .blog-item-content {
+					left: 10px;
+				}
+			
+				#blog-section .blog-item:hover .blog-item-img,
+				#blog-section .blog-item:hover .blog-item-content {
+					left: 0;
+				}
+				
+				.blog-item-label {
+					position: absolute;
+					left: 20px;
+					top: -15px;
+					display: inline-block;
+					padding: 3px 10px;
+					font-size: 14px;
+					font-weight: 700;
+					letter-spacing: 1px;
+					color: #fff;
+					text-transform: uppercase;
+					background-color: #b3920d;
+				}
+				
+				.blog-item-date {
+					position: absolute;
+					left: 20px;
+					top: 35px;
+					display: inline-block;
+					font-family: 'Kievit-Medium', Verdana, Helvetica, Arial, Tahoma, sans-serif;
+					color: #C8CACE;
+					text-align: center;
+				}
+					.blog-item-date-day {
+						display: block;
+						font-size: 28px;
+						line-height: 28px;
+					}
+					
+					.blog-item-date-month {
+						display: block;
+						font-size: 14px;
+						font-weight: 700;
+						line-height: 14px;
+					}
+				
+				.blog-item h3 {
+					-webkit-transition: all .3s ease-in-out;
+					-moz-transition: all .3s ease-in-out;
+					-ms-transition: all .3s ease-in-out;
+					-o-transition: all .3s ease-in-out;
+					transition: all .3s ease-in-out;
+				}
+				
+				.blog-item:hover h3 {
+					color: #b3920d;
+				}
+				
+				.blog-item-content p {
+					margin-bottom: 0;
+				}
+
+.buttonContainer {
+	position: relative;
+	width: 100%;
+	float: left;
+	clear: both;
+	text-align: center;
+	margin-bottom: 35px;
+}
+    </style>
+    {% endblock %}
 
 
 
 
 
 {% block content %}
+<div class="spinner-wrapper">
+   
+	<div class="spinner-border text-success" role="status">
+	  
+	  <span style="color: black;" class="visually-hidden">  </span>
+	  
+	</div>
+	
+  </div>
+<div id="blog-section">
+  <div class="container">
 
-  
+      <div class="row">
+
+        <div class="col-xs-12 col-sm-6 col-md-4">
+
+          <div class="blog-section-intro">
+
+            <h1>نظام ادارة الأنشطة  </h1>
+            <p> </p>
+
+          </div>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4">
+
+          <a class="blog-item first" href="#" title="Suspendisse potenti">
+            <div class="blog-item-img" ><img style="width: 150px;" src="{% static 'website/images/data-collection1.png' %}" alt=""></div>
+            <div class="blog-item-content">
+              <span class="blog-item-label">جمع البيانات </span>
+              <span class="blog-item-date">
+                <span class="blog-item-date-day">۱</span>
+                <span class="blog-item-date-month"></span>
+              </span>
+              <h3>جمع بيانات  تطوير الموظفين</h3>
+              <p>يعمل النظام على جمع بيانات تطوير الموظف من نشاطات و دورات و انتدابات</p>
+            </div>
+          </a>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4">
+
+          <a class="blog-item second" href="#" title="Suspendisse potenti">
+            <div class="blog-item-img" ><img style="width: 150px;" src="{% static 'website/images/tracking.png' %}" alt=""></div>
+            <div class="blog-item-content">
+              <span class="blog-item-label">المتابعة</span>
+              <span class="blog-item-date">
+                <span class="blog-item-date-day">۲</span>
+                <span class="blog-item-date-month"></span>
+              </span>
+              <h3>متابعة حالة النشاط</h3>
+              <p>يتتبع النظام حالات الانشطة من خلال تتبع تاريخ بداية ونهاية النشاط</p>
+            </div>
+          </a>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4">
+
+          <a class="blog-item third" href="#" title="Suspendisse potenti">
+            <div class="blog-item-img" ><img style="width: 150px;" src="{% static 'website/images/monitor.png' %}" alt=""></div>
+            <div class="blog-item-content">
+              <span class="blog-item-label">احصائيات</span>
+              <span class="blog-item-date">
+                <span class="blog-item-date-day">۳</span>
+                <span class="blog-item-date-month"></span>
+              </span>
+              <h3>   الاحصائيات العامة و الخاصة</h3>
+              <p>يقوم النظام بتقديم احصائيات متكاملة عن الموظفين بشكل عام أو عن موظف واحد بشكل خاص</p>
+            </div>
+          </a>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4">
+
+          <a class="blog-item fourth" href="#" title="Suspendisse potenti">
+            <div class="blog-item-img" ><img style="width: 150px;" src="{% static 'website/images/business-report.png' %}" alt=""></div>
+            <div class="blog-item-content">
+              <span class="blog-item-label">التقارير</span>
+              <span class="blog-item-date">
+                <span class="blog-item-date-day">٤</span>
+                <span class="blog-item-date-month"></span>
+              </span>
+              <h3>التقارير الشامله للأفراد و للمنظومه</h3>
+              <p>يقوم النظام بتقديم تقارير شامله عن الأنشطة و الدورات و الانتدابات للمنظومه , وأيضا تقارير شامله عن الموظفين و الأنشطه المسندة لهم</p>
+            </div>
+          </a>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4">
+
+          <div class="buttonContainer">
+            <a class="button" href="#" title="Show more"><span> تحميل دليل المستخدم</span><i class="fa fa-file-pdf"></i></a>
+          </div>
+
+        </div>
+
+      </div>
+
+  </div>
+</div>
+
+<!--   
   <div class="spinner-wrapper">
    
   <div class="spinner-border text-success" role="status">
@@ -93,7 +490,7 @@
 
    
 </main>
-</div>
+</div> -->
 
 
 

@@ -30,6 +30,7 @@ urlpatterns = [
    path('showAllCourses/<int:employee_id>' , views.show_courses , name='showCourses'),
    path('dashbord/' , views.dashBoradInfo , name='dashboard'), 
    path('aaa/' , views.arabic_pdf , name='report'), 
+   path('ReportForEmp/<int:employee_id>' , views.assiengEmployeeReport , name='ForEmpReport'), 
 
    
  

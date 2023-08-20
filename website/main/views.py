@@ -11,7 +11,10 @@ from django.core.paginator import Paginator
 
 
 
-
+def assiengEmployeeReport(request , employee_id):
+    Report_date = date.today
+    git_all_activity_for_assigend_emp = Activity.objects.filter(employee_active=employee_id)
+    return render(request , 'main/ReportForAssigenEmp.html',{'git_all_activity_for_assigend_emp':git_all_activity_for_assigend_emp , 'Report_date':Report_date})
 def arabic_pdf(request):
     all_activity = Activity.objects.all()
     Report_date = date.today
@@ -109,6 +112,7 @@ def show_all_emp(request : HttpRequest):
 
 def show_assiegnd_emplyee (request : HttpRequest , emplyee_id):
     if request.user.is_authenticated:
+        
         labels = []
         data = []
         check_new_request_user = User.objects.filter(is_active = 0)

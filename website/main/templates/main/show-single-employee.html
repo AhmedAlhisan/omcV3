@@ -209,12 +209,20 @@
 
 <div style="margin-top: 20px;" class="container">
   <div class="nav">
-      <h3>ادارة الموظف   <i style="color: #b3920d; font-size: 28px;" class="fa-solid fa-id-card"></i></h3>
+      <h3>  {{assigend_emp.rank}} : {{assigend_emp.name}}  <i style="color: #b3920d; font-size: 28px;" class="fa-solid fa-id-card"></i></h3>
+      
+      
       
       <div class="segment-box">
         
           
       </div>
+      <div class="alarm-box">
+        
+        <a style="color: #333;" href="{% url 'main:show-course-mandate-emp' assigend_emp.id %}"><i class="fa fa-clipboard-list"></i></a>
+        
+        <p>عرض الأنشطة </p>
+    </div>
       <div class="alarm-box">
           
         <a style="color: #333;" href="{% url 'main:add_activity' assigend_emp.id %}"><i   class="fa fa-circle-plus"></i></a>
@@ -222,14 +230,9 @@
       </div>
       <div class="alarm-box">
         <a style="color: #333;" href="{% url 'main:update' assigend_emp.id %}"><i class="fa fa-pen-to-square"></i></a>
-        <p>تعديل بيانات الموظف</p>
+        <p>ادارة بيانات الموظف</p>
       </div>
-      <div class="alarm-box">
-        
-       
-        <i class="fa-solid fa-ban"></i>
-        <p>حذف الموظف</p>
-    </div>
+      
   </div>
   <div class="upgrade">
     <div class="card  mb-3" style="max-width: 18rem;">
@@ -250,8 +253,8 @@
       </div>
       
     </div>
-      
-    <button>طلب تقرير </button>
+      <br>
+    <a href="{% url 'main:ForEmpReport' assigend_emp.id %}"><button>طلب تقرير </button></a>
   </div>
   <div class="users">
       <h4>احصائيات الموظف العامة</h4>
@@ -263,25 +266,34 @@
   </div>
   <div class="newUsers">
       <h4>تفاصيل الانتدابات</h4>
-      <h6>عدد الساعات المسموح بها هي 50 ساعه</h6>
+      <h6>عدد الايام المسموح بها هي 50 يوم</h6>
       <div class="progress" style="height: 20px;">
-        <div class="progress-bar bg-success" role="progressbar" style="width: 25%; " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+        <div class="progress-bar bg-success" role="progressbar" style="width: 25%; " aria-valuenow="25" aria-valuemin="0" aria-valuemax="50">25</div>
       </div>
   </div>
   <div class="performance">
       <div class="percentages">
-          <div class="direct">
-              <span></span> <!--circle-->
-              <h3>24% Direct</h3>
+          <div >
+            <div class="alarm-box">
+        
+              <a style="font-size: 15px; text-decoration: none;" class="link-success" href="{% url 'main:showCourses' assigend_emp.id %}"><i class="fa fa-angle-right"></i>الانتقال للسجل التدريبي</a>
+              <p></p>
+            
           </div>
-          <div class="Social">
-              <span></span> <!--circle-->
-              <h3>31% Social</h3>
+             
+             
           </div>
-          <div class="Organic">
-              <span></span> <!--circle-->
-              <h3>45% Organic</h3>
+          <div>
+            <div class="alarm-box">
+        
+              <a style="font-size: 15px; text-decoration: none;" class="link-success" href="{% url 'main:show_mandate' assigend_emp.id %}"><i class="fa fa-angle-right"></i>الانتقال للانتدابات</a>
+              <p></p>
+            
           </div>
+       
+              
+          </div>
+         
       </div>
   </div>
 </div>
