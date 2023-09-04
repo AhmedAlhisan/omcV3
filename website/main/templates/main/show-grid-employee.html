@@ -10,7 +10,7 @@
 
 
   <!-- Search Function using JavaScript -->
-    <div class="container-lg">
+    <div class="container-lg" >
       
       <label for=""><h5>البحث:</h5></label>
       <i class="bi bi-search"></i>
@@ -18,54 +18,58 @@
       <a style=" display: none; text-decoration: none;" id="if-not"  href=""> <i style="  font-size: 20px; color: #333;" class="bi bi-x-circle"> اعادة التعيين</i> </a>
       <span style=" margin-top: 20px; font-size: 1.0em;" id="no-data" class="badge bg-danger"></span>
    
-    
+    <span> عدد الموظفين : {{number_of_employee}}</span>
   </div>
 
   <!-- end of the search funstion -->
+  <div style="overflow-y: auto; overflow-x: hidden; height: 400px;">
+    <table  dir="rtl" id="myTable" class="rwd-table">
   
-<table  dir="rtl" id="myTable" class="rwd-table">
-  
-  <tbody>
-   
-      <tr id="chk-th">
-        <th>الاسـم</th>
-        <th>الوظيفة</th>
-        
-        <th>التحكـم</th>
-      </tr>
-    
-    {% for i in all_emp %}
-   
-      <tr>
-        <td data-th="Supplier Code" >
-          <div class="d-flex align-items-center">
-            <img
-                src="{% static 'website/images/user-image-with-black-background.png' %}"
-                alt=""
-                style="padding-left: 10px; width: 45px; height: 40px"
-                class="rounded-circle"
-                />
-            <div class="ms-3">
-              <p class="fw-bold mb-1">   {{i.rank}} : {{i.name}} </p>
-              <p class="text-muted mb-0">الرقم الوظيفي:  {{i.employee_number}}</p>
-            </div>
-          </div>
-        </td>
-        <td data-th="Supplier Code">
-          <p class="fw-normal mb-1"> الوظيفة : {{i.job_title}}</p>
-          <p class="text-muted mb-0"> مكان العمل : {{i.work_place}}</p>
-        </td>
-        <td data-th="Supplier Code">
-            <a href="{% url 'main:show-assigend' i.id %}"><button style="background-color: #A38A00; color: #333;" type="button" class="btn">ادارة</button></a>
-
-         
-        </td>
+      <tbody>
        
-      
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+          <tr id="chk-th">
+            <th>الاسـم</th>
+            <th>الوظيفة</th>
+            
+            <th>التحكـم</th>
+          </tr>
+        
+        {% for i in all_emp %}
+       
+          <tr>
+            <td data-th="Supplier Code" >
+              <div class="d-flex align-items-center">
+                <img
+                    src="{% static 'website/images/user-image-with-black-background.png' %}"
+                    alt=""
+                    style="padding-left: 10px; width: 45px; height: 40px"
+                    class="rounded-circle"
+                    />
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">   {{i.rank}} : {{i.name}} </p>
+                  <p class="text-muted mb-0">الرقم الوظيفي:  {{i.employee_number}}</p>
+                </div>
+              </div>
+            </td>
+            <td data-th="Supplier Code">
+              <p class="fw-normal mb-1"> الوظيفة : {{i.job_title}}</p>
+              <p class="text-muted mb-0"> مكان العمل : {{i.work_place}}</p>
+            </td>
+            <td data-th="Supplier Code">
+                <a href="{% url 'main:show-assigend' i.id %}"><button style="background-color: #A38A00; color: #333;" type="button" class="btn">ادارة</button></a>
+    
+             
+            </td>
+           
+          
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+    
+
 
 
 </div>

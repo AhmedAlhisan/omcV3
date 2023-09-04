@@ -93,6 +93,11 @@ def reject_user_request(request : HttpRequest , employee_id):
 
 def show_all_emp(request : HttpRequest):
     if request.user.is_authenticated:
+        my_employee = Employee.objects.all()
+        number_of_employee = 0 
+        for i in my_employee:
+            number_of_employee = number_of_employee + 1
+
         check_new_request_user = User.objects.filter(is_active = 0)
         if 'search' in request.GET:
             all_emp=Employee.objects.filter(name__contains=request.GET['search'])
@@ -106,7 +111,7 @@ def show_all_emp(request : HttpRequest):
             page_obj = paginator.get_page(page_number)
           
 
-        return render(request , 'main/show-grid-employee.html' , {'page_obj':page_obj,  'all_emp':all_emp , 'check_new_request_user':check_new_request_user})
+        return render(request , 'main/show-grid-employee.html' , {'number_of_employee':number_of_employee,'page_obj':page_obj,  'all_emp':all_emp , 'check_new_request_user':check_new_request_user})
     return redirect('account:login')
 
 
