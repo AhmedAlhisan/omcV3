@@ -5,7 +5,47 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Employee(models.Model):
     name = models.CharField(max_length=512)
-    rank = models.CharField(max_length=512)
+    
+
+    
+    Rank_classification = [
+        ('عسكري', 'عسكري'),
+        ('مدني', 'مدني'),
+        
+    ]
+    preRank = models.CharField(
+        max_length=512,
+        choices=Rank_classification,
+        
+    )
+  
+    mulitry_classfication= [
+         ('الرتبة العسكرية الاولى' ,'الرتبة العسكرية الاولى'),
+         ('الرتبة العسكرية الثانية' , 'الرتبة العسكرية الثانية'),
+         ('الرتبة العسكرية الثالثة' ,'الرتبة العسكرية الثالثة'),
+         ('الرتبة العسكرية الرابعة' , 'الرتبة العسكرية الرابعة')
+    ]
+    mulirty_classfication = models.CharField(
+        max_length=512,
+        choices=mulitry_classfication,
+        null=True,
+        blank=True
+
+    )
+    
+    non_mulitry_a_classfication= [
+         ('العاشرة' ,'العاشره  '),
+         ('الحادية عشر', ' الحادية عشر'),
+         ('الثانية عشر' ,' الثانية عشر'),
+         ('الرابعة عشر' , ' الثالثة عشر')
+    ]
+    non_mulirty_classfication = models.CharField(
+        max_length=512,
+        choices=non_mulitry_a_classfication,
+        null=True,
+        blank=True
+    )
+
     employee_number = models.IntegerField()
     major = models.CharField(max_length=512)
     certificate = models.CharField(max_length=512)

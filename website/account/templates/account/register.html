@@ -206,18 +206,29 @@ ul.form-stepper li a .form-stepper-circle {
       </ul>
       <!-- Step Wise Form Content -->
       <div class="container">
+        {% if messages %}
+        {% for i in messages %}
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+            <div>
+             {{i}}
+            </div>
+          </div>
+          {% endfor %}
+          {% endif %}
+        
       <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
           <!-- Step 1 Content -->
           
           <section id="step-1" class="form-step">
-            <div class="row row-cols-2">
+            <div style="margin-right: 150px;" class="row row-cols-3">
               <div class="col"> <h2 class="font-normal">معلومات الموظف</h2>
                 <!-- Step 1 input fields -->
                 <div class="mt-3  ">
                   
                   <input  style="color: green;"  name="last_name" type="text" class="form-control" id="floatingInput"  placeholder="الاسم الثلاثي"   require="required" required>
-                 
+                 <p>الرجاء كتابة الأسم الثلاثي مثال : أحمد فهد الحمد</p>
                   <br>
                  
                   <input style="color: green;" name="first_name" type="text" class="form-control" id="floatingInput" placeholder="المرتبة"   aria-errormessage="noo" required>
@@ -226,7 +237,12 @@ ul.form-stepper li a .form-stepper-circle {
                     <button class="button btn-navigate-form-step" type="button" step_number="2">التالي</button>
                 </div>
               </div>
-              <div class="col">سيتم عرض كافة البيانات لمدير النظام لقبول طلب التسجيل</div>
+              <div style="padding-right: 100px;" class="col">
+                <br>
+                <strong>  *ملاحظة:   </strong>
+                <p>جميع البيانات المدخلة سيتم التاكد منها من قبل مدير النظام لموافقة الطلب.</p>
+              </div>
+             
          
             </div>
              
@@ -234,29 +250,67 @@ ul.form-stepper li a .form-stepper-circle {
           </section>
         
           <section id="step-2" class="form-step d-none">
-              <h2 class="font-normal"> البيانات الوظيفية</h2>
-              <input style="color: green;" name="username" type="text" class="form-control"  placeholder="الرقم الوظيفي">
-              
-              <div class="mt-3">
+            <div style="margin-right: 150px;" class="row row-cols-3">
+                <div class="col"> <h2 class="font-normal"> البيانات الوظيفية</h2>
+                    <div class="mt-3  ">
                   
-              </div>
-              <div class="mt-3">
-                  <button class="button btn-navigate-form-step" type="button" step_number="1">الرجوع</button>
+                        <input style="color: green;" name="username" type="number" class="form-control"  placeholder="الرقم الوظيفي">
+                       <p>الرجاء كتابة الأسم الرقم الوظيفي مثال :   109928</p>
+                        <br>
+                       
+                        
+                      </div>
+                      <div class="mt-3">
+                        <button class="button btn-navigate-form-step" type="button" step_number="1">الرجوع</button>
                   <button class="button btn-navigate-form-step" type="button" step_number="3">التالي</button>
+                    </div>
+                    
+            </div>
+            <div style="padding-right: 100px;" class="col">
+                <br>
+                <strong>  *ملاحظة:   </strong>
+                <p>جميع البيانات المدخلة سيتم التاكد منها من قبل مدير النظام لموافقة الطلب.</p>
               </div>
+            
+              
+              
+             
           </section>
           <!-- Step 3 Content, default hidden on page load. -->
           <section id="step-3" class="form-step d-none">
-              <h2 class="font-normal">معلومات الدخول</h2>
+            <div style="margin-right: 150px;" class="row row-cols-3">
+                <div class="col">  <h2 class="font-normal">معلومات الدخول</h2>
+                    <div class="mt-3  ">
+                        <div class="mt-3">
+                            <input style="color: green;" name="password" type="password" class="form-control" id="floatingPassword" placeholder="الرقم السري">
+                            <input style="color: green;" name="password1" type="password" class="form-control" id="floatingPassword" placeholder="تاكيد الررقم السري">
+                          </div>
+                  
+                       <strong>كلمة المرور لابد ان تحتوي </strong>
+                       <ul>
+                        <li>ثمانية رموز على الاقل</li>
+                        <li>  حرف كبير واحد على الاقل </li>
+                        <li>  لابد ان تحتوي على الرموز التالية :!@#$%^&*(),.? </li>
+                       </ul>
+                        <br>
+                       
+                        
+                      </div>
+                      <div class="mt-3">
+                        <button class="button btn-navigate-form-step" type="button" step_number="2">الرجوع</button>
+                        <button class="button submit-btn" type="submit">ارسال طلب الانضمام</button>
+                    </div>
+                    
+            </div>
+            <div style="padding-right: 100px;" class="col">
+                <br>
+                <strong>  *ملاحظة:   </strong>
+                <p>جميع البيانات المدخلة سيتم التاكد منها من قبل مدير النظام لموافقة الطلب.</p>
+              </div>
+            
+              
               <!-- Step 3 input fields -->
-              <div class="mt-3">
-                <input style="color: green;" name="password" type="password" class="form-control" id="floatingPassword" placeholder="الرقم السري">
-                <input style="color: green;" name="password1" type="password" class="form-control" id="floatingPassword" placeholder="تاكيد الررقم السري">
-              </div>
-              <div class="mt-3">
-                  <button class="button btn-navigate-form-step" type="button" step_number="2">الرجوع</button>
-                  <button class="button submit-btn" type="submit">ارسال طلب الانضمام</button>
-              </div>
+              
               
           </section>
           

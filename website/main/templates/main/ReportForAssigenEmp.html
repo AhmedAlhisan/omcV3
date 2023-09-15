@@ -96,19 +96,26 @@ td:hover .tooltip{
 </head>
 <body style="direction: rtl;">
 
-    
+ 
     
   <div  id = "myPdf">
   <main class='invoice'>
     <div style="margin: 50px;">
-      <img style="width: 90px;" src="{% static 'website/images/work-time.png' %}" class='invoice-logo'>
-      <div style="margin-right: 30px;" class='invoice-company'>
-        <h2 class='invoice-company-name'>نظام تتبع الأنشطة </h2>
-        <p class='invoice-company-address'>
-          <span>تاريخ التقرير</span>
-          <span>{{Report_date}}</span>
-          <span></span>
-        </p>
+      
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <img style="width: 50px;" src="{% static 'website/images/activity.png' %}" alt="">
+          </div>
+          <div class="col">
+            <h4 class='invoice-company-name'>  تقرير موظف </h4>
+    
+          </div>
+          <div class="col">
+            <span>تاريخ التقرير</span>
+            <span>{{Report_date}}</span>
+          </div>
+        </div>
       </div>
     </div>
  
@@ -116,6 +123,7 @@ td:hover .tooltip{
             <thead>
                <tr>
                   <th>الرقم</th>
+                  <th>مدخل بيانات النشاط</th>
                   <th>اسم النشاط </th>
                   <th>نوع النشاط </th>
                   <th>حالة النشاط</th>
@@ -128,6 +136,7 @@ td:hover .tooltip{
                <tr>
                 
                   <td>{{forloop.counter}}</td>
+                  <td>{{i.writen_by_user.last_name}} {{i.writen_by_user.first_name}}</td>
                   <td>
                     {{i.activityName}}
                      <div class="tooltip"></div>

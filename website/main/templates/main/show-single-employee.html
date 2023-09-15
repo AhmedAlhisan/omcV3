@@ -138,8 +138,8 @@
 
 
 .container .users >img , .container .newUsers >img{
-    width: 300px;
-    height: 200px;
+    width: 700px;
+    height: 400px;
     border-radius: 6px;
     margin-top: 1rem;
 }
@@ -193,6 +193,60 @@
     background-color: #55990cbd;
     width: 150%;
 }
+.chart-container-man {
+ 
+}
+
+@keyframes progress {
+  0% { --percentage: 0; }
+  100% { --percentage: var(--value); }
+}
+
+@property --percentage {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+[role="progressbar"] {
+  --percentage: var(--value);
+  --primary: #191970;
+  --secondary: rgb(224, 230, 234);
+  --size: 150px;
+  animation: progress 2s 0.5s forwards;
+  width: var(--size);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+[role="progressbar"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: conic-gradient(var(--primary) calc(var(--percentage) * 1%), var(--secondary) 0);
+  mask: radial-gradient(white 55%, transparent 0);
+  mask-mode: alpha;
+  -webkit-mask: radial-gradient(#0000 55%, #000 0);
+  -webkit-mask-mode: alpha;
+}
+
+[role="progressbar"]::after {
+  counter-reset: percentage var(--value);
+  content: counter(percentage) '';
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: calc(var(--size) / 5);
+  color: var(--primary);
+}
+
+
+
 
 
 </style>
@@ -209,7 +263,7 @@
 
 <div style="margin-top: 20px;" class="container">
   <div class="nav">
-      <h3>  {{assigend_emp.rank}} : {{assigend_emp.name}}  <i style="color: #b3920d; font-size: 28px;" class="fa-solid fa-id-card"></i></h3>
+      <h3>  {{assigend_emp.preRank}} : {{assigend_emp.name}}  <i style="color: #b3920d; font-size: 28px;" class="fa-solid fa-id-card"></i></h3>
       
       
       
@@ -241,6 +295,11 @@
         <h6 class="card-title"></h6>
         <ul>
           <li> التخصص :  {{assigend_emp.major}}</li>
+          {% if assigend_emp.preRank == 'مدني' %}
+          <li> الرتبة :  {{assigend_emp.non_mulirty_classfication}}</li>
+          {% else %}
+          <li> الرتبة :  {{assigend_emp.mulirty_classfication}}</li>
+          {% endif %}
           <li> مقر العمل : {{assigend_emp.work_place}}</li>
           <li>الوظيفة :  {{assigend_emp.job_title}}</li>
           <li> الشهادة :{{assigend_emp.certificate}}</li>
@@ -265,11 +324,11 @@
       
   </div>
   <div class="newUsers">
-      <h4>تفاصيل الانتدابات</h4>
-      <h6>عدد الايام المسموح بها هي 50 يوم</h6>
-      <div class="progress" style="height: 20px;">
-        <div class="progress-bar bg-success" role="progressbar" style="width: 25%; " aria-valuenow="25" aria-valuemin="0" aria-valuemax="50">25</div>
-      </div>
+    <strong>الحد الاعلى من الانتدابات 100 يوم</strong>
+    <br>
+    <br>
+    <div role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="--value: {{assigend_emp.number_of_mandate_days}}"></div>
+      
   </div>
   <div class="performance">
       <div class="percentages">
@@ -416,23 +475,66 @@ var myChart = new Chart(ctx, {
 });
   </script>
   <script>
-    function confirmDelete() {
-        Swal.fire({
-            title: 'تأكيد عملية الحذف ؟',
-            text: `تنبيه
-            لا يمكن استعادة البيانات بعد الحذف !!.`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'تأكيد الحذف',
-            cancelButtonText: 'تراجع',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById('delete-form').submit();
-            }
-        })
-    }
+    const PLATFORMS = ["Mobile Devices", "Tablets", "Desktops"];
+const COLORS = ['#e74c3c', '#3498db', '#2ecc71'];
+const HOVERCOLORS = ['rgb(231 76 60 / 83%)', 'rgb(52 152 219 / 83%)', 'rgb(46 204 113 / 83%)'];
+
+const data = {
+  labels: PLATFORMS,
+  datasets: [{
+    label: "Devices data",
+    backgroundColor: COLORS,
+    borderWidth: 0,
+    hoverBackgroundColor: HOVERCOLORS,
+    data: [40, 20, 20],
+  }]
+};
+
+const options = {
+  maintainAspectRatio: false,
+  plugins: {
+      title: {
+        display: true,
+        text: 'Platforms used by customers for browsing',
+        font: {
+          size: 24 
+        },
+      },
+    legend: {
+        position: 'right',
+        labels: {
+          usePointStyle: true,
+          boxWidth: 20, 
+          padding: 20 
+        }
+      },
+    tooltip: {
+        callbacks: {
+          label: (context) => {
+            const label = context.label || '';
+            const value = context.parsed || 0;
+            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+            const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
+            return `${label}: ${percentage}%`;
+          }
+        }
+      },
+    },
+  layout: {
+      padding: {
+        top: 20,
+        left: 30,
+        right: 30,
+        bottom: 20
+      }
+    },
+};
+
+new Chart('chartMan', {
+  type: 'doughnut',
+  options: options,
+  data: data
+});
     </script>
   <script>
     {% if messages %}

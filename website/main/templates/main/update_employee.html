@@ -1,6 +1,15 @@
 {% extends 'main/base.html' %}
+{%load static%}
 {% block content %}
-
+{% block style %}
+<link href="{% static 'website/css/style.css' %}" rel="stylesheet">
+<link href="{% static 'website/css/bootstrap-icons.css' %}" rel="stylesheet">
+<style>
+    .hidden {
+    display: none;
+}
+  </style>
+  {%endblock%}
 
 <section class="vh-100 gradient-custom">
     <div class="container py-5 h-100">
@@ -24,8 +33,55 @@
                   <div class="col-md-6 mb-4">
   
                     <div class="form-outline">
-                      <input value="{{assigend_emp.rank}}" name="rank" type="text"  class="form-control form-control-lg" required/>
-                      <label class="form-label" for="lastName">الرتـبة</label>
+                     
+                    </div>
+  
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+  
+                    <div class="form-outline">
+                      <select  name="preRank" id="mainDropdown" onchange="showDropdown()">
+                        <option > تصنيف الموظف  </option>
+                        <option {% if assigend_emp.preRank == 'مدني' %} selected {% endif %} value="مدني">مدني</option>
+                        <option {% if assigend_emp.preRank == 'عسكري' %} selected {% endif %} value="عسكري">عسكري</option>
+                       
+                      </select>
+                       
+                    </div>
+                    <label class="form-label" for="firstName"> تصنيف الموظف </label>
+  
+                  </div>
+                  <div class="col-md-6 mb-4">
+  
+                    <div class="form-outline">
+                      
+                      <select {% if assigend_emp.preRank != 'عسكري' %}  class="hidden" {%endif%}  name="mulirty_classfication" id="dropdown2" >
+                        <option ></option>
+                        <option {% if assigend_emp.mulirty_classfication == 'الرتبة العسكرية الاولى' %} selected {% endif %}  value="الرتبة العسكرية الاولى">الرتبة العسكرية الاولى</option>
+                        <option {% if assigend_emp.mulirty_classfication == 'الرتبة العسكرية الثانية' %} selected {% endif %} value="الرتبة العسكرية الثانية">الرتبة العسكرية الثانية</option>
+                        <option {% if assigend_emp.mulirty_classfication == 'الرتبة العسكرية الثالثة' %} selected {% endif %} value="الرتبة العسكرية الثالثة">الرتبة العسكرية الثالثة</option>
+                        <option {% if assigend_emp.mulirty_classfication == 'الرتبة العسكرية الرابعة' %} selected {% endif %} value="الرتبة العسكرية الرابعة">الرتبة العسكرية الرابعة</option>
+                       
+                      </select>
+                      <select {% if assigend_emp.preRank != "مدني" %}  class="hidden" {%endif%} name="non_mulirty_classfication" id="dropdown1" >
+                        <option ></option>
+                        <option {% if assigend_emp.non_mulirty_classfication == 'العاشرة' %} selected {% endif %}  value="العاشرة">العاشرة  </option>
+                        <option {% if assigend_emp.non_mulirty_classfication == 'الحادية عشر' %} selected {% endif %}  value='الحادية عشر'>الحادية عشر  </option>
+                        <option {% if assigend_emp.non_mulirty_classfication == 'الثانية عشر' %} selected {% endif %}  value='الثانية عشر'>الثانية عشر</option>
+                        <option {% if assigend_emp.non_mulirty_classfication == 'الثالثة عشر' %} selected {% endif %}  value='الثالثة عشر'>الثالثة عشر</option>
+                       
+                      </select>
+                      {% if assigend_emp.preRank == 'مدني'%}
+                      <strong>الرتبة الحالية</strong>
+                      {{assigend_emp.non_mulirty_classfication}}
+                      {% else %}
+                      <br>
+                      <strong>الرتبة الحالية</strong><br>
+                      {{assigend_emp.mulirty_classfication}}
+                      {%endif%}
                     </div>
   
                   </div>
@@ -100,5 +156,24 @@
       </div>
     </div>
   </section>
+  <script>
+     function showDropdown() {
+        var mainDropdown = document.getElementById("mainDropdown");
+        var dropdown1 = document.getElementById("dropdown1");
+        var dropdown2 = document.getElementById("dropdown2");
+  
+        if (mainDropdown.value === "مدني") {
+            dropdown1.style.display = "block";
+            dropdown2.style.display = "none";
+        } else if (mainDropdown.value === "عسكري") {
+            dropdown1.style.display = "none";
+            dropdown2.style.display = "block";
+        } else {
+            dropdown1.style.display = "none";
+            dropdown2.style.display = "none";
+        }
+    }
+  </script>
+  </script>
 
 {% endblock %}

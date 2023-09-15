@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from hijri_converter import Hijri, Gregorian
 import os
 from django.core.paginator import Paginator
+from django.db.models import Q
 
 
 
@@ -32,7 +33,7 @@ def add_employee(request : HttpRequest):
     if request.user.is_authenticated:
         check_new_request_user = User.objects.filter(is_active = 0)
         if request.method =='POST':
-            new_emp = Employee(name = request.POST['name'] , rank = request.POST['rank'],employee_number = request.POST['employee_number'] , major = request.POST['major'],certificate=request.POST['certificate'],graduted_from=request.POST['graduted_from'],job_title=request.POST['job_title'],work_place=request.POST['work_place'],writen_by=request.user)
+            new_emp = Employee(name = request.POST['name'] , preRank = request.POST['preRank'], mulirty_classfication = request.POST['mulirty_classfication'], non_mulirty_classfication = request.POST['non_mulirty_classfication'],employee_number = request.POST['employee_number'] , major = request.POST['major'],certificate=request.POST['certificate'],graduted_from=request.POST['graduted_from'],job_title=request.POST['job_title'],work_place=request.POST['work_place'],writen_by=request.user)
             new_emp.save()
             messages.success(request , 'تمت اضافة الموظف بنجـاح')
             return redirect('main:show-all')
@@ -118,6 +119,10 @@ def show_all_emp(request : HttpRequest):
 def show_assiegnd_emplyee (request : HttpRequest , emplyee_id):
     if request.user.is_authenticated:
         
+        assigen_emp = Employee.objects.get(id=emplyee_id)
+        
+            
+        
         labels = []
         data = []
         check_new_request_user = User.objects.filter(is_active = 0)
@@ -177,7 +182,7 @@ def update_employee(request : HttpRequest , employee_id):
         assigend_emp = Employee.objects.get(id = employee_id)
         if request.method == 'POST':
             assigend_emp.name=request.POST['name']
-            assigend_emp.rank=request.POST['rank']
+            
             assigend_emp.employee_number = request.POST['employee_number']
             assigend_emp.major = request.POST['major']
             assigend_emp.certificate = request.POST['certificate']
@@ -185,6 +190,9 @@ def update_employee(request : HttpRequest , employee_id):
             assigend_emp.job_title=request.POST['job_title']
             assigend_emp.work_place=request.POST['work_place']
             assigend_emp.writen_by=request.user
+            assigend_emp.preRank=request.POST['preRank']
+            assigend_emp.mulirty_classfication= request.POST['mulirty_classfication']
+            assigend_emp.mulirty_classfication= request.POST['non_mulirty_classfication']
             assigend_emp.save()
             messages.success(request , 'تمـت تعديل الموظف بنجاح')
             return redirect(reverse('main:show-assigend' , kwargs={'emplyee_id':employee_id}))
@@ -416,6 +424,131 @@ def showStatisticForMandate(request : HttpRequest):
     if request.user.is_authenticated:
         check_new_request_user = User.objects.filter(is_active = 0)
 
+        '''year for mandate'''
+        all_mandate_year = Activity.objects.filter(activity_type = 'Type_three_mandate')
+     
+        yearDic = {'one' : 0 ,
+        'tow':0  ,
+        'three' :  0,
+        'four' : 0,
+        'fife' :  0,
+      
+        }
+        
+        for i in all_mandate_year:
+            if i.start_hijri_year == '1440':
+                yearDic['one']+=1
+            elif i.start_hijri_year == '1441':
+                 yearDic['tow']+=1
+            elif i.start_hijri_year == '1442':
+                yearDic['three']+=1
+            elif i.start_hijri_year == '1443':
+                yearDic['four']+=1
+            elif i.start_hijri_year == '1444':
+                yearDic['fife']+=1
+            yearList = list(yearDic.values()) 
+            print(yearList)   
+            
+
+
+        '''for showing all activity'''
+        all_emp_mandate=Activity.objects.filter(activity_type='Type_three_mandate' )
+        mulitry_mandate=all_emp_mandate.filter(employee_active__preRank='عسكري')
+        data_for_month_mulitry={'one' : 0 ,
+        'tow':0  ,
+        'three' :  0,
+        'four' : 0,
+        'fife' :  0,
+        'six' :  0,
+        'seven' : 0,
+        'eight' :  0,
+        'nine' :  0,
+        'ten' :  0,
+        'eleven' :  0,
+        'tweleve' :  0
+        }
+        
+        
+        for i in mulitry_mandate:
+            if i.start_hijri_month == '1' and i.start_hijri_year =='1443':
+                data_for_month_mulitry['one']+=1
+            elif i.start_hijri_month == '2' and i.start_hijri_year =='1443':
+                data_for_month_mulitry['tow']+=1
+            elif i.start_hijri_month == '3' and i.start_hijri_year =='1443':
+                data_for_month_mulitry['three'] +=1
+            elif i.start_hijri_month == '4' and i.start_hijri_year =='1443':
+                data_for_month_mulitry['four'] += 1
+            elif i.start_hijri_month == '5' and i.start_hijri_year =='1443':
+                data_for_month_mulitry['fife']+=1
+            elif i.start_hijri_month == '6' and i.start_hijri_year =='1443':
+                data_for_month_mulitry['six']+=1
+            elif i.start_hijri_month == '7' and i.start_hijri_year =='1443':
+                data_for_month_mulitry['seven']+=1
+            elif i.start_hijri_month == '8' and i.start_hijri_year =='1443':
+                data_for_month_mulitry['eight']+=1
+            elif i.start_hijri_month == '9'and i.start_hijri_year =='1443':
+                data_for_month_mulitry['nine']+=1
+            elif i.start_hijri_month == '10'and i.start_hijri_year =='1443':
+                data_for_month_mulitry['ten']+=1
+            elif i.start_hijri_month == '11'and i.start_hijri_year =='1443':
+                data_for_month_mulitry['eleven']+=1
+            elif i.start_hijri_month == '12' and i.start_hijri_year =='1443':
+                data_for_month_mulitry['tweleve']+=1
+            for key, value in data_for_month_mulitry.items():
+                print(f"key{key} val {value}") 
+            data_only_for_mulitry=list(data_for_month_mulitry.values())
+            print(data_only_for_mulitry)
+            '''for madny'''
+        all_emp_mandate=Activity.objects.filter(activity_type='Type_three_mandate' )
+        non_mulitry_mandate=all_emp_mandate.filter(employee_active__preRank='مدني')
+        data_for_month_non_mulitry={'one' : 0 ,
+        'tow':0  ,
+        'three' :  0,
+        'four' : 0,
+        'fife' :  0,
+        'six' :  0,
+        'seven' : 0,
+        'eight' :  0,
+        'nine' :  0,
+        'ten' :  0,
+        'eleven' :  0,
+        'tweleve' :  0
+        }
+        
+        
+        for i in non_mulitry_mandate:
+            if i.start_hijri_month == '1' and i.start_hijri_year =='1443':
+                data_for_month_non_mulitry['one']+=1
+            elif i.start_hijri_month == '2' and i.start_hijri_year =='1443':
+                data_for_month_non_mulitry['tow']+=1
+            elif i.start_hijri_month == '3' and i.start_hijri_year =='1443':
+                data_for_month_non_mulitry['three'] +=1
+            elif i.start_hijri_month == '4' and i.start_hijri_year =='1443':
+                data_for_month_non_mulitry['four'] += 1
+            elif i.start_hijri_month == '5' and i.start_hijri_year =='1443':
+                data_for_month_non_mulitry['fife']+=1
+            elif i.start_hijri_month == '6' and i.start_hijri_year =='1443':
+                data_for_month_non_mulitry['six']+=1
+            elif i.start_hijri_month == '7' and i.start_hijri_year =='1443':
+                data_for_month_non_mulitry['seven']+=1
+            elif i.start_hijri_month == '8' and i.start_hijri_year =='1443':
+                data_for_month_non_mulitry['eight']+=1
+            elif i.start_hijri_month == '9' and i.start_hijri_year =='1443':
+                data_for_month_non_mulitry['nine']+=1
+            elif i.start_hijri_month == '10' and i.start_hijri_year =='1443':
+                data_for_month_non_mulitry['ten']+=1
+            elif i.start_hijri_month == '11' and i.start_hijri_year =='1443':
+                data_for_month_non_mulitry['eleven']+=1
+            elif i.start_hijri_month == '12' and i.start_hijri_year =='1443':
+                data_for_month_non_mulitry['tweleve']+=1
+            for key, value in data_for_month_non_mulitry.items():
+                print(f"key{key} val {value}") 
+            data_only_for_non_mulitry=list(data_for_month_non_mulitry.values())
+            print(data_only_for_non_mulitry)     
+
+        
+        
+
         '''for showing total mandate days for each employee '''
         all_emp = Employee.objects.all()
         for i in all_emp:
@@ -437,7 +570,7 @@ def showStatisticForMandate(request : HttpRequest):
                 re_assigend.save()
         all_employee=Employee.objects.all().order_by('-number_of_mandate_days')
         for n in all_employee:
-            if n.number_of_mandate_days > 50 and n.number_of_mandate_days <= 60 :
+            if n.number_of_mandate_days > 50 and n.number_of_mandate_days <= 100 :
                 labels.append(n.name)
                 data.append(n.number_of_mandate_days) 
 
@@ -479,8 +612,9 @@ def showStatisticForMandate(request : HttpRequest):
         for i in dateForEachActivitCount:
             print(i)
         for i in labelsForActivityName:
-            print(i)    
-        return render(request , 'main/test.html' , {'page_obj_zero':page_obj_zero,'labelsForActivityName':labelsForActivityName ,'dateForEachActivitCount':dateForEachActivitCount , 'show_zero_days_emp':show_zero_days_emp,'labelsLow':labelsLow,'dataLow':dataLow,'labels':labels , 'data':data ,'all_employee':all_employee , 'check_new_request_user':check_new_request_user}  )
+            print(i)  
+               
+        return render(request , 'main/test.html' , {'yearList':yearList , 'data_only_for_non_mulitry':data_only_for_non_mulitry , 'data_only_for_mulitry':data_only_for_mulitry , 'page_obj_zero':page_obj_zero,'labelsForActivityName':labelsForActivityName ,'dateForEachActivitCount':dateForEachActivitCount , 'show_zero_days_emp':show_zero_days_emp,'labelsLow':labelsLow,'dataLow':dataLow,'labels':labels , 'data':data ,'all_employee':all_employee , 'check_new_request_user':check_new_request_user}  )
     return redirect('account:login')
 
 
@@ -514,9 +648,10 @@ def add_activity(request : HttpRequest , employee_id):
                        print(old_start_date)
                        continue
                     
-
+                    
                     messages.success(request , 'عذرا الموظف يوجد لديه نشاط فعال في هذه الفترة')
                     return render(request , 'main/add_activity.html')
+                
                 new_activity.save()
                 messages.success(request , ' تم اضافة النشاط بنجاح')
                 return redirect(reverse('main:show-assigend' , kwargs={'emplyee_id':employee_id}))

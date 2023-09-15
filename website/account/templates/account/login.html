@@ -3,45 +3,131 @@
 {% block style %}
     <link href="{% static 'website/css/style.css' %}" rel="stylesheet">
     <link href="{% static 'website/css/bootstrap-icons.css' %}" rel="stylesheet">
+    <style>
+        .main-content{
+	width: 50%;
+	border-radius: 20px;
+	box-shadow: 0 5px 5px rgba(0,0,0,.4);
+	margin: 5em auto;
+	display: flex;
+}
+.company__info{
+	
+	border-top-left-radius: 20px;
+	border-bottom-left-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	color: #fff;
+}
+.fa-android{
+	font-size:3em;
+}
+@media screen and (max-width: 640px) {
+	.main-content{width: 90%;}
+	.company__info{
+		display: none;
+	}
+	.login_form{
+		border-top-left-radius:20px;
+		border-bottom-left-radius:20px;
+	}
+}
+@media screen and (min-width: 642px) and (max-width:800px){
+	.main-content{width: 70%;}
+}
+.row > h2{
+	
+}
+.login_form{
+	background-color: #fff;
+	border-top-right-radius:20px;
+	border-bottom-right-radius:20px;
+	
+}
+form{
+	padding: 0 2em;
+}
+.form__input{
+	width: 100%;
+	border:0px solid transparent;
+	border-radius: 0;
+	border-bottom: 1px solid #aaa;
+	padding: 1em .5em .5em;
+	padding-left: 2em;
+	outline:none;
+	margin:1.5em auto;
+	transition: all .5s ease;
+}
+.form__input:focus{
 
+	border-radius: 4px;
+}
+.btn{
+	transition: all .5s ease;
+	width: 70%;
+	border-radius: 30px;
+	color:#fff;
+	font-weight: 600;
+	background-color: #198754;
+	
+	
+}
+.btn:hover, .btn:focus{
+	background-color: #A38A00;
+	color:#fff;
+}
+    </style>
     {% endblock %}
 
 
 {% block content %}
-<!-- <div class="container-fluid vh-100" >
-    <div class="" style="margin-top:200px">
-        <div class="rounded d-flex justify-content-center">
-            <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light">
-                <div class="text-center">
-                    <h3 class="text-success"> تسجيل الدخول</h3>
+<div class="container-fluid">
+    <div class="row main-content bg-success text-center">
+        <div class="col-md-4 text-center company__info">
+            <span class="company__logo"><h2>
+            <h4 class="company_title">  </h4><img style="width: 120px;" src="{% static 'website/images/password.png' %}" alt="">
+        </div>
+        <div class="col-md-8 col-xs-12 col-sm-12 login_form ">
+            <div class="container-fluid">
+                <br>
+
+                <div class="row">
+                    <h2>الدخول</h2>
                 </div>
-                <div class="p-4">
-                    <form action="">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text bg-success"><i
-                                    class="bi bi-person-bounding-box text-white"></i></span>
-                                    <input name="username" type="text" class="form-control" placeholder="الرقم الوظيفي ">
+                <div class="row">
+                    
+                    <form method="post" control="" class="form-group">
+                        {% csrf_token %}
+                        <div class="row">
+                            <input type="text" name="username" id="username" class="form__input" placeholder="الرقم الوظيفي">
                         </div>
-                       
-                        <div class="input-group mb-3">
-                            <span class="input-group-text bg-success"><i
-                                    class="bi bi-key-fill text-white"></i></span>
-                            <input type="password" class="form-control" placeholder="password">
+                        <div class="row">
+                            <!-- <span class="fa fa-lock"></span> -->
+                            <input type="password" name="password" id="password" class="form__input" placeholder="كلمة المرور">
                         </div>
-                        <div class="d-grid col-12 mx-auto">
-                            <button style="background-color: rgb(20, 22, 22);" class="btn " type="button"><span></span> الدخول </button>
+                        <div class="row">
+                            
                         </div>
-                        <p class="text-center mt-3">Already have an account?
-                           <a href=""></a> <span class="text-primary">طلب التسجيل </span>
-                        </p>
+                        <div class="row">
+                            <input style="margin-right: 80px;" type="submit" value="تسجيل الدخول" class="btn">
+                        </div>
                     </form>
+                </div>
+                <br>
+                <div class="row">
+                    <p> طلب التسجيل  <a href="{% url 'account:register' %}">اضغط هنا</p>
                 </div>
             </div>
         </div>
     </div>
-</div> -->
+</div>
+<!-- Footer -->
+<div class="container-fluid text-center footer">
+</div>
 
 
+<!-- 
     <div class="container-fluid vh-100" style="margin-top:50px">
         <div class="" style="margin-top:100px">
             <div class="rounded d-flex justify-content-center">
@@ -75,7 +161,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <script>
    
 

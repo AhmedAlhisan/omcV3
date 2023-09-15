@@ -30,6 +30,8 @@
           <tr id="chk-th">
             <th>الاسـم</th>
             <th>الوظيفة</th>
+            <th>الرتبة / المرتبة </th>
+           
             
             <th>التحكـم</th>
           </tr>
@@ -46,7 +48,7 @@
                     class="rounded-circle"
                     />
                 <div class="ms-3">
-                  <p class="fw-bold mb-1">   {{i.rank}} : {{i.name}} </p>
+                  <p class="fw-bold mb-1">   {{i.preRank}} : {{i.name}} </p>
                   <p class="text-muted mb-0">الرقم الوظيفي:  {{i.employee_number}}</p>
                 </div>
               </div>
@@ -55,6 +57,14 @@
               <p class="fw-normal mb-1"> الوظيفة : {{i.job_title}}</p>
               <p class="text-muted mb-0"> مكان العمل : {{i.work_place}}</p>
             </td>
+            <td data-th="Supplier Code">
+              {% if i.mulirty_classfication %}
+              <p class="fw-normal mb-1"> الرتبة : {{i.mulirty_classfication}}</p>
+              {% elif i.non_mulirty_classfication %}
+              <p class="fw-normal mb-1"> المرتبة : {{i.non_mulirty_classfication}}</p>
+              {%endif%}
+            </td>
+           
             <td data-th="Supplier Code">
                 <a href="{% url 'main:show-assigend' i.id %}"><button style="background-color: #A38A00; color: #333;" type="button" class="btn">ادارة</button></a>
     

@@ -1,8 +1,346 @@
 {% extends 'main/base.html' %}
+{% load static %}
+{% block style %}
+<link href="{% static 'website/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'website/css/bootstrap-icons.css' %}" rel="stylesheet">
+<style>
+
+
+
+.form-title {
+    color: #0f4d04;
+    font-size: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 15px 0px 50px 0px;
+}
+
+.form {
+    position: relative;
+    width: 100%;
+    max-width: 550px;
+    padding: 15px 30px;
+    background: white;
+    box-shadow: 0px 0px 3px rgb(208 208 208 / 30%);
+    border-radius: 4px;
+}
+
+.form-controll {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.form-controll:not(:last-of-type) {
+    margin-bottom: 33px;
+}
+
+.form-input {
+    position: relative;
+    width:100%;
+}
+
+.form-input input,
+.form-input select,
+.form-input textarea {
+    position: relative;
+    width:100%;
+    padding: 8px 23px 8px 0px;
+    outline: 1px solid transparent;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #c2c2c2;
+    background: transparent !important;
+    z-index: 9;
+    color: #2c3638;
+}
+
+.form-controll label  {
+    position: absolute;
+    left: 0px;
+    bottom: 10px;
+    color: #c2c2c2;
+    font-size: 14px;
+    z-index: 1;
+    transition: all 0.1s ease-in;
+}
+
+input:focus + label,
+select:focus +label {
+    opacity: 1;
+    bottom: 100%;
+    z-index: 9;
+    transition: all 0.1s ease-in-out;
+}
+
+input:focus, 
+select:focus {
+    border-bottom: 1px solid #00c5b2;
+}
+
+/* while input input is not empty */
+input:valid + label, 
+select:valid + label {
+    bottom: 100%;
+    z-index: 9;
+    transition: all 0.1s ease-in-out;
+}
+
+.form-submit {
+    position: relative;
+    width:100%;
+    margin: 14px 0px;
+}
+
+.form-submit button {
+    width:100%;
+    padding: 8px;
+    background: #A38A00;
+
+    font-weight: 500;
+    font-size: 16px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    letter-spacing: 0.5px;
+    color: #FFF;
+    cursor: pointer;
+}
+
+.form-submit button:hover {
+
+    background: #097969;
+    transition: all 0.2s ease-out;
+}
+
+.grid-2 {
+    position: relative;
+    width:100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
+}
+
+.password-showHide{
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    display: grid;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index:99;
+}
+
+.password-showHide .icon {
+    grid-row: 1/2;
+    grid-column: 1/2;
+}
+
+.password-showHide .icon path {
+    fill: #c2c2c2;
+    transition: all 0.2s ease;
+}
+
+.password-showHide:hover .icon path {
+    fill: #2c3638;
+    transition: all 0.2s ease;
+}
+
+.password-showHide .icon.show-password {
+    opacity: 1;
+    z-index: 9;
+}
+.password-showHide .icon.hide-password {
+    opacity: 0;
+    z-index: -1;
+}
+
+.password-showHide.hide .icon.show-password {
+    opacity: 0;
+    z-index: -1;
+}
+
+.password-showHide.hide .icon.hide-password {
+    z-index: 9;
+    opacity: 1;
+}
+.select-dropdownOne,
+.select-dropdownOne * {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	box-sizing: border-box;
+}
+.hidden {
+            display: none;
+        }
+.select-dropdownOne {
+	position: relative;
+	
+	border-radius: 4px;
+}
+.select-dropdownOne select {
+	font-size: 1rem;
+	font-weight: normal;
+	max-width: 100%;
+	padding: 8px 24px 8px 10px;
+	border: none;
+	background-color: transparent;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+	appearance: none;
+}
+.select-dropdownOne select:active, .select-dropdownOne select:focus {
+	outline: none;
+	box-shadow: none;
+}
+.select-dropdownOne:after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	right: 8px;
+	width: 0;
+	height: 0;
+	margin-top: -2px;
+	border-top: 5px solid #aaa;
+	border-right: 5px solid transparent;
+	border-left: 5px solid transparent;
+}
+</style>
+{% endblock %}
 {% block content %}
+<div style="margin-top: 100px; margin-right: 480px;" class="container">
+<form dir="rtl" action="#" method="POST" class="form">
+  {% csrf_token %}
+  <h3 class="form-title">اكمال بيانات الموظف </h3>
+  <!-- <div class="grid-2"> -->
+      <div class="form-controll">
+          <div class="form-input">
+              <input type="text" name="name" id="first_name" required>
+              <label for="first_name"> الاسم الثلاثي</label>
+          </div>
+      </div>
+      <!-- <div class="form-controll">
+
+          <div class="form-input">
+              <input type="text" name="rank" id="last_name" required>
+              <label for="last_name">الرتبة </label>
+          </div>
+      </div>
+  </div> -->
+  <div class="grid-2">
+      <div class="form-controll">
+          <div class="form-input">
+              <input type="number" name="employee_number" id="first_name" required>
+              <label for="first_name">  الرقم الوظيفي</label>
+          </div>
+      </div>
+      <div class="form-controll">
+          <div class="form-input">
+              <input type="text"name="major" id="last_name" required>
+              <label for="last_name">التخصص </label>
+          </div>
+      </div>
+  </div>
+  <!-- <div class="form-controll">
+      <div class="form-input">
+          <input type="email" name="email" id="email" required>
+          <label for="email">E-mail</label>
+      </div>
+  </div> -->
+
+  <div class="grid-2">
+      <div class="form-controll">
+          <div class="form-input">
+              <input type="text" name="certificate" id="password" required>
+              <label for="password">الشهادة العلمية</label>
+              <!-- Password Show and Hide-->
+              <div class="password-showHide">
 
 
-<section class="vh-100 gradient-custom">
+              </div>
+
+          </div>
+      </div>
+      <div class="form-controll">
+          <div class="form-input">
+              <input type="text" name="graduted_from" id="password_confirmation" required>
+              <label for="password_confirmation"> جهة التخرج</label>
+              <!-- Password Show and Hide-->
+              <div class="password-showHide">
+
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="grid-2">
+    <div class="form-controll">
+        <div class="form-input">
+            <input type="text"name="job_title" id="first_name" required>
+            <label for="first_name">   عنوان الوظيفة</label>
+        </div>
+    </div>
+    <div class="form-controll">
+        <div class="form-input">
+            <input type="text" name="work_place" id="last_name" required>
+            <label for="last_name"> الوحدة </label>
+        </div>
+    </div>
+</div>
+
+
+  <div class="grid-2">
+    <div class="form-controll">
+      <div class="form-input">
+        <div  class="select-dropdownOne">
+          <label for="mainDropdown">اختيار</label>
+          <select name="preRank" id="mainDropdown" onchange="showDropdown()">
+            <option > تصنيف الموظف  </option>
+            <option value="مدني">مدني</option>
+            <option value="عسكري">عسكري</option>
+           
+          </select>
+        </div>
+      </div>
+  </div>
+  <div class="form-controll">
+    <div class="form-input">
+      <div id="dropdown1" class="hidden">
+        <label for="subDropdown1"></label>
+        <select name="non_mulirty_classfication" id="subDropdown1">
+            <option ></option>
+            <option value="السابعة">السابعة</option>
+            <option value="الثامنة">الثامنة</option>
+            <option value="التاسعة">التاسعة </option>
+            <option value="العاشرة">العاشرة</option>
+        </select>
+    </div>
+
+    <div id="dropdown2" class="hidden">
+        <label for="subDropdown2"></label>
+        <select name="mulirty_classfication" id="subDropdown2">
+          <option ></option>
+            <option value="الرتبة العسكرية الاولى">الرتبة العسكرية الاولى</option>
+            <option value="الرتبة العسكرية الثانية">الرتبة العسكرية الثانية</option>
+            <option value="الرتبة العسكرية الثالثة">الرتبة العسكرية الثالثة </option>
+            <option value="الرتبة العسكرية الرابعة"> الرتبة العسكرية الرابعة</option>
+        </select>
+    </div>
+</div>
+
+</div>
+  <div class="form-submit">
+      <button type="submit">اضافة الموظف</button>
+  </div>
+</form>
+</div>
+<!-- another form -->
+<!-- <section class="vh-100 gradient-custom">
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
         <div class="col-12 col-lg-9 col-xl-7">
@@ -11,96 +349,112 @@
               <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">  اضـافة موظـف</h3> <hr>
               <form method="post">
                 {% csrf_token %}
-  
+
                 <div class="row">
                   <div class="col-md-6 mb-4">
-  
+
                     <div class="form-outline">
                       <input name="name" type="text"  class="form-control form-control-lg" required />
                       <label class="form-label" for="firstName"> الاسم الثلاثي</label>
                     </div>
-  
+
                   </div>
                   <div class="col-md-6 mb-4">
-  
+
                     <div class="form-outline">
                       <input name="rank" type="text"  class="form-control form-control-lg" required/>
                       <label class="form-label" for="lastName">الرتـبة</label>
                     </div>
-  
+
                   </div>
                 </div>
-  
+
                 <div class="row">
                   <div class="col-md-6 mb-4 d-flex align-items-center">
-  
+
                     <div class="form-outline datepicker w-100">
                       <input name="employee_number" type="number" class="form-control form-control-lg" id="birthdayDate" required />
                       <label for="birthdayDate" class="form-label">الرقـم الوظيفي</label>
                     </div>
-  
+
                   </div>
                   <div class="col-md-6 mb-4 d-flex align-items-center">
-  
+
                     <div class="form-outline datepicker w-100">
                       <input name="major" type="text" class="form-control form-control-lg"  />
                       <label for="birthdayDate" class="form-label">التخصص</label>
                     </div>
-  
+
                   </div>
-                  
+
                 </div>
-  
+
                 <div class="row">
                   <div class="col-md-6 mb-4 pb-2">
-  
+
                     <div class="form-outline">
                         <input name="certificate" type="text" class="form-control form-control-lg"  />
                       <label for="birthdayDate" class="form-label">الشهادة العلمية</label>
                     </div>
-  
+
                   </div>
                   <div class="col-md-6 mb-4 pb-2">
-  
+
                     <div class="form-outline">
                         <input name="graduted_from" type="text" class="form-control form-control-lg"  />
                       <label for="birthdayDate" class="form-label">جهة التخرج</label>
                     </div>
-  
+
                   </div>
                   <div class="col-md-6 mb-4 pb-2">
-  
+
                     <div class="form-outline">
                         <input name="job_title" type="text" class="form-control form-control-lg"  />
                       <label for="birthdayDate" class="form-label"> عنوان الوظـيفة</label>
                     </div>
-  
+
                   </div>
                   <div class="col-md-6 mb-4 pb-2">
-  
+
                     <div class="form-outline">
                         <input name="work_place" type="text" class="form-control form-control-lg"  />
                       <label for="birthdayDate" class="form-label"> الوحدة</label>
                     </div>
-  
+
                   </div>
                 </div>
                 <hr>
-  
 
-  
+
+
                 <div class="mt-4 pt-2">
                   <input class="btn btn-success btn-lg" type="submit" value="اضافة موظف " />
                 </div>
-  
+
               </form>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-  {% block footer %}
-  {% endblock %}
+  </section> -->
 
+  <script>
+    function showDropdown() {
+        var mainDropdown = document.getElementById("mainDropdown");
+        var dropdown1 = document.getElementById("dropdown1");
+        var dropdown2 = document.getElementById("dropdown2");
+  
+        if (mainDropdown.value === "مدني") {
+            dropdown1.style.display = "block";
+            dropdown2.style.display = "none";
+        } else if (mainDropdown.value === "عسكري") {
+            dropdown1.style.display = "none";
+            dropdown2.style.display = "block";
+        } else {
+            dropdown1.style.display = "none";
+            dropdown2.style.display = "none";
+        }
+    }
+  </script>
 {% endblock %}
