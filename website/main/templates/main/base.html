@@ -15,9 +15,11 @@
     <link href="{% static 'website/css/bootstrap-icons.css' %}" rel="stylesheet">
     {% endblock %}
     
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="{% static 'website/bootstrap-icons-1.11.0/bootstrap-icons.css'%}">
     <!-- <link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet"> -->
     <link href="{% static 'website/css/carousel.rtl.css' %}" rel="stylesheet">
+    <link href="{% static 'website/font6/css/all.min.css' %}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     {% block script %}
    
@@ -26,7 +28,7 @@
 			  src="https://code.jquery.com/jquery-3.7.0.min.js"
 			  integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
 			  crossorigin="anonymous"></script>
-              <script src="https://kit.fontawesome.com/7b578c60b5.js" crossorigin="anonymous"></script>
+              <script src="{% static 'website/js/fontawesome.js' %}" crossorigin="anonymous"></script>
               <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
               {% endblock %}
     
