@@ -12,84 +12,6 @@
 <div style="text-align: center;" >
   <h4 >   احصائيات الانتدابات  </h4>
  
-  <!-- <div style="margin-top: 30px;" class="row">
-    <div class="col">
-      <span class="badge bg-light text-dark " style=" font-size: 16px; align-items: center; text-align: center; margin-right: 10px;">موظفين بدون انتدابات</span>
-
-      <table   dir="rtl" class="rwd-table">
-       
-        <tbody dir="rtl">
-          <tr >
-            <th>اسم الموظف  </th>
-            <th> الرقم الوظيفي </th>
-          </tr>
-    
-         
-           {% for i in page_obj_zero %}
-           <tr>
-            <td  data-th="Supplier Code">
-              {{i.name}}
-            </td>
-            <td data-th="Invoice Number">
-              {{i.employee_number}}
-            </td>
-             {% endfor %}
-            </tr>
-            </tbody>
-            
-           
-            </table>
-            <div style="margin-right: 290px;" class="pagination">
-              <span class="step-links">
-                  {% if page_obj_zero.has_previous %}
-                      <a href="?page=1">&laquo; الأولى</a>
-                      <a href="?page={{ page_obj_zero.previous_page_number }}">السابق</a>
-                  {% endif %}
-
-                  <span class="current-page">
-                      الصفحه {{ page_obj_zero.number }} من {{ page_obj_zero.paginator.num_pages }}
-                  </span>
-
-                  {% if page_obj_zero.has_next %}
-                      <a href="?page={{ page_obj_zero.next_page_number }}">التالي</a>
-                      <a href="?page={{ page_obj_zero.paginator.num_pages }}">الأخيرة &raquo;</a>
-                  {% endif %}
-              </span>
-            </div>
-
-    </div>
-    <div  class="col">
-      <span class="badge bg-light text-dark " style=" font-size: 16px; align-items: center; text-align: center; margin-right: 10px;"> بلغوا الحد الأعلى من عدد الايام</span>
-
-      <table   dir="rtl" class="rwd-table">
-       
-        <tbody dir="rtl">
-          <tr >
-            <th>اسم الموظف  </th>
-            <th> الرقم الوظيفي </th>
-          </tr>
-    
-         
-           {% for i in all_employee %}
-           {% if i.number_of_mandate_days > 60 %}
-           <tr>
-            <td  data-th="Supplier Code">
-              {{i.name}}
-            </td>
-            <td data-th="Invoice Number">
-              {{i.employee_number}}
-            </td>
-            {% endif %}
-             {% endfor %}
-            </tr>
-            </tbody>
-            </table>
-    </div>
-  </div>
-
-  
-  
-  </div> -->
   <div class="container">
     <div class="row">
       <div class="col">
@@ -112,7 +34,7 @@
     <div class="col-6 col-md-4"> <span class="badge bg-light text-dark " style=" font-size: 16px; align-items: center; text-align: center; "> اكثر من 50 يوم في عدد ايام النتدابات </span>  <canvas height="60vh" width="80vw" id="pie-chart-top"></canvas></div>
     <div class="col-6 col-md-4"><span class="badge bg-light text-dark " style=" font-size: 16px; align-items: center; text-align: center; ">    موظفين عدد ايام انتداباتهم اقل من 10 ايام   </span><canvas height="60vh" width="80vw" id="pie-chart-low"></canvas></div>
     
-      <div class="col-6 col-md-4"><span class="badge bg-light text-dark " style=" font-size: 16px; align-items: center; text-align: center;"> عدد الانتدابات من كامل الأنشطة </span><canvas height="60vh" width="80vw" id="pie-chart-count"></canvas></div>
+      <div class="col-6 col-md-4"><span class="badge bg-light text-dark " style=" font-size: 16px; align-items: center; text-align: center;"> تفاصيل الأنشطة وتصنيفها</span><canvas height="60vh" width="80vw" id="pie-chart-count"></canvas></div>
 
       
             
@@ -129,7 +51,8 @@
 
 {% endblock %}
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script src="{% static 'website/js/chart.js' %}"></script>
+
 <script>
   window.chartColors = {
   red: 'rgb(255, 99, 132)',

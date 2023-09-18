@@ -20,10 +20,10 @@
     <!-- <link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet"> -->
     <link href="{% static 'website/css/carousel.rtl.css' %}" rel="stylesheet">
     <link href="{% static 'website/font6/css/all.min.css' %}" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     {% block script %}
    
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+    <script src="{% static 'website/js/sweetalert.min.js' %}"></script>
     <script
 			  src="https://code.jquery.com/jquery-3.7.0.min.js"
 			  integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
@@ -41,7 +41,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div  class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" href="{% url 'main:home-page' %}"><img style="width: 50px;" src="{% static 'website/images/activity.png' %}" alt=""></a>
+      <a class="navbar-brand" href="{% url 'main:home-page' %}"><img style="width: 220px;" src="{% static 'website/images/logo.png' %}" alt=""></a>
       {% block test %}
       {% if check_new_request_user %}
  <!-- Notifications -->
@@ -90,7 +90,7 @@
 </div>
 {% endif %}
 {% if request.user.is_authenticated %}
-<div style="margin-right: 750px;" class="userInfo">
+<div style="margin-right: 600px;" class="userInfo">
   <h6>اهلا بك   <span style="padding: 10px;" class="badge bg-secondary"> {{request.user.last_name}} :  {{request.user.first_name}}  </span></h6>
 </div>
 {% endif %}

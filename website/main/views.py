@@ -16,10 +16,31 @@ def assiengEmployeeReport(request , employee_id):
     Report_date = date.today
     git_all_activity_for_assigend_emp = Activity.objects.filter(employee_active=employee_id)
     return render(request , 'main/ReportForAssigenEmp.html',{'git_all_activity_for_assigend_emp':git_all_activity_for_assigend_emp , 'Report_date':Report_date})
-def arabic_pdf(request):
+def arabic_pdf_activity(request):
     all_activity = Activity.objects.all()
+    for i in all_activity:
+        print(i.activity_type)
+    
     Report_date = date.today
-    return render(request , 'main/aaa.html',{'all_activity':all_activity , 'Report_date':Report_date})
+   
+    return render(request , 'main/aaa.html',{'all_activity':all_activity ,'Report_date':Report_date})
+def arabic_pdf_courses(request):
+    all_activity = Activity.objects.all()
+    for i in all_activity:
+        print(i.activity_type)
+    
+    Report_date = date.today
+   
+    return render(request , 'main/bbb.html',{'all_activity':all_activity ,'Report_date':Report_date})
+
+def arabic_pdf_mandate(request):
+    all_activity = Activity.objects.all()
+    for i in all_activity:
+        print(i.activity_type)
+    
+    Report_date = date.today
+   
+    return render(request , 'main/ccc.html',{'all_activity':all_activity ,'Report_date':Report_date})
 
 # globalVar
 check_new_request_user = User.objects.filter(is_active = 0)

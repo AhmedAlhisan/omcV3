@@ -112,7 +112,7 @@ tr:nth-of-type(2), tr:nth-of-type(3) { border-bottom: 0.5px solid rgba(0,0,0,0.2
     <div class='invoice-wrapper'>
       <img style="width: 100px;" src="{% static 'website/images/logo.png' %}" class='invoice-logo'>
       <div class='invoice-company'>
-        <h2 class='invoice-company-name'>تقرير لكافة الانشطة </h2>
+        <h2 class='invoice-company-name'>تقرير لكافة الدورات</h2>
         <p class='invoice-company-address'>
           <span>تاريخ التقرير</span>
           <span>{{Report_date}}</span>
@@ -146,13 +146,12 @@ tr:nth-of-type(2), tr:nth-of-type(3) { border-bottom: 0.5px solid rgba(0,0,0,0.2
             <th>تاريخ النهاية </th>
           </tr>
           <tr>
-            {% for activity in all_activity %}
-           {% if activity.activity_type == 'Type_one_active' %}
-          
-            <td>{{activity.activityName}}</td>
-            <td>{{activity.employee_active.name}}</td>
-            <td>{{activity.full_start_hijri_date}}</td>
-            <td>{{activity.full_end_hijri_date}}</td>
+            {% for i in all_activity %}
+            {% if i.activity_type == 'Type_two_courses' %}
+            <td>{{i.activityName}}</td>
+            <td>{{i.employee_active.name}}</td>
+            <td>{{i.full_start_hijri_date}}</td>
+            <td>{{i.full_end_hijri_date}}</td>
             {% endif %}
           </tr>
           {% endfor %}

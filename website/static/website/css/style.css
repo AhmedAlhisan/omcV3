@@ -1,5 +1,14 @@
 /* navbar */
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900;1000&display=swap');
+@font-face {
+  font-family: 'NotoKufiArabic';  /* Give a name to use in CSS */
+  src: url('/website/static/fonts/NotoKufiArabic-Black.ttf') format('ttf'),
+       url('/website/static/fonts/NotoKufiArabic-Black.ttf') format('woff');  /* Add more sources as needed */
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Use the font in your CSS */
+
 .fa-2x {
 font-size: 2em;
 }
@@ -264,8 +273,8 @@ h3 {
 }
 
 body {
-  font-family: 'Cairo', sans-serif;
-  
+  font-family: 'NotoKufiArabic', fallback, sans-serif;
+
   margin: 0;
   padding: 0;
   overflow-x: hidden;

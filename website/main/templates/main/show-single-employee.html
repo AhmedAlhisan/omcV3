@@ -441,6 +441,8 @@
   <!-- <a href="{% url 'main:update' assigend_emp.id %}"><button type="button" class="btn btn-outline-primary btn-sm"> تعديل بيانات الموظف</button></a> -->
   {% block footer %}
   {% endblock %}
+  <script src="{% static 'website/js/chart.js' %}"></script>
+
   <script>
     var ctx = document.getElementById("myChart");
 var myChart = new Chart(ctx, {

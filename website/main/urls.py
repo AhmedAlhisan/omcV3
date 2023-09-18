@@ -29,7 +29,9 @@ urlpatterns = [
    path('about/' , views.aboutOmc , name='about'),
    path('showAllCourses/<int:employee_id>' , views.show_courses , name='showCourses'),
    path('dashbord/' , views.dashBoradInfo , name='dashboard'), 
-   path('aaa/' , views.arabic_pdf , name='report'), 
+   path('aaa/' , views.arabic_pdf_activity , name='report'), 
+   path('bbb/' , views.arabic_pdf_courses , name='reportCourse'), 
+   path('ccc/' , views.arabic_pdf_mandate , name='reportMandate'), 
    path('ReportForEmp/<int:employee_id>' , views.assiengEmployeeReport , name='ForEmpReport'), 
 
    
