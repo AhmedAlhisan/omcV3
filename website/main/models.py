@@ -20,10 +20,21 @@ class Employee(models.Model):
     )
   
     mulitry_classfication= [
-         ('الرتبة العسكرية الاولى' ,'الرتبة العسكرية الاولى'),
-         ('الرتبة العسكرية الثانية' , 'الرتبة العسكرية الثانية'),
-         ('الرتبة العسكرية الثالثة' ,'الرتبة العسكرية الثالثة'),
-         ('الرتبة العسكرية الرابعة' , 'الرتبة العسكرية الرابعة')
+         ('جندي' ,'جندي'),
+         ('جندي اول' ,'جندي أول'),
+         ('عريف' ,'عريف'),
+         ('وكيل رقيب' ,'وكيل رقيب'),
+         ('رقيب' ,'رقيب'),
+         ('رقيب أول' ,'رقيب أول'),
+         ('رئيس رقيباء' ,'رئيس رقباء'),
+         ('ملازم' ,'ملازم'),
+         ('ملازم أول' ,'ملازم أول'),
+         ('نقيب' ,'نقيب'),
+         ('رائد' , 'رائد'),
+         ('مقدم' ,'مقدم'),
+         ('عقيد' , 'عقيد'),
+         ('عميد' , 'عميد'),
+         ('لواء' , 'لواء'),
     ]
     mulirty_classfication = models.CharField(
         max_length=512,
@@ -34,10 +45,15 @@ class Employee(models.Model):
     )
     
     non_mulitry_a_classfication= [
-         ('العاشرة' ,'العاشره  '),
-         ('الحادية عشر', ' الحادية عشر'),
-         ('الثانية عشر' ,' الثانية عشر'),
-         ('الرابعة عشر' , ' الثالثة عشر')
+         ('الخامسة' ,'الخامسة'),
+         ('السادسة' ,'السادسة'),
+         ('السابعة' ,'السابعة'),
+         ('الثامنة' ,'الثامنة'),
+         ('التاسعة' ,'التاسعة'),
+         ('العاشرة' ,'العاشرة'),
+         ('الحادية عشر', 'الحادية عشر'),
+         ('الثانية عشر' ,'الثانية عشر'),
+         ('الرابعة عشر' , 'الثالثة عشر')
     ]
     non_mulirty_classfication = models.CharField(
         max_length=512,
@@ -59,6 +75,8 @@ class Employee(models.Model):
 class Activity(models.Model):
     activityName = models.CharField(max_length=512)
     activity_st_date = models.DateField()
+    is_there_any_additional_activity = models.BooleanField(default=False)
+    the_additional_task=models.CharField(max_length=512 , null=True)
     activity_end_date = models.DateField()
     start_hijri_day = models.CharField(max_length=512)
     start_hijri_month = models.CharField(max_length=512)

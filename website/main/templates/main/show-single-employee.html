@@ -272,10 +272,10 @@
           
       </div>
       <div class="alarm-box">
-        
+          
         <a style="color: #333;" href="{% url 'main:show-course-mandate-emp' assigend_emp.id %}"><i class="fa fa-clipboard-list"></i></a>
         
-        <p>عرض الأنشطة </p>
+        <p>عرض جميع المهام </p>
     </div>
       <div class="alarm-box">
           
@@ -346,6 +346,16 @@
             <div class="alarm-box">
         
               <a style="font-size: 15px; text-decoration: none;" class="link-success" href="{% url 'main:show_mandate' assigend_emp.id %}"><i class="fa fa-angle-right"></i>الانتقال للانتدابات</a>
+              <p></p>
+            
+          </div>
+       
+              
+          </div>
+          <div>
+            <div class="alarm-box">
+        
+              <a style="font-size: 15px; text-decoration: none;" class="link-success" href="{% url 'main:activityOnlyOne' assigend_emp.id %}"><i class="fa fa-angle-right"></i>الانتقال للانشطة</a>
               <p></p>
             
           </div>

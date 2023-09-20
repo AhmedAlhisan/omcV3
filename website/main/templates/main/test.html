@@ -75,13 +75,13 @@ var config = {
   data: {
     labels: MONTHS,
     datasets: [{
-      label: "الانتدابات العسكريه",
+      label: "الانتدابات الداخلية",
       backgroundColor: window.chartColors.green,
       borderColor: window.chartColors.green,
       data: {{ data_only_for_mulitry|safe }},
       fill: false,
     }, {
-      label: "الانتدابات المدنية",
+      label: "الانتدابات الخارجية",
       backgroundColor: window.chartColors.blue,
       borderColor: window.chartColors.blue,
       data: {{ data_only_for_non_mulitry|safe }},

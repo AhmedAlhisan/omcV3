@@ -1,4 +1,5 @@
 {% extends 'main/base.html' %}
+
 {% block content %}
 <section class="vh-100 gradient-custom">
     <div class="container py-5 h-100">
@@ -75,7 +76,27 @@
                   </div>
                    
               </div>
+              <div class="col-md-6 mb-4 ">
               
+                <div class="form-outline">
+                  <select id="yesno" style="text-align: center;" name="is_there_any_additional_activity" class="form-select" aria-label="Default select example">
+                        
+                    
+                    <option selected value="0">لا يوجد </option>
+                    <option value="1">اضافة نشاط  </option>
+                   
+                    
+                  </select>
+                  
+                  <label class="form-label" for="yesno">هل تريد اضافة نشاط آخر في نفس الفتره</label>
+
+                  <div id="textAreaContainer" style="display: none;">
+                  <textarea name="the_additional_task" class="form-control" placeholder="تفاصيل النشاط " id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+                </div>
+            
+          
+              </div>
                 </div>
             
                
@@ -96,6 +117,18 @@
   </div>
   </div>
   </section>
+  <script>
+    const select = document.getElementById('yesno');
+    const textAreaContainer = document.getElementById('textAreaContainer');
+  
+    select.addEventListener('change', function () {
+      if (select.value === '1') {
+        textAreaContainer.style.display = 'block';
+      } else {
+        textAreaContainer.style.display = 'none';
+      }
+    });
+  </script>
 
   <script>
     {% if messages  %}

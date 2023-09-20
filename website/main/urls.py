@@ -33,6 +33,7 @@ urlpatterns = [
    path('bbb/' , views.arabic_pdf_courses , name='reportCourse'), 
    path('ccc/' , views.arabic_pdf_mandate , name='reportMandate'), 
    path('ReportForEmp/<int:employee_id>' , views.assiengEmployeeReport , name='ForEmpReport'), 
+   path('activateOnly/<int:employee_id>' , views.show_only_activity , name='activityOnlyOne'), 
 
    
  

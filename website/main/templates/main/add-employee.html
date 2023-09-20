@@ -225,14 +225,7 @@ select:valid + label {
               <label for="first_name"> الاسم الثلاثي</label>
           </div>
       </div>
-      <!-- <div class="form-controll">
-
-          <div class="form-input">
-              <input type="text" name="rank" id="last_name" required>
-              <label for="last_name">الرتبة </label>
-          </div>
-      </div>
-  </div> -->
+   
   <div class="grid-2">
       <div class="form-controll">
           <div class="form-input">
@@ -247,12 +240,7 @@ select:valid + label {
           </div>
       </div>
   </div>
-  <!-- <div class="form-controll">
-      <div class="form-input">
-          <input type="email" name="email" id="email" required>
-          <label for="email">E-mail</label>
-      </div>
-  </div> -->
+
 
   <div class="grid-2">
       <div class="form-controll">
@@ -314,10 +302,15 @@ select:valid + label {
         <label for="subDropdown1"></label>
         <select name="non_mulirty_classfication" id="subDropdown1">
             <option ></option>
-            <option value="السابعة">السابعة</option>
+            <option value="الخامسة">الخامسة</option>
+            <option value="السادسة">السادسة</option>
+            <option value="السابعة">السابعة </option>
             <option value="الثامنة">الثامنة</option>
-            <option value="التاسعة">التاسعة </option>
+            <option value="التاسعة">التاسعة</option>
             <option value="العاشرة">العاشرة</option>
+            <option value="الحادية عشر">الحادية عشر </option>
+            <option value="الثانية عشر">الثانية عشر</option>
+            <option value="الثالثة عشر">الثالثة عشر</option>
         </select>
     </div>
 
@@ -325,10 +318,20 @@ select:valid + label {
         <label for="subDropdown2"></label>
         <select name="mulirty_classfication" id="subDropdown2">
           <option ></option>
-            <option value="الرتبة العسكرية الاولى">الرتبة العسكرية الاولى</option>
-            <option value="الرتبة العسكرية الثانية">الرتبة العسكرية الثانية</option>
-            <option value="الرتبة العسكرية الثالثة">الرتبة العسكرية الثالثة </option>
-            <option value="الرتبة العسكرية الرابعة"> الرتبة العسكرية الرابعة</option>
+            <option value="جندي">جندي</option>
+            <option value="جندي أول"> جندي أول</option>
+            <option value="عريف"> عريف </option>
+            <option value="وكيل رقيب">وكيل رقيب</option>
+            <option value="رقيب">رقيب</option>
+            <option value="رقيب أول">  رقيب أول </option>
+            <option value="رئيس رقباء">رئيس رقباء</option>
+            <option value="ملازم">  ملازم</option>
+            <option value="ملازم أول">ملازم أول </option>
+            <option value="نقيب">نقيب</option>
+            <option value="رائد"> رائد</option>
+            <option value="مقدم">مقدم </option>
+            <option value="عميد">عميد</option>
+            <option value="لواء">لواء</option>
         </select>
     </div>
 </div>
@@ -339,105 +342,7 @@ select:valid + label {
   </div>
 </form>
 </div>
-<!-- another form -->
-<!-- <section class="vh-100 gradient-custom">
-    <div class="container py-5 h-100">
-      <div class="row justify-content-center align-items-center h-100">
-        <div class="col-12 col-lg-9 col-xl-7">
-          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
-            <div class="card-body p-4 p-md-5">
-              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">  اضـافة موظـف</h3> <hr>
-              <form method="post">
-                {% csrf_token %}
 
-                <div class="row">
-                  <div class="col-md-6 mb-4">
-
-                    <div class="form-outline">
-                      <input name="name" type="text"  class="form-control form-control-lg" required />
-                      <label class="form-label" for="firstName"> الاسم الثلاثي</label>
-                    </div>
-
-                  </div>
-                  <div class="col-md-6 mb-4">
-
-                    <div class="form-outline">
-                      <input name="rank" type="text"  class="form-control form-control-lg" required/>
-                      <label class="form-label" for="lastName">الرتـبة</label>
-                    </div>
-
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-6 mb-4 d-flex align-items-center">
-
-                    <div class="form-outline datepicker w-100">
-                      <input name="employee_number" type="number" class="form-control form-control-lg" id="birthdayDate" required />
-                      <label for="birthdayDate" class="form-label">الرقـم الوظيفي</label>
-                    </div>
-
-                  </div>
-                  <div class="col-md-6 mb-4 d-flex align-items-center">
-
-                    <div class="form-outline datepicker w-100">
-                      <input name="major" type="text" class="form-control form-control-lg"  />
-                      <label for="birthdayDate" class="form-label">التخصص</label>
-                    </div>
-
-                  </div>
-
-                </div>
-
-                <div class="row">
-                  <div class="col-md-6 mb-4 pb-2">
-
-                    <div class="form-outline">
-                        <input name="certificate" type="text" class="form-control form-control-lg"  />
-                      <label for="birthdayDate" class="form-label">الشهادة العلمية</label>
-                    </div>
-
-                  </div>
-                  <div class="col-md-6 mb-4 pb-2">
-
-                    <div class="form-outline">
-                        <input name="graduted_from" type="text" class="form-control form-control-lg"  />
-                      <label for="birthdayDate" class="form-label">جهة التخرج</label>
-                    </div>
-
-                  </div>
-                  <div class="col-md-6 mb-4 pb-2">
-
-                    <div class="form-outline">
-                        <input name="job_title" type="text" class="form-control form-control-lg"  />
-                      <label for="birthdayDate" class="form-label"> عنوان الوظـيفة</label>
-                    </div>
-
-                  </div>
-                  <div class="col-md-6 mb-4 pb-2">
-
-                    <div class="form-outline">
-                        <input name="work_place" type="text" class="form-control form-control-lg"  />
-                      <label for="birthdayDate" class="form-label"> الوحدة</label>
-                    </div>
-
-                  </div>
-                </div>
-                <hr>
-
-
-
-                <div class="mt-4 pt-2">
-                  <input class="btn btn-success btn-lg" type="submit" value="اضافة موظف " />
-                </div>
-
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section> -->
 
   <script>
     function showDropdown() {

@@ -1,0 +1,71 @@
+{% extends 'main/base.html' %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <br>
+     
+     
+   
+     <div style="text-align: center;" >
+     <h4 >جميع الانشطة للموظف </h4>
+         
+     </div>
+     <br>
+   
+     
+     <table   dir="rtl" class="rwd-table">
+       
+       <tbody dir="rtl">
+         <tr >
+           <th> اسم النشاط </th>
+           <th>موقع النشاط </th>
+           <th>نوع النشاط </th>
+           <th>تاريخ البداية</th>
+           <th>تاريخ النهاية</th>
+           <th> الحالة</th>
+          
+          
+         </tr>
+   
+        
+           {% for i in git_all_activity_data %}
+         
+          <tr>
+           <td  data-th="Supplier Code">
+             {{i.activityName}}
+           </td>
+           <td  data-th="Supplier Code">
+             {{i.activity_location}}
+           </td>
+           {% if i.mandate_type == 'inside' %}
+           <td data-th="Invoice Number">
+             داخلي
+           </td>
+           {% else %}
+           <td data-th="Invoice Date">
+             خارجي
+           </td>
+           {% endif %}
+           <td data-th="Net Amount">
+               {{i.full_start_hijri_date}}هـ
+           </td>
+           <td data-th="Net Amount">
+               {{i.full_end_hijri_date}}هـ
+           </td>
+           <td data-th="Net Amount">
+            <span style="padding-left: 20px; font-size: 0.9em;" class="badge bg-success ">   مكـتـمل  </span>
+           </td>
+           
+           {% endfor %}  
+           </tr>
+           </tbody>
+           </table>
+           
+
+           </div>
+           {% block footer %}
+           {% endblock %}
+           
+      
+{% endblock %}

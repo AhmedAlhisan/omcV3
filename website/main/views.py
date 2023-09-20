@@ -363,6 +363,15 @@ def show_mandates(request:HttpRequest , employee_id):
 
     return render(request , 'main/show_mandates.html', {'all_mandates_for_emp':all_mandates_for_emp ,'for_emp':for_emp , 'counter':counter , 'check_new_request_user':check_new_request_user})
 
+def show_only_activity(request : HttpRequest , employee_id):
+    for_emp = Employee.objects.get(pk = employee_id)
+    all_activity_for_assigen_emp = Activity.objects.filter(employee_active = for_emp.id)
+    git_all_activity_data = all_activity_for_assigen_emp.filter(activity_type= 'Type_one_active').filter(activity_tack_action = 1)
+
+    return render(request , 'main/showActiveOnly.html' , {'git_all_activity_data':git_all_activity_data})
+
+
+
 def show_courses(request:HttpRequest , employee_id):
     all_courses_for_emp = Course.objects.filter(assigend_employee = employee_id)
     for_emp = Employee.objects.get(id = employee_id)
@@ -474,7 +483,7 @@ def showStatisticForMandate(request : HttpRequest):
 
         '''for showing all activity'''
         all_emp_mandate=Activity.objects.filter(activity_type='Type_three_mandate' )
-        mulitry_mandate=all_emp_mandate.filter(employee_active__preRank='عسكري')
+        mulitry_mandate=all_emp_mandate.filter(activity_in_out='inside')
         data_for_month_mulitry={'one' : 0 ,
         'tow':0  ,
         'three' :  0,
@@ -520,8 +529,8 @@ def showStatisticForMandate(request : HttpRequest):
             data_only_for_mulitry=list(data_for_month_mulitry.values())
             print(data_only_for_mulitry)
             '''for madny'''
-        all_emp_mandate=Activity.objects.filter(activity_type='Type_three_mandate' )
-        non_mulitry_mandate=all_emp_mandate.filter(employee_active__preRank='مدني')
+        
+        non_mulitry_mandate=all_emp_mandate.filter(activity_in_out='outside')
         data_for_month_non_mulitry={'one' : 0 ,
         'tow':0  ,
         'three' :  0,
@@ -648,7 +657,7 @@ def add_activity(request : HttpRequest , employee_id):
         full_end_en_date =Hijri(int(request.POST['hijriyearend']), int(request.POST['hijrimonthend']),int(request.POST['hijridayend'])).to_gregorian()
         full_start_en_date = full_start_en_date.isoformat()
         full_end_en_date = full_end_en_date.isoformat()
-        new_activity = Activity( activity_type=request.POST['activity_type'],activity_in_out=request.POST['activity_in_out'] , activity_location=request.POST['activity_location'], end_hijri_day=request.POST['hijridayend'] , end_hijri_month=request.POST['hijrimonthend'] , end_hijri_year = request.POST['hijriyearend'], start_hijri_day=request.POST['hijridaystart'] , start_hijri_month = request.POST['hijrimonthstart'] , start_hijri_year = request.POST['hijriyearstart'] , activityName = request.POST['activityName'] , activity_st_date = full_start_en_date , activity_end_date = full_end_en_date , full_start_hijri_date =full_start_hijri_date , full_end_hijri_date = full_end_hijri_date , employee_active = assigen_emp , writen_by_user = request.user )
+        new_activity = Activity(is_there_any_additional_activity = request.POST['is_there_any_additional_activity'] , the_additional_task=request.POST['the_additional_task'], activity_type=request.POST['activity_type'],activity_in_out=request.POST['activity_in_out'] , activity_location=request.POST['activity_location'], end_hijri_day=request.POST['hijridayend'] , end_hijri_month=request.POST['hijrimonthend'] , end_hijri_year = request.POST['hijriyearend'], start_hijri_day=request.POST['hijridaystart'] , start_hijri_month = request.POST['hijrimonthstart'] , start_hijri_year = request.POST['hijriyearstart'] , activityName = request.POST['activityName'] , activity_st_date = full_start_en_date , activity_end_date = full_end_en_date , full_start_hijri_date =full_start_hijri_date , full_end_hijri_date = full_end_hijri_date , employee_active = assigen_emp , writen_by_user = request.user )
         if datetime.strptime(new_activity.activity_st_date, '%Y-%m-%d')< datetime.strptime(new_activity.activity_end_date,'%Y-%m-%d'):
             git_all_employee_activity = Activity.objects.filter(employee_active = new_activity.employee_active).exists()
             if git_all_employee_activity:
