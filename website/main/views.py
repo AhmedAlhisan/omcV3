@@ -14,8 +14,9 @@ from django.db.models import Q
 
 def assiengEmployeeReport(request , employee_id):
     Report_date = date.today
+    forEmp=Employee.objects.get(pk=employee_id)
     git_all_activity_for_assigend_emp = Activity.objects.filter(employee_active=employee_id)
-    return render(request , 'main/ReportForAssigenEmp.html',{'git_all_activity_for_assigend_emp':git_all_activity_for_assigend_emp , 'Report_date':Report_date})
+    return render(request , 'main/ReportForAssigenEmp.html',{'forEmp':forEmp,'git_all_activity_for_assigend_emp':git_all_activity_for_assigend_emp , 'Report_date':Report_date})
 def arabic_pdf_activity(request):
     all_activity = Activity.objects.all()
     for i in all_activity:
@@ -283,7 +284,7 @@ def editCourse (request : HttpRequest , activity_id : int  ):
             full_start_en_date = full_start_en_date.isoformat()
             full_end_en_date = full_end_en_date.isoformat()
             new_couorse = Course( start_hijri_day = request.POST['hijridaystart'],start_hijri_month = request.POST['hijrimonthstart'],start_hijri_year = request.POST['hijriyearstart'] ,end_hijri_day = request.POST['hijridayend'] , end_hijri_month = request.POST['hijrimonthend'] ,end_hijri_year = request.POST['hijriyearend']  ,course_certficate_upload =  request.FILES.get('course_certficate_upload'),
-            starthijridate =full_start_hijri_date , endhijridate= full_end_hijri_date,writen_by = request.user , assigend_employee = assigend_course.assigend_employee , title = request.POST['title'],course_number = request.POST['course_number'], course_provider = request.POST['course_provider'],  course_provider_country = request.POST['course_provider_country'],where_course_has_been_provide = request.POST['where_course_has_been_provide'],degree_percent=request.POST['degree_percent'],rating_word=request.POST['rating_word'],startDate=full_start_en_date,endDate=full_end_en_date )           
+            starthijridate =full_start_hijri_date , endhijridate= full_end_hijri_date,writen_by = request.user , assigend_employee = assigend_course.assigend_employee , title = request.POST['title'],course_number = request.POST['course_number'], course_provider = request.POST['course_provider'],  course_provider_country = request.POST['course_provider_country'],where_course_has_been_provide = request.POST['where_course_has_been_provide'],degree_percent=float(request.POST['degree_percent']),rating_word=request.POST['rating_word'],startDate=full_start_en_date,endDate=full_end_en_date )           
             if datetime.strptime(full_start_en_date, '%Y-%m-%d') < datetime.strptime(full_end_en_date,'%Y-%m-%d'):
                 git_all_employee_activity = Activity.objects.filter(employee_active = new_couorse.assigend_employee.id).exists()
                 if git_all_employee_activity:
@@ -455,21 +456,22 @@ def showStatisticForMandate(request : HttpRequest):
         check_new_request_user = User.objects.filter(is_active = 0)
 
         '''year for mandate'''
+    
         all_mandate_year = Activity.objects.filter(activity_type = 'Type_three_mandate')
-     
+        yearList=[]
         yearDic = {'one' : 0 ,
         'tow':0  ,
         'three' :  0,
         'four' : 0,
         'fife' :  0,
-      
+    
         }
         
         for i in all_mandate_year:
             if i.start_hijri_year == '1440':
                 yearDic['one']+=1
             elif i.start_hijri_year == '1441':
-                 yearDic['tow']+=1
+                yearDic['tow']+=1
             elif i.start_hijri_year == '1442':
                 yearDic['three']+=1
             elif i.start_hijri_year == '1443':
@@ -483,6 +485,7 @@ def showStatisticForMandate(request : HttpRequest):
 
         '''for showing all activity'''
         all_emp_mandate=Activity.objects.filter(activity_type='Type_three_mandate' )
+        data_only_for_mulitry=[]
         mulitry_mandate=all_emp_mandate.filter(activity_in_out='inside')
         data_for_month_mulitry={'one' : 0 ,
         'tow':0  ,
@@ -526,11 +529,13 @@ def showStatisticForMandate(request : HttpRequest):
                 data_for_month_mulitry['tweleve']+=1
             for key, value in data_for_month_mulitry.items():
                 print(f"key{key} val {value}") 
-            data_only_for_mulitry=list(data_for_month_mulitry.values())
-            print(data_only_for_mulitry)
+                if data_for_month_mulitry:    
+                    data_only_for_mulitry=list(data_for_month_mulitry.values())
+            
             '''for madny'''
-        
+        all_emp_mandate=Activity.objects.filter(activity_type='Type_three_mandate' )
         non_mulitry_mandate=all_emp_mandate.filter(activity_in_out='outside')
+        data_only_for_non_mulitry=[]
         data_for_month_non_mulitry={'one' : 0 ,
         'tow':0  ,
         'three' :  0,
@@ -571,14 +576,20 @@ def showStatisticForMandate(request : HttpRequest):
                 data_for_month_non_mulitry['eleven']+=1
             elif i.start_hijri_month == '12' and i.start_hijri_year =='1443':
                 data_for_month_non_mulitry['tweleve']+=1
+
+                
             for key, value in data_for_month_non_mulitry.items():
                 print(f"key{key} val {value}") 
-            data_only_for_non_mulitry=list(data_for_month_non_mulitry.values())
-            print(data_only_for_non_mulitry)     
+                if data_for_month_non_mulitry:
+                    data_only_for_non_mulitry=list(data_for_month_non_mulitry.values())
+                    print("this outside mandate__________________________________")
+                    print(data_only_for_non_mulitry) 
+                
+           
 
         
         
-
+    
         '''for showing total mandate days for each employee '''
         all_emp = Employee.objects.all()
         for i in all_emp:
@@ -608,7 +619,7 @@ def showStatisticForMandate(request : HttpRequest):
         labelsLow = []
         dataLow = []
         for i in lower_hours_emp:
-             if i.number_of_mandate_days < 10 and i.number_of_mandate_days > 0 :
+            if i.number_of_mandate_days < 10 and i.number_of_mandate_days > 0 :
                 labelsLow.append(i.name)
                 dataLow.append(i.number_of_mandate_days)
 
@@ -643,7 +654,7 @@ def showStatisticForMandate(request : HttpRequest):
             print(i)
         for i in labelsForActivityName:
             print(i)  
-               
+       
         return render(request , 'main/test.html' , {'yearList':yearList , 'data_only_for_non_mulitry':data_only_for_non_mulitry , 'data_only_for_mulitry':data_only_for_mulitry , 'page_obj_zero':page_obj_zero,'labelsForActivityName':labelsForActivityName ,'dateForEachActivitCount':dateForEachActivitCount , 'show_zero_days_emp':show_zero_days_emp,'labelsLow':labelsLow,'dataLow':dataLow,'labels':labels , 'data':data ,'all_employee':all_employee , 'check_new_request_user':check_new_request_user}  )
     return redirect('account:login')
 
@@ -765,12 +776,14 @@ def delete_activity(request:HttpRequest, activity_id):
             assign_course=Course.objects.get(id=assign_activity.id)
             assign_course.delete()
             assign_activity.delete()
+            
             messages.success(request, ' تم حذف الدورة بنجاح')
             return HttpResponseRedirect(reverse('main:show-course-mandate-emp', kwargs={"employee_id": for_emp.id}))
         elif assign_activity.activity_type=='Type_three_mandate'and assign_activity.activity_tack_action==1:
             assign_mandate=Mandate.objects.get(id=assign_activity.id)
             assign_mandate.delete()
             assign_activity.delete()
+            showStatisticForMandate(request)
             messages.success(request, ' تم حذف الانتداب بنجاح')
             return HttpResponseRedirect(reverse('main:show-course-mandate-emp', kwargs={"employee_id": for_emp.id}))
         else:        
@@ -825,6 +838,7 @@ def moving_activity_to_mandate_after_complete(request:HttpRequest , activity_id)
             assign_activity.activity_tack_action=1
             assign_activity.save()
             new_mandate.save()
+            showStatisticForMandate(request)
             result_of_in_out = Activity.objects.get(pk = assign_activity.id)
             messages.success(request , 'تم اضافة الانتداب بنجاح')
         else:
@@ -847,12 +861,15 @@ def dashBoradInfo(request : HttpRequest):
    counter_for_all_activity_in_system_not_complete : int = 0 
    for j in all_activity_in_system_not_complete:
        counter_for_all_activity_in_system_not_complete = counter_for_all_activity_in_system_not_complete + 1 
-   print(counter_for_all_activity_in_system_not_complete)   
-   FinalResultForNotCompleteActivity = (counter_for_all_activity_in_system_not_complete / counter_for_all_activity_in_system) * 100
-   print(FinalResultForNotCompleteActivity)
-   print(int(FinalResultForNotCompleteActivity))
-   FinalResultForNotCompleteActivity = int(FinalResultForNotCompleteActivity)
-   print(type(FinalResultForNotCompleteActivity))
+   print(counter_for_all_activity_in_system_not_complete)  
+   if counter_for_all_activity_in_system > 0 : 
+        FinalResultForNotCompleteActivity = (counter_for_all_activity_in_system_not_complete / counter_for_all_activity_in_system) * 100
+        print(FinalResultForNotCompleteActivity)
+        print(int(FinalResultForNotCompleteActivity))
+        FinalResultForNotCompleteActivity = int(FinalResultForNotCompleteActivity)
+        print(type(FinalResultForNotCompleteActivity))
+   else:
+       FinalResultForNotCompleteActivity = 0 
    #mandate Dashboard
    all_mandate_in_system = Activity.objects.filter(activity_type = 'Type_three_mandate')
    counter_for_all_mandate_inSystem : int = 0
@@ -863,8 +880,11 @@ def dashBoradInfo(request : HttpRequest):
    counter_for_all_mandate_not_complete : int = 0
    for i in all_mandate_not_completed:
        counter_for_all_mandate_not_complete = counter_for_all_mandate_not_complete +1
-   finalResultForNotCompleteMandate = (counter_for_all_mandate_not_complete / counter_for_all_mandate_inSystem ) * 100
-   finalResultForNotCompleteMandate = int(finalResultForNotCompleteMandate)
+   if counter_for_all_mandate_not_complete > 0 :   
+        finalResultForNotCompleteMandate = (counter_for_all_mandate_not_complete / counter_for_all_mandate_inSystem ) * 100
+        finalResultForNotCompleteMandate = int(finalResultForNotCompleteMandate)
+   else:
+       finalResultForNotCompleteMandate = 0     
    #courses Dashboard
    all_courses_in_system = Activity.objects.filter(activity_type = 'Type_two_courses')
    counter_for_all_courses : int = 0
@@ -874,8 +894,11 @@ def dashBoradInfo(request : HttpRequest):
    counter_for_all_courses_not_complete : int = 0
    for j in all_courses_not_complete:
        counter_for_all_courses_not_complete = counter_for_all_courses_not_complete +1
-   finalResultForCourses = (counter_for_all_courses_not_complete / counter_for_all_courses) * 100  
-   finalResultForCourses = int(finalResultForCourses)
+   if counter_for_all_courses_not_complete > 0 :   
+        finalResultForCourses = (counter_for_all_courses_not_complete / counter_for_all_courses) * 100  
+        finalResultForCourses = int(finalResultForCourses)
+   else:
+       finalResultForCourses = 0     
        
 
           
