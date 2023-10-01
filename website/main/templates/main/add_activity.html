@@ -7,7 +7,7 @@
         <div class="col-12 col-lg-9 col-xl-7">
           <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
             <div class="card-body p-4 p-md-5">
-              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">اضافة نشاط</h3> <hr>
+              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">اضافة مهمة</h3> <hr>
               <form method="post" action="" enctype="multipart/form-data">
                 {% csrf_token %}
             
@@ -15,7 +15,7 @@
                   <div class="col-md-6 mb-4">
                     <div class="form-outline">
                       <input name="activityName" type="text"  class="form-control form-control-lg" required/>
-                      <label class="form-label" > اسم النشاط</label>
+                      <label class="form-label" > اسم المهمه</label>
                     </div>
             
                    
@@ -28,7 +28,7 @@
                           <option value="outside">خارجـي </option>
                           
                         </select>
-                        <label class="form-label" >     موقع النشاط            </label>
+                        <label class="form-label" >     موقع المهمه            </label>
                        
                     </div>
             
@@ -51,7 +51,7 @@
                           <option value="Type_three_mandate">انتداب </option>
                           
                         </select>
-                        <label class="form-label">تصنيف النشاط </label>
+                        <label class="form-label">تصنيف المهمه </label>
                   </div>
             
                   </div>
@@ -83,12 +83,12 @@
                         
                     
                     <option selected value="0">لا يوجد </option>
-                    <option value="1">اضافة نشاط  </option>
+                    <option value="1">اضافة مهمه  </option>
                    
                     
                   </select>
                   
-                  <label class="form-label" for="yesno">هل تريد اضافة نشاط آخر في نفس الفتره</label>
+                  <label class="form-label" for="yesno">هل تريد اضافة مهمة آخر في نفس الفتره</label>
 
                   <div id="textAreaContainer" style="display: none;">
                   <textarea name="the_additional_task" class="form-control" placeholder="تفاصيل النشاط " id="exampleFormControlTextarea1" rows="3"></textarea>

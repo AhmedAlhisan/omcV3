@@ -7,7 +7,7 @@
    
      <div style="text-align: center;" >
      <h4 >  السجل التدريبي للموظف : {{assigend_emp.name}}</h4>
-       <a  href="{% url 'main:add_activity' assigend_emp.id %}"><button type="button" class="btn btn-success">اضافة نشاط </button></a>  <i style="color: rgb(150, 147, 147); font-size: 20px;" class="bi bi-file-earmark-plus-fill"></i>
+       <a  href="{% url 'main:add_activity' assigend_emp.id %}"><button type="button" class="btn btn-success">اضافة المهمة </button></a>  <i style="color: rgb(150, 147, 147); font-size: 20px;" class="bi bi-file-earmark-plus-fill"></i>
      </div>
      <br>
       
@@ -16,9 +16,9 @@
        
        <tbody dir="rtl">
          <tr >
-           <th>اسم النشاط </th>
-           <th>نوع النشاط </th>
-           <th>النشاط موقع</th>
+           <th>اسم المهمة </th>
+           <th>نوع المهمة </th>
+           <th>موقع المهمة</th>
            <th>موقع التنفيذ</th>
            <th>تاريخ البداية</th>
            <th>تاريخ النهاية</th>
